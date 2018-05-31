@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Uploader votre nouveau template</div>
+                    <div class="panel-heading">Changer votre template</div>
 
                     <div class="panel-body">
 
@@ -16,17 +16,17 @@
                         @endif
 
 
-                        <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('template-update' , ['id' =>$template->id]) }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                            {{ csrf_field() }}
+                        {{ csrf_field() }}
 
-                            <!-- Name-->
+                        <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required >
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') ? old('name') : $template->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -41,7 +41,7 @@
                                 <label for="description" class="col-md-4 control-label">Description</label>
 
                                 <div class="col-md-6">
-                                    <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') }}</textarea>
+                                    <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') ? old('price') : $template->description }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -57,7 +57,7 @@
                                 <div class="col-md-6">
 
                                     <div class="input-group">
-                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" required >
+                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : $template->price }}"  autofocus>
                                         <div class="input-group-addon">&euro;</div>
                                     </div>
 
@@ -74,32 +74,17 @@
                                 <label for="file" class="col-md-4 control-label">Fichier ZIP</label>
 
                                 <div class="col-md-6">
-                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') }}"  required accept=".zip">
+                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') ? old('file') : $template->file }}"  autofocus required accept=".zip">
 
                                     @if ($errors->has('price'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('file') }}</strong>
+                                        <strong>{{ $errors->first('price') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <!-- Media-->
-                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="image" class="col-md-4 control-label">Image</label>
-
-                                <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}"  accept="image/*">
-
-                                    @if ($errors->has('image'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <button class="btn btn-default" type="submit">Ajouter votre template</button>
+                            <button class="btn btn-default" type="submit">Modifier votre template</button>
 
                         </form>
                     </div>

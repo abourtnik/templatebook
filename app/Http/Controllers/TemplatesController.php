@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+use App\Media;
 use App\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 class TemplatesController extends Controller
 {
     public function __construct()
@@ -32,6 +34,9 @@ class TemplatesController extends Controller
                 // Store the file
                 $request->file->store('templates');
                 $file_name = $request->file->hashName();
+                // Store the media
+                $request->image->store('public/medias');
+                $image_name = $request->image->hashName();
                 // Save template
                 $template = new Template();
                 $template->name = $request->input('name');
@@ -40,6 +45,9 @@ class TemplatesController extends Controller
                 $template->file = $file_name;
                 $template->user_id = Auth::id();
                 $template->save();
+                // Save media
+                $media = new Media(['file' => $image_name , 'type' => 'image']);
+                $template->medias()->save($media);
                 return redirect(route('template-add'))->with('template-message', 'Template ajouté');
             }
             else {
@@ -49,56 +57,38 @@ class TemplatesController extends Controller
         else
             return view('templates.add');
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Template  $template
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $template = Template::find($id);
         return view('templates.show', compact('template'));
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Template  $template
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Template $template)
-    {
-        //
+
+    public function update($id , Request $request) {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), Template::$rules);
+            if ($validator->passes()) {
+                $this->validate($request, Template::$rules);
+                return redirect(route('template-add'))->with('template-message', 'Template ajouté');
+            }
+            else {
+                return redirect(route('template-add'))->withErrors($validator->errors());
+            }
+        }
+        else {
+            $template = Template::find($id);
+            return view('templates.update' , compact('template'));
+        }
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Template  $template
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Template $template)
+    
+    public function remove(Request $request, $id)
     {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Template  $template
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Template $template)
-    {
-        //
+        if ($request->isMethod('post')) {
+        }
     }
 }

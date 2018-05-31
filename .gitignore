@@ -37,3 +37,9 @@ node_modules
 
 # PhpStorm
 .idea
+
+# Uploads
+/storage/app/templates/*
+/storage/app/public/medias/*
+
+/public/storage/*

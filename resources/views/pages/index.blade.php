@@ -9,18 +9,36 @@
 
                     <div class="panel-body">
 
-                        @forelse ($templates as $template)
-                            <li>
-                                <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a>
-                                <span> realisé par </span>
-                                <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a>
-                            </li>
-                            <a href="{{asset('storage/template/'.$template->file)}}">Telecharger</a>
-                            <span>Prix : {{ $template->price }} </span>
-                        @empty
-                            <p>Pas de template encore disponible</p>
-                        @endforelse
+                        <div class="row">
 
+                            @forelse ($templates as $template)
+
+                                <div href="{{route('template-show' , ['id' => $template->id])}}" class="col-sm-12">
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <img class="img-responsive" src="{{asset('storage/medias/'.$template->medias->first()['file'])}}" alt="">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <h2>{{ $template->name }}</h2>
+
+                                            <span> Realisé par : </span>
+                                            <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a>
+                                            <br>
+                                            <a href="{{asset('storage/template/'.$template->file)}}">Telecharger</a>
+                                            <p>Prix : {{ $template->price }} </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            @empty
+                                <p>Pas de template encore disponible</p>
+                            @endforelse
+
+                        </div>
                     </div>
                 </div>
             </div>
