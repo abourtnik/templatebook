@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'profil de ' . $user->name )
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -10,20 +12,14 @@
                     <div class="panel-body">
                         <p>Membre depuis le {{ $user->created_at }}</p>
 
-
                         <h2>Ses templates</h2>
 
-                        <ul>
-
                             @forelse ($user->templates as $template)
-                                <li> <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a></li>
-                                <a href="{{asset('storage/template/'.$template->file)}}">Telecharger</a>
-                                <span>Prix : {{ $template->price }} </span>
+                                @include('elements.template', ['template' => $template , 'author' => false , 'options' => false])
                             @empty
-                                <p>Aucun template</p>
+                                <p>Pas de template encore disponible</p>
                             @endforelse
-
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

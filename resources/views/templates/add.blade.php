@@ -86,14 +86,44 @@
 
                             <!-- Media-->
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="image" class="col-md-4 control-label">Image</label>
+                                <label for="media1" class="col-md-4 control-label">Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}"  accept="image/*">
+                                    <input id="media1" type="file" class="form-control" name="media1" value="{{ old('media1') }}"  accept="image/*">
+
+                                    @if ($errors->has('media1'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('media1') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Media-->
+                            <div class="form-group{{ $errors->has('media2') ? ' has-error' : '' }}">
+                                <label for="media2" class="col-md-4 control-label">Image</label>
+
+                                <div class="col-md-6">
+                                    <input id="media2" type="file" class="form-control" name="media2" value="{{ old('media2') }}"  accept="image/*">
 
                                     @if ($errors->has('image'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('image') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Media-->
+                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <label for="media3" class="col-md-4 control-label">Image</label>
+
+                                <div class="col-md-6">
+                                    <input id="media3" type="file" class="form-control" name="media3" value="{{ old('media3') }}"  accept="image/*">
+
+                                    @if ($errors->has('media3'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('media3') }}</strong>
                                     </span>
                                     @endif
                                 </div>

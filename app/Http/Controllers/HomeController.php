@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $templates = DB::table('templates')->where('user_id', Auth::id())->get();
+        $templates = Template::where('user_id', Auth::id())->get();
         return view('home', compact('templates'));
     }
 }
