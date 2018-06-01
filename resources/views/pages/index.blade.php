@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">Les templates les plus populaire</div>
 
@@ -23,6 +23,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Categorie</div>
+
+                    <div class="panel-body">
+
+                        <p>Liste des categories</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

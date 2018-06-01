@@ -17,7 +17,7 @@ class CreateTableOrders extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('user');
             $table->float('ammount');
-            $table->string('paypa_id')->unique();
+            $table->string('paypal_id')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTableOrders extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('orders');
     }
 }

@@ -29,7 +29,10 @@
             @if($template->price == 0)
                 <a href="{{asset('storage/template/'.$template->file)}}">Télécharger</a>
             @else
-                <a href="#">Acheter</a>
+                <button type="button" template_id="{{ $template->id }}" class="btn btn-success btn-xs add-basket">
+                    Ajouter au panier
+                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                </button>
             @endif
             <p>Prix : {{ $template->price }} &euro; </p>
 

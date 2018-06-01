@@ -25,9 +25,12 @@ Route::any('/template/remove/{id}', 'TemplatesController@remove')->name('templat
 
 Route::get('/storage/template/{file}', function ($file) {
     return response()->download(storage_path('app/templates/'.$file));
-
 })->where('file', '[A-Za-z0-9]+.zip');
 
 Route::get('/users/show/{id}', 'UsersController@show')->name('user-show');
-
 Route::get('/templates/show/{id}', 'TemplatesController@show')->name('template-show');
+
+Route::get('/basket', 'BasketController@index')->name('basket');
+Route::get('/basket/add/{id}', 'BasketController@add')->name('basket-add');
+
+Route::get('/order', 'OrdersController@index')->name('order');

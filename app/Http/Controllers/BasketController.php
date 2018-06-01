@@ -2,143 +2,126 @@
 
 namespace App\Http\Controllers;
 
+use App\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BasketController extends Controller
 {
     public function index(){
 
-        // Products in basket
+        // Templates in basket
 
         if (Session::has('Basket'))
-            $products = $this->Product->find('all', array('conditions' => array('id' => array_keys(Session::get('Basket')))));
+            $templates = Template::whereIn('id' , array_keys(Session::get('Basket') ))->get();
         else
-            $products = array();
+            $templates = array();
 
-        $this->set('products' , $products);
-        // Total
-        $this->set('total' , $this->total());
+        $total = $this->total();
+
+        return view('basket.index', compact('templates' , 'total'));
+
     }
 
-    public function add($product_id) {
+    public function add($template_id) {
 
         $json = array('error' => true);
 
-        if (!empty($product_id)) {
+        if (!empty($template_id)) {
 
-            $product = $this->Product->find('first', array('conditions' => array('id' => $product_id)));
+            $template = Template::where('id' , $template_id);
 
-            if ($product) {
+            if ($template) {
 
-                if ($this->Session->read('Basket.' . $product_id))
-                    $this->Session->write('Basket.' . $product_id, $this->Session->read('Basket.' . $product_id) + 1);
-
+                if (Session::has('Basket.'.$template_id))
+                    Session::put('Basket.' . $template_id, Session::get('Basket.' . $template_id) + 1);
                 else
-                    $this->Session->write('Basket.' . $product_id, 1);
- 
+                    Session::put('Basket.' . $template_id, 1);
+
                 $json['error'] = false;
-                $json['total'] = $this->total();
+                //$json['total'] = $this->total();
                 $json['count'] = $this->count();
                 $json['message'] = "L'article a bien été ajouté au panier";
-
             } else {
-
-                $json['message'] = "Ce produit n'existe pas";
-
+                $json['message'] = "Ce template n'existe pas";
             }
-
         } else
+            $json['message'] = "Vous n'avez pas selectionné de template à ajouté";
 
-            $json['message'] = "Vous n'avez pas selectionné de produit à ajouté";
-
-        echo json_encode($json);
-
-        die();
+        return response()->json($json);
     }
 
-    public function delete ($product_id) {
+    public function delete ($template_id) {
 
         $json = array('error' => true);
 
-        if (!empty($product_id)) {
+        if (!empty($template_id)) {
 
-            $product = $this->Product->find('first', array('conditions' => array('id' => $product_id)));
+            $template = Template::where('id' , $template_id);
 
-            if ($product) {
+            if ($template) {
 
-                $this->Session->delete('Basket.' . $product_id);
+                Session::foget('Basket.' . $template_id);
 
                 $json['error'] = false;
-
-                $json['total'] = $this->total();
-
+                //$json['total'] = $this->total();
                 $json['count'] = $this->count();
-
                 $json['message'] = "L'article a bien été supprimé du panier";
-
             } else {
-                $json['message'] = "Ce produit n'existe pas";
+                $json['message'] = "Ce template n'existe pas";
             }
         } else
-
-            $json['message'] = "Vous n'avez pas selectionné de produit à supprimer";
+            $json['message'] = "Vous n'avez pas selectionné de template à supprimer";
 
         echo json_encode($json);
         die();
     }
 
-    private function subtotal ($produit_id) {
 
-        $product = $this->Product->find('all', array('fields' => array('id' , 'price') , 'conditions' => array('id' => $produit_id)));
+    private function subtotal ($template_id) {
 
-        return number_format($product[0]['Product']['price'] * $this->Session->read('Basket.' . $product[0]['Product']['id']),2);
+        $template = $this->Product->find('all', array('fields' => array('id' , 'price') , 'conditions' => array('id' => $template_id)));
+        return number_format($template[0]['Product']['price'] * $this->Session->read('Basket.' . $template[0]['Product']['id']),2);
     }
 
     private function count () {
 
-        return array_sum($this->Session->read('Basket'));
-
+        return array_sum(Session::get('Basket'));
     }
 
-    public function recalculate ($product_id) {
+    public function recalculate ($template_id) {
 
         $json = array('error' => true);
 
-        if (!empty($product_id)) {
+        if (!empty($template_id)) {
 
-            $product = $this->Product->find('first', array('conditions' => array('id' => $product_id)));
+            $template = $this->Product->find('first', array('conditions' => array('id' => $template_id)));
 
-            if ($product) {
+            if ($template) {
 
                 if (isset($this->request->data['quantity']) && $this->request->data['quantity'] > 1 && is_int($this->request->data['quantity'])) {}
-
-                $this->Session->write('Basket.'.$product_id , $this->request->data['quantity']);
+                $this->Session->write('Basket.'.$template_id , $this->request->data['quantity']);
 
                 $json['error'] = false;
-
                 $json['total'] = $this->total();
-
-                $json['subtotal'] = $this->subtotal($product_id);
-
+                $json['subtotal'] = $this->subtotal($template_id);
                 $json['count'] = $this->count();
-
                 $json['message'] = "Le panier a bien été modifié";
-
             }
 
             else {
-
-                $json['message'] = "Ce produit n'existe pas";
-
+                $json['message'] = "Ce template n'existe pas";
             }
+
         }
 
         else
-
-            $json['message'] = "Vous n'avez pas selectionné de produit à modifier";
+            $json['message'] = "Vous n'avez pas selectionné de template à modifier";
 
         echo json_encode($json);
-
         die();
+
+
     }
+
 }
