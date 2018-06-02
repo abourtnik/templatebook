@@ -15,7 +15,8 @@ class CreateTableOrders extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('user');
+
+            $table->foreign('user_id')->references('id')->on('users');
             $table->float('ammount');
             $table->string('paypal_id')->unique();
             $table->timestamps();

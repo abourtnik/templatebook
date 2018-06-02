@@ -26,11 +26,19 @@
 
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Categorie</div>
+                    <div class="panel-heading">Categories</div>
 
                     <div class="panel-body">
-
-                        <p>Liste des categories</p>
+                        <div class="row">
+                            @foreach($categories as $categorie)
+                                <div class="col-lg-12" style="margin-bottom: 15px;">
+                                    <img width="100" src="{{asset('img/categories/'.$categorie->image)}}" alt="{{ $categorie->name }} image">
+                                    <span style="margin-left: 30px;">
+                                    <a href="{{route('category-show' , ['id' => $categorie->id])}}">{{ $categorie->name }}</a>
+                                </span>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

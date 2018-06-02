@@ -36,6 +36,8 @@
 
                 <div class="panel-body">
 
+                    <img src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="">
+
                     <p> {{ Auth::user()->name }} </p>
                     <p> {{ Auth::user()->email }} </p>
                     <p> Membre depuis le {{ Auth::user()->created_at }} </p>
@@ -60,9 +62,9 @@
 
     </div>
 
-
-
-    @include('templates.remove')
+    @if ($templates->count() > 0)
+        @include('templates.remove')
+    @endif
 
 </div>
 

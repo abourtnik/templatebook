@@ -19,9 +19,9 @@
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                            {{ csrf_field() }}
+                        {{ csrf_field() }}
 
-                            <!-- Name-->
+                        <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
@@ -124,6 +124,26 @@
                                     @if ($errors->has('media3'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('media3') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                                <label for="category" class="col-md-4 control-label">Category</label>
+
+                                <div class="col-md-6">
+
+                                    <select class="form-control" name="category" id="category">
+                                        <option value="none">Aucune categorie</option>
+                                        @foreach($categories as $categorie)
+                                            <option value="{{ $categorie->name }}">{{ $categorie->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('category'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('category') }}</strong>
                                     </span>
                                     @endif
                                 </div>
