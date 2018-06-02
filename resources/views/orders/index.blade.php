@@ -65,7 +65,7 @@
 
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2">
-                                <a class="btn btn-info btn-lg btn-block" href="#" style="margin-top: 10%;">
+                                <a class="btn btn-info btn-lg btn-block" href="{{ $paypal_link }}" style="margin-top: 10%;">
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                     <span> <strong> Payer </strong></span>
                                 </a>
