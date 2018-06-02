@@ -19,9 +19,9 @@
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                        <!-- Name-->
+                            <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
@@ -135,9 +135,9 @@
                                 <div class="col-md-6">
 
                                     <select class="form-control" name="category" id="category">
-                                        <option value="none">Aucune categorie</option>
+                                        <option value="null">Aucune categorie</option>
                                         @foreach($categories as $categorie)
-                                            <option value="{{ $categorie->name }}">{{ $categorie->name }}</option>
+                                            <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                                         @endforeach
                                     </select>
 

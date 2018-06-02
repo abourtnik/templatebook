@@ -1,0 +1,106 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+
+    color: #222;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
+    font-size: 16px;
+    line-height: 1.4;
+
+    margin: 0;
+    padding: 0;
+
+    min-height: 100%;
+    position: relative;
+
+    width:      21cm;
+    height:     29.7cm;
+
+}
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+
+    padding-bottom: 20px;
+    text-align: center;
+
+    top:        1cm;
+    left:       1cm;
+    width:      19cm;
+    height:     27.6cm;
+}
+
+
+hr {
+    margin: 40px auto;
+    max-width: 150px;
+    border-color: #f05f40;
+    border-width: 3px;
+}
+
+h1 {
+
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+
+}
+
+h1 , h2 {
+
+    padding-top: 25px;
+}
+
+h2  {
+
+    padding-top: 50px;
+
+}
+
+.logo {
+
+    padding-top: 25px;
+}
+
+.address_label {
+
+    color: #555;
+    float: left;
+    width: 105px;
+    text-align: right;
+}
+
+.address_content {
+
+    margin-left: 115px;
+    border-left: 1px solid #CCCCCC;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.facture-product-image {
+
+    display: inline-block;
+    width: 30px;
+}
+
+footer {
+
+    border-top : 1px solid #CCCCCC;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right: 0;
+    padding: 1em 5px 0 5px;
+    width: 100%;
+}

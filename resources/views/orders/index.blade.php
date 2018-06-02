@@ -55,11 +55,8 @@
                         </div>
 
                         <div class="row text-right">
-
                             <span class="total">
-                                Total :
-                                <span id="basket-total"> {{ $total }} </span>
-                                &euro;
+                                Total : <span id="basket-total"> {{ $total }} </span> &euro;
                             </span>
                         </div>
 
@@ -76,6 +73,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

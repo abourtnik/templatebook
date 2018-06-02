@@ -9,7 +9,8 @@ class CategoriesController extends Controller {
 
     public function show($id) {
 
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         return view('categories.show', compact('category'));
+        
     }
 }

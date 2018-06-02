@@ -1,6 +1,7 @@
 <?php
+
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -51,7 +52,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-   
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -77,7 +78,7 @@ return [
     */
 
     'locale' => 'en',
-    
+   
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -90,7 +91,7 @@ return [
     */
 
     'fallback_locale' => 'en',
-   
+    
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -104,7 +105,7 @@ return [
 
     'key' => env('APP_KEY'),
     'cipher' => 'AES-128-CBC',
-   
+    
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration
@@ -120,7 +121,7 @@ return [
 
     'log' => env('APP_LOG', 'single'),
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
-    
+   
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -158,19 +159,23 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        
         /*
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+       
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class
     ],
 
     /*
@@ -183,7 +188,7 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-
+    
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -218,5 +223,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 ];

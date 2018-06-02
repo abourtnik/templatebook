@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <title> Template - @yield('title') </title>
@@ -36,20 +38,25 @@
 
         @if(session('success'))
             <div class="container">
-                <div class="alert alert-success">
-                    {{ session('success') }}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
                 </div>
             </div>
         @endif
 
         @if(session('error'))
             <div class="container">
-                <div class="alert alert-danger">
-                    {{ session('error') }}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ session('error') }}</strong>
                 </div>
             </div>
         @endif
-
 
         @yield('content')
 
@@ -65,7 +72,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/index.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-
 
     @yield('scripts')
 </body>

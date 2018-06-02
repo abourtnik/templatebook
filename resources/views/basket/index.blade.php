@@ -28,45 +28,45 @@
 
                                 @forelse ($templates as $template)
 
-                                    <tr template-id="{{ $template->id }}">
-                                        <td>
-                                            <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a>
-                                        </td>
-                                        <td>
-                                            <strong style="font-size: 1.1em">
-                                                {{ number_format($template->price , 2) }} &euro;
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <div class="input-group" style="width: 150px;margin: 0 auto;">
+                                <tr template-id="{{ $template->id }}">
+                                    <td>
+                                        <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a>
+                                    </td>
+                                    <td>
+                                        <strong style="font-size: 1.1em">
+                                            {{ number_format($template->price , 2) }} &euro;
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width: 150px;margin: 0 auto;">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="{{ $template->id }}"><span class="glyphicon glyphicon-minus"></span></button>
                                             </span>
-                                                <input template-id="{{ $template->id }}" type="text" name="quantity" class="form-control input-number" value="{{ Session::get('Basket.'.$template->id) }}" disabled="disabled">
-                                                <span class="input-group-btn">
+                                            <input template-id="{{ $template->id }}" type="text" name="quantity" class="form-control input-number" value="{{ Session::get('Basket.'.$template->id) }}" disabled="disabled">
+                                            <span class="input-group-btn">
                                                 <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="{{ $template->id }}"><span class="glyphicon glyphicon-plus"></span></button>
                                             </span>
-                                            </div>
+                                        </div>
 
-                                        </td>
+                                    </td>
 
-                                        <td>
+                                    <td>
                                         <span style="font-weight: bold;font-size: 1.1em">
                                             <span id="basket-subtotal" template-id="{{ $template->id }}"> {{ number_format($template->price * Session::get('Basket.'.$template->id) , 2)   }} </span>
                                             &euro;
                                         </span>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm remove-basket" template-id="{{ $template->id }}" title="Supprimmer le produit du panier">
-                                                <i class="fa fa-trash-o"></i>
-                                                <span class="hidden-xs"> Supprimmer</span>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                     </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm remove-basket" template-id="{{ $template->id }}" title="Supprimmer le produit du panier">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="hidden-xs"> Supprimmer</span>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                                @empty
-                                    <p>Votre panier ne contient actuellement aucun article</p>
-                                @endforelse
+                        @empty
+                            <p>Votre panier ne contient actuellement aucun article</p>
+                        @endforelse
 
                                 </tbody>
                             </table>
@@ -91,10 +91,9 @@
                             </div>
                         </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
 @endsection

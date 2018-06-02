@@ -36,6 +36,8 @@
             @endif
             <p>Prix : {{ $template->price }} &euro; </p>
 
+            <p>Category : {{ ($template->category != NULL) ? $template->category->name : 'aucune categorie' }}  </p>
+
             <p> Nombre de telechargements : {{ $template->downloads }} </p>
 
             <p> Nombre de vues : {{ $template->views }} </p>

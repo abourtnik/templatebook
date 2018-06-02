@@ -36,7 +36,7 @@
 
                 <div class="panel-body">
 
-                    <img src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="">
+                    <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="">
 
                     <p> {{ Auth::user()->name }} </p>
                     <p> {{ Auth::user()->email }} </p>
@@ -52,10 +52,22 @@
     <div class="row">
         <div class="col-md-7">
             <div class="panel panel-default">
-                <div class="panel-heading">Mes templates achetees</div>
+                <div class="panel-heading">Vos commandes</div>
 
                 <div class="panel-body">
-                    <p>Vous n'avez pas encore de template achetees</p>
+                    @forelse ($orders as $order)
+
+                        <p>Commande n° {{ $order->id }} </p>
+                        <p>Effectué le {{ $order->created_at }} </p>
+                        <p>Coût total : {{ $order->ammount }} </p>
+
+                        <a href="{{asset('storage/facture/'.$order->id)}}">Voir la facture</a>
+
+                        <a href="{{route('order-show' , ['id' => $order->id])}}">Voir le detail</a>
+
+                    @empty
+                        <p>Vous n'avez effectué aucune commande</p>
+                    @endforelse
                 </div>
             </div>
         </div>

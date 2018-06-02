@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,18 +15,25 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+
+    public function __construct() {
+
         $this->middleware('auth');
+
     }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+
+    public function index() {
+
         $templates = Template::where('user_id', Auth::id())->get();
-        return view('home', compact('templates'));
+
+        $orders = Order::where('user_id', Auth::id())->get();
+        
+        return view('home', compact('templates' , 'orders'));
     }
 }

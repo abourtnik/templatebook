@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "barryvdh/laravel-dompdf": "^0.8.2",
+        "doctrine/inflector": "1.1.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "^1.13"
