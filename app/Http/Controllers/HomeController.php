@@ -27,13 +27,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index() {
 
-        $templates = Template::where('user_id', Auth::id())->get();
+        $templates = Template::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
-        $orders = Order::where('user_id', Auth::id())->get();
-        
+        $orders = Order::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
+
         return view('home', compact('templates' , 'orders'));
+        
     }
 }

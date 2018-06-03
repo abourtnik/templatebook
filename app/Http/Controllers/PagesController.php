@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Category;
@@ -13,5 +14,24 @@ class PagesController extends Controller {
         $templates = Template::get();
         $categories = Category::get();
         return view('pages.index', compact('templates' , 'categories'));
+
+    }
+
+    public function contact() {
+
+        return view('pages.contact');
+
+    }
+
+    public function about() {
+
+        return view('pages.about');
+
+    }
+
+    public function mentions_legales() {
+
+        return view('pages.mentions-legales');
+        
     }
 }

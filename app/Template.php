@@ -12,9 +12,10 @@ class Template extends Model {
 
         'name' => 'required|unique:templates|max:255',
         'description' => 'max:2000',
-        'file' => 'required|mimes:zip|max:4048',
-        'price' => 'required|regex:/^\d*(\.\d{1,2})?$/'
-
+        'file' => 'required|mimes:zip,tar|max:4048',
+        'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+        'category' => 'exists:categories,id'
+        
     ];
 
     protected $fillable = ['name', 'description' , 'file' , 'price' , 'downloads' , 'views' , 'category_id'];
@@ -32,7 +33,6 @@ class Template extends Model {
     }
 
     public function orders () {
-        return $this->belongsToMany('App\Order' , 'order_template' , 'order_id' , 'template_id');
+        return $this->belongsToMany('App\Order' , 'order_template')->withPivot('quantity');
     }
-    
 }

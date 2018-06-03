@@ -7,15 +7,15 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $category->name }}</div>
+                    <div class="panel-heading text-center">{{ $category->name }}</div>
 
                     <div class="panel-body">
 
-                            <img width="100" src="{{asset('img/categories/'.$category->image)}}" alt="{{ $category->name }} image">
-
-                            <h2> Les templates de cette categorie :</h2>
+                            <img class="img-responsive" width="100" src="{{asset('img/categories/'.$category->image)}}" alt="{{ $category->name }} image">
 
                             <p>{{ $category->description }}</p>
+
+                            <h3 class="text-center"> Les templates de cette categorie :</h3>
 
                             @forelse ($category->templates()->getResults() as $template)
                                 @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])

@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Auth;
 class OrdersController extends Controller {
 
     public function __construct() {
+
         $this->middleware('auth');
+
     }
 
     public function index () {
@@ -34,11 +36,9 @@ class OrdersController extends Controller {
             if (Session::has('Basket') && !empty(Session::get('Basket'))) {
 
                 $templates = Template::whereIn('id' , array_keys(Session::get('Basket') ))->get();
-
                 $total = $this->total();
 
                 // PAYPAL
-
                 $apiContext = new ApiContext(
                     new OAuthTokenCredential(
                         config('constants.PAYPAL_ID'),
@@ -47,7 +47,6 @@ class OrdersController extends Controller {
                 );
 
                 // Liste des items achetes
-
                 $list = new ItemList();
 
                 foreach ($templates as $template) {
@@ -60,16 +59,15 @@ class OrdersController extends Controller {
                     //$item->setUrl(route('template-show' , ['id' => $template->id]));
                     $item->setCurrency('EUR');
                     $list->addItem($item);
+
                 }
 
                 // Detail de la commande
-
                 $details = new Details();
 
                 $details->setSubtotal($total);
 
                 // Total de la commande
-
                 $amount = new Amount();
 
                 $amount->setTotal($total);
@@ -85,23 +83,21 @@ class OrdersController extends Controller {
                 $transaction->setCustom('demo-id');
 
                 $payement = new Payment();
+
                 $payement->setTransactions([$transaction]);
                 $payement->setIntent('sale');
 
                 // Les urls de redirection
-
                 $redirectsUrls = new RedirectUrls();
 
                 $redirectsUrls->setReturnUrl(route('pay-order'));
                 $redirectsUrls->setCancelUrl(route('cancel-order'));
-
                 $payement->setRedirectUrls($redirectsUrls);
 
                 // Le payer
-
                 $payer = new Payer();
-                $payer->setPaymentMethod('paypal');
 
+                $payer->setPaymentMethod('paypal');
                 $payement->setPayer($payer);
 
                 try {
@@ -109,17 +105,14 @@ class OrdersController extends Controller {
                     $paypal_link = $payement->getApprovalLink();
                 }
                 catch (PayPalConnectionException $e) {
-
                     echo 'eroor';
-
                     var_dump(json_decode($e->getData()));
                 }
 
                 // PAYPAL
-
                 return view('orders.index', compact('templates' , 'total' , 'paypal_link'));
-            }
 
+            }
             else
                 return redirect(route('home'))->with('error', 'Vous n\'avez aucun produit dans votre panier');
     }
@@ -128,9 +121,7 @@ class OrdersController extends Controller {
 
         $payment_id = $request->query('paymentId');
         $payer_id = $request->query('PayerID');
-
         $apiContext = new ApiContext(
-
             new OAuthTokenCredential(
                 config('constants.PAYPAL_ID'),
                 config('constants.PAYPAL_SECRET')
@@ -140,20 +131,18 @@ class OrdersController extends Controller {
         $payement = Payment::get($payment_id , $apiContext);
 
         // Verifier si le le total du paeiement correspond au total du panier
-
         // Changer par un token secret
-
         if ( $payement->getTransactions()[0]->getAmount()->getTotal() == $this->total()) {
 
             $execution = new PaymentExecution();;
-
             $execution->setPayerId($payer_id);
             $execution->setTransactions($payement->getTransactions());
-        }
 
+        }
         else {
 
             return redirect(route('home'))->with('error', 'Erreur commande');
+
         }
 
         // Executer la paiement
@@ -175,11 +164,12 @@ class OrdersController extends Controller {
 
         // Save order information
         foreach (array_keys(Session::get('Basket')) as $id) {
+
             $order->templates()->attach($id , ['quantity' => Session::get('Basket.'.$id)] );
+
         }
 
         // Generation de la facture
-
         $payer = [
 
             'lastname' => $payement->getPayer()->getPayerInfo()->getLastName(),
@@ -189,30 +179,27 @@ class OrdersController extends Controller {
             'city' => $payement->getPayer()->getPayerInfo()->getShippingAddress()->getCity(),
             'country' => $payement->getPayer()->getPayerInfo()->getShippingAddress()->getCountryCode(),
             'email' => Auth::user()->email
+
         ];
 
         $total = $this->total();
 
         $pdf = PDF::loadView('factures.index', compact('order' , 'payer' , 'total'));
+
         $pdf->save(storage_path('app/factures/') . $order->id . '.pdf' );
 
         // Vider le panier
-
         Session::forget('Basket');
 
-        // return Buying Templates
-
-        $buyingTemplates = $order->templates();
-
-        return redirect(route('home'))->with('buy', $buyingTemplates);
+        return redirect(route('home'))->with('buy', true);
 
     }
+
     public function test () {
 
         $order = Order::find(4);
 
         $payer = [
-
             'lastname' => 'Bourtnik',
             'firstname' => 'Anton',
             'address' => '22 ddd',
@@ -232,15 +219,22 @@ class OrdersController extends Controller {
         $pdf->save(storage_path('app/factures/') . $order->id . '.pdf' );
 
     }
-
+    
     public function cancel () {
 
         return redirect(route('home'))->with('error', 'Votre commande a ete annulé');
+
     }
 
     public function show ($order_id) {
-        
-        $order = Order::find($order_id);
-        return view('orders.show', compact('order'));
+
+        $order = Order::findOrFail($order_id);
+
+        if ($order->user_id == Auth::user()->id )
+
+            return view('orders.show', compact('order'));
+
+        else
+            abort('404');
     }
 }

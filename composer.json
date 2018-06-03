@@ -10,7 +10,8 @@
         "doctrine/inflector": "1.1.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "paypal/rest-api-sdk-php": "^1.13"
+        "paypal/rest-api-sdk-php": "^1.13",
+        "symfony/css-selector": "3.4.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~2.4",
@@ -24,7 +25,11 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+
+        "files": [
+            "app/Http/Helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

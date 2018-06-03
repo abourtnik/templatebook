@@ -16,7 +16,6 @@ class TemplatesController extends Controller {
     }
 
     public function index() {
-
     }
 
     public function add(Request $request) {
@@ -35,16 +34,19 @@ class TemplatesController extends Controller {
 
                 // Save template
                 $template = new Template();
+
                 $template->name = $request->input('name');
                 $template->description = $request->input('description');
                 $template->price = $request->input('price');
                 $template->file = $file_name;
                 $template->user_id = Auth::id();
                 $template->category_id = $request->input('category');
+
                 $template->save();
 
                 // Upload and save medias
                 for ($i = 1 ; $i <= 3 ; $i ++) {
+
                     if ($request->hasFile('media'.$i)) {
                         $request->file('media'.$i)->store('public/medias');
                         $media_name = $request->file('media'.$i)->hashName();
@@ -55,13 +57,13 @@ class TemplatesController extends Controller {
 
                 return redirect(route('home'))->with('success', 'Template ajouté');
             }
-
             else {
+
                 return redirect(route('template-add'))->withErrors($validator->errors());
             }
         }
-
         else {
+
             $categories = Category::get();
             return view('templates.add' , compact('categories'));
         }
@@ -73,12 +75,14 @@ class TemplatesController extends Controller {
     }
 
     public function show($id) {
-        $template = Template::find($id);
+
+        $template = Template::findorFail($id);
         $template->increment('views');
         return view('templates.show', compact('template'));
     }
 
     public function update($id , Request $request) {
+
         if ($request->isMethod('post')) {
 
             $validator = Validator::make($request->all(), Template::$rules);
@@ -87,39 +91,40 @@ class TemplatesController extends Controller {
 
                 $this->validate($request, Template::$rules);
                 return redirect(route('home'))->with('template-message', 'Template modifi"');
+
             }
-            
             else {
+
                 return redirect(route('template-update'))->withErrors($validator->errors());
             }
         }
-
         else {
+
             $template = Template::find($id);
             return view('templates.update' , compact('template'));
         }
     }
 
     public function remove(Request $request, $id) {
-        $template = Template::find($id);
-        $template->delete();
-    }
 
+        $template = Template::findOrFail($id);
+        $template->delete();
+
+    }
     public function download ($id) {
 
-        $template = Template::find($id);
+        $template = Template::findOrFail($id);
 
-        if ($template->price == 0) {
+        if ($template->price == 0 || $template->user->id === Auth::user()->id) {
 
             $template->increment('downloads');
-            
             return response()->download(storage_path('app/templates/'.$template->file));
 
         }
-
         else {
 
-            return redirect(route('home'))->with('error', 'Vous ne pouvez pas telecharger ce template');
+            return redirect(route('home'))->with('error', 'Vous ne pouvez pas télécharger ce template');
+            
         }
     }
 }

@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center text-danger">Etes vous certain de supprimer ce template ?</h4>
+                <h4 class="modal-title text-center text-danger">Etes vous certain de supprimer ce template : <strong>{{ $template->name }}</strong> ?</h4>
             </div>
             <div class="modal-body">
                 <p class="text-danger">Attention la suppression d'un template est définitive et irréversible.</p>

@@ -1,5 +1,4 @@
-<div class="modal fade" id="download-templates-modale" tabindex="-1" role="dialog">
-
+<div class="modal" id="download-templates-modale" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,9 +8,15 @@
 
                 <h2> Telecharger vos templates : </h2>
 
+                    @foreach($templates as $template)
+                    <a href="{{route('template-download' , ['id' => $template->id] )}}" class="btn btn-success">
+                        <i class="fa fa-download"> </i>
+                        Télécharger le template <strong>{{ $template->name }} </strong>
+                    </a>
+                    @endforeach
 
-                    <a href="" class="btn btn-success"> <i class="fa fa-download"> </i> Telecharger le template <strong></strong></a>
 
+                <p> A bientot et merci pour votre confiance </p>
 
             </div>
             <div class="modal-footer">
@@ -19,5 +24,4 @@
             </div>
         </div>
     </div>
-    
 </div>

@@ -9,13 +9,6 @@
 
                     <div class="panel-body">
 
-                        @if (session('template-message'))
-                            <div class="alert alert-success">
-                                {{ session('template-message') }}
-                            </div>
-                        @endif
-
-
                         <form class="form-horizontal" method="POST" action="{{ route('template-update' , ['id' =>$template->id]) }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
@@ -42,11 +35,9 @@
 
                                 <div class="col-md-6">
                                     <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') ? old('price') : $template->description }}</textarea>
-                                    @if ($errors->has('description'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('description') }}</strong>
+                                    <span class="help-block">
+                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caracteres max' }}</strong>
                                     </span>
-                                    @endif
                                 </div>
                             </div>
 
@@ -76,58 +67,28 @@
                                 <div class="col-md-6">
                                     <input id="file" type="file" class="form-control" name="file" value="{{ old('file') ? old('file') : $template->file }}"  autofocus required accept=".zip">
 
-                                    @if ($errors->has('file'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('file') }}</strong>
+                                    <span class="help-block">
+                                        <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou TAR , taille maximale 5 Mo' }}</strong>
                                     </span>
-                                    @endif
                                 </div>
                             </div>
 
-                            <!-- Media-->
-                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="media1" class="col-md-4 control-label">Image</label>
+                            @for($i = 1 ; $i <= 3 ; $i ++)
+
+                            <!-- Media {{ $i }}-->
+                                <div class="form-group{{ $errors->has('media'.$i) ? ' has-error' : '' }}">
+                                    <label for="media{{ $i }}" class="col-md-4 control-label">Image {{ $i }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="media1" type="file" class="form-control" name="media1" value="{{ old('media1') ? old('media1') : $template->media->first['file'] }}"  accept="image/*">
-
-                                    @if ($errors->has('media1'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('media1') }}</strong>
+                                    <input id="media{{ $i }}" type="file" class="form-control" name="media1" value="{{ old('media1') ? old('media1') : 'mettre l image ic' }}"  accept="image/*">
+                                    <span class="help-block">
+                                        <strong> {{ $errors->has('media'.$i) ? $errors->first('media'.$i) : 'Une image au format PNG, JPEG , JPG ou GIF , taille maximale 5 Mo' }}</strong>
                                     </span>
-                                    @endif
                                 </div>
                             </div>
 
-                            <!-- Media-->
-                            <div class="form-group{{ $errors->has('media2') ? ' has-error' : '' }}">
-                                <label for="media2" class="col-md-4 control-label">Image</label>
+                            @endfor
 
-                                <div class="col-md-6">
-                                    <input id="media2" type="file" class="form-control" name="media2" value="{{ old('media2') ? old('media2') : $template->media->second['file'] }}"  accept="image/*">
-
-                                    @if ($errors->has('image'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <!-- Media-->
-                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="media3" class="col-md-4 control-label">Image</label>
-
-                                <div class="col-md-6">
-                                    <input id="media3" type="file" class="form-control" name="media3" value="{{ old('media3') }}"  accept="image/*">
-
-                                    @if ($errors->has('media3'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('media3') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
 
                             <button class="btn btn-default" type="submit">Modifier votre template</button>
 
