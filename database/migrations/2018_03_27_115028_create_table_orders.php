@@ -9,19 +9,18 @@ class CreateTableOrders extends Migration {
     public function up() {
 
         Schema::create('orders', function (Blueprint $table) {
-
             $table->increments('id');
             $table->integer('user_id')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->float('ammount');
             $table->string('paypal_id')->unique();
-            $this->timestamp('created_at')->nullable();
+            $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
-
     public function down() {
         
+        Schema::dropIfExists('order_template');
         Schema::dropIfExists('orders');
     }
 }

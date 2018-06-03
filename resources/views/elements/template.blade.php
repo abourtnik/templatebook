@@ -36,7 +36,16 @@
             @endif
             <p>Prix : {{ $template->price }} &euro; </p>
 
-            <p>Category : {{ ($template->category != NULL) ? $template->category->name : 'aucune categorie' }}  </p>
+            <p>Category :
+
+                @if($template->category != NULL)
+                    <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
+                @else
+                    <span>aucune categorie</span>
+                @endif
+            </p>
+
+                {{ ($template->category != NULL) ? $template->category->name : 'aucune categorie' }}  </p>
 
             <p> Nombre de telechargements : {{ $template->downloads }} </p>
 

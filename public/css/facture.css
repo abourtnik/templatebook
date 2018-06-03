@@ -18,8 +18,7 @@ body {
     min-height: 100%;
     position: relative;
 
-    width:      21cm;
-    height:     29.7cm;
+    width: 100%;
 
 }
 
@@ -36,8 +35,8 @@ a {
 
     top:        1cm;
     left:       1cm;
-    width:      19cm;
-    height:     27.6cm;
+    width: 100%;
+
 }
 
 
@@ -77,12 +76,12 @@ h2  {
     color: #555;
     float: left;
     width: 105px;
-    text-align: right;
+    text-align: center;
 }
 
 .address_content {
 
-    margin-left: 115px;
+    margin-left: 94px;
     border-left: 1px solid #CCCCCC;
     padding-left: 10px;
     text-align: left;
@@ -97,7 +96,7 @@ h2  {
 footer {
 
     border-top : 1px solid #CCCCCC;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left:0;
     right: 0;

@@ -24,9 +24,11 @@
 </div>
 
 <footer class="text-center">
-    <p class="text-muted">Template Company au capital de 99 euros.</p>
-    <p class="text-muted">La facture a été créée sur un ordinateur elle est donc valable sans la signature et le sceau de l'entreprise.</p>
+    <p class="text-muted small">Template Company au capital de 99 euros.</p>
+    <p class="text-muted small">La facture a été créée sur un ordinateur elle est donc valable sans la signature et le sceau de l'entreprise.</p>
 </footer>
+
+
 
 </body>
 </html>

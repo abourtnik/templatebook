@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+    
     <div class="row">
 
         @if (session('template-message'))
@@ -57,13 +58,17 @@
                 <div class="panel-body">
                     @forelse ($orders as $order)
 
-                        <p>Commande n° {{ $order->id }} </p>
-                        <p>Effectué le {{ $order->created_at }} </p>
-                        <p>Coût total : {{ $order->ammount }} </p>
+                        <div class="well">
 
-                        <a href="{{asset('storage/facture/'.$order->id)}}">Voir la facture</a>
+                            <p>Commande n° {{ $order->id }} </p>
+                            <p>Effectué le : {{ $order->date }} </p>
+                            <p>Coût total : {{ $order->ammount }} &euro; </p>
 
-                        <a href="{{route('order-show' , ['id' => $order->id])}}">Voir le detail</a>
+                            <a href="{{asset('storage/facture/'.$order->id)}}">Voir la facture</a>
+
+                            <a href="{{route('order-show' , ['id' => $order->id])}}">Voir le detail</a>
+
+                        </div>
 
                     @empty
                         <p>Vous n'avez effectué aucune commande</p>
@@ -76,6 +81,16 @@
 
     @if ($templates->count() > 0)
         @include('templates.remove')
+    @endif
+
+    @php
+        $buy = false
+    @endphp
+
+
+   @if(session('buy'))
+       <div id="show-download-templates-modale" class="hidden"></div>
+        @include('elements.download' , ['templates' => $buyingTemplate])
     @endif
 
 </div>

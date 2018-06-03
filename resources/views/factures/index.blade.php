@@ -6,19 +6,19 @@
 
 <section>
 
-    <div class="row">
-
 
         <!-- logo -->
 
 
         <h1 class="text-center">Facture pour la commande n° {{ $order->id }}</h1>
 
-        <p>Pour la commande passé le {{ $order->created_at }} </p>
+        <p>Pour la commande passé le <strong>{{ $order->date }}</strong>  </p>
 
-        <p> <span style="color: #6697EA;">Identifiant Paypal</span> : {{ $order->paypal_id }} </p>
+        <p> <span style="color: #6697EA;">Identifiant Paypal</span> : <strong>{{ $order->paypal_id }}</strong> </p>
 
         <hr>
+
+    <div class="row">
 
         <div class="col-xs-6">
 
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="address_content">
-                    <strong>{{ $payer['firstname'] }}</strong><br>
+                    <strong>{{ $payer['firstname'] }} {{ $payer['lastname'] }}</strong><br>
                     {{ $payer['address'] }} <br>
                     {{ $payer['zip'] }} {{ $payer['city'] }} <br>
                     {{ $payer['country'] }}
@@ -74,9 +74,9 @@
         </thead>
         <tbody>
 
-        @foreach ($order->templates() as $template)
+        @foreach ($order->templates()->getResults() as $template)
 
-            <tr template-id="{{ $template->id }}">
+            <tr>
                 <td>
                     <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a>
                 </td>
@@ -86,11 +86,11 @@
                     </strong>
                 </td>
                 <td>
-                    <strong>{{ Session::get('Basket.'.$template->id) }}</strong>
+                    <strong>{{ $template->pivot->quantity }}</strong>
                 </td>
                 <td>
                     <span style="font-weight: bold;font-size: 1.1em">
-                        <span id="basket-subtotal" template-id="{{ $template->id }}"> {{ number_format($template->price * Session::get('Basket.'.$template->id) , 2)   }} </span>
+                        <span id="basket-subtotal"> {{ number_format($template->price * $template->pivot->quantity) }} </span>
                         &euro;
                     </span>
                 </td>
@@ -101,13 +101,13 @@
         </tbody>
     </table>
 
-    <div class="row text-right">
+    <div class="text-right">
         <span class="total">
-            Total : <span id="basket-total"> {{ $total }} </span> &euro;
+            Total : <strong style="font-size: 1.1em"> {{ $total }} &euro; </strong>
         </span>
     </div>
 
-    <p style="margin-top: 80px;" class="text-center">Merci pour votre confiance et à bientôt chez {{ route('index') }}.</p>
+    <p style="margin-top: 50px;" class="text-center">Merci pour votre confiance et à bientôt chez <a href="{{ route('index') }}">{{ route('index') }}</a>.</p>
 
 </section>
 

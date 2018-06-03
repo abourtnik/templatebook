@@ -11,15 +11,17 @@
 
                     <div class="panel-body">
 
-                        <img width="100" src="{{asset('img/categories/'.$category->image)}}" alt="{{ $category->name }} image">
+                            <img width="100" src="{{asset('img/categories/'.$category->image)}}" alt="{{ $category->name }} image">
 
-                        <p>{{ $category->description }}</p>
+                            <h2> Les templates de cette categorie :</h2>
 
-                        @forelse ($category->templates() as $template)
-                            @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
-                        @empty
-                            <p>Pas encore de templates disponible pour cette categorie</p>
-                        @endforelse
+                            <p>{{ $category->description }}</p>
+
+                            @forelse ($category->templates()->getResults() as $template)
+                                @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
+                            @empty
+                                <p>Pas encore de templates disponible pour cette categorie</p>
+                            @endforelse
 
                     </div>
                 </div>
