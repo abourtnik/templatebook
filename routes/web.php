@@ -17,17 +17,19 @@ Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::get('/confirm/{id}/{token}', '\App\Http\Controllers\Auth\RegisterController@confirm')->name('confirm-user');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::any('/template/add', 'TemplatesController@add')->name('template-add');
+Route::any('/templates/add', 'TemplatesController@add')->name('template-add');
 
-Route::any('/template/update/{id}', 'TemplatesController@update')->name('template-update');
+Route::any('/templates/update/{id}', 'TemplatesController@update')->name('template-update');
 
-Route::post('/template/remove/{id}', 'TemplatesController@remove')->name('template-remove');
+Route::post('/templates/remove/{id}', 'TemplatesController@remove')->name('template-remove');
 
-Route::any('/template/download/{id}', 'TemplatesController@download')->name('template-download');
+Route::any('/templates/download/{id}', 'TemplatesController@download')->name('template-download');
 
 
 Route::get('/storage/template/{file}', function ($file) {

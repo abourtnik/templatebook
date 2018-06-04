@@ -111,6 +111,21 @@
         }
     });
 
+    $('.image-upload').on('change', function (e) {
+
+        var files = $(this)[0].files;
+        var file = files[0];
+        $(this).find('img').attr('src', window.URL.createObjectURL(file));
+    });
+
+    $('.image-upload div').mouseenter(function() {
+        $(this).addClass('image-upload-active');
+    }).mouseleave(function() {
+        //$(this).removeClass('image-upload-active');
+    });
+
+
+
 
 
 })(jQuery);

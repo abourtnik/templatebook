@@ -12,7 +12,7 @@ function userBuyTemplate ($template) {
 
     foreach ($template->orders()->getResults() as $order) {
 
-        if ($order->user_id == Auth::user()->id ) {
+        if (Auth::check() && $order->user_id == Auth::user()->id ) {
             $user_buy_template = true;
             break;
         }

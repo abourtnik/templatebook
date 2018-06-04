@@ -15,27 +15,35 @@ $(document).ready(function() {
 
             $input.attr('type' , 'file');
             $input.attr('accept' , 'image/*');
+            $input.attr('placeholder' , '');
             $type_input.val('');
+            $('#info-link-video').addClass('hidden');
         }
 
         else if(type == 'image-url') {
             $input.attr('type' , 'text');
             $input.removeAttr('accept');
             $input.attr('maxlenght' , '255');
+            $input.attr('placeholder' , '');
             $type_input.val('image_url');
+            $('#info-link-video').addClass('hidden');
         }
 
         else if(type == 'video-file') {
             $input.attr('type' , 'file');
             $input.attr('accept' , 'video/*');
+            $input.attr('placeholder' , '');
             $type_input.val('');
+            $('#info-link-video').addClass('hidden');
         }
 
         else if(type == 'video-url') {
             $input.attr('type' , 'text');
             $input.removeAttr('accept');
             $input.attr('maxlenght' , '255');
+            $input.attr('placeholder' , 'https://youtube.com/embed/votre_lien');
             $type_input.val('video_url');
+            $('#info-link-video').removeClass('hidden');
         }
 
     });

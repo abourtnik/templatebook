@@ -11,7 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">Uploader votre nouveau template</div>
 
-                    <div class="panel-body">
+                    <div class="panel-body text-center">
 
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
@@ -22,7 +22,7 @@
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required >
 
                                     <span class="help-block">
@@ -35,7 +35,7 @@
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                 <label for="description" class="col-md-4 control-label">Description</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <textarea maxlength="2000" class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                     <span class="help-block">
                                         <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caracteres max' }}</strong>
@@ -47,70 +47,77 @@
                             <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
                                 <label for="price" class="col-md-4 control-label">Prix du template</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
 
                                     <div class="input-group">
                                         <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" step="0.01" required >
                                         <div class="input-group-addon">&euro;</div>
                                     </div>
 
-                                    @if ($errors->has('price'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('price') }}</strong>
+                                    <span class="help-block">
+                                        <strong> {{ $errors->has('price') ? $errors->first('price') : 'Le prix de votre template en euros' }}</strong>
                                     </span>
-                                    @endif
                                 </div>
                             </div>
 
-                            <!-- File-->
+                            <!-- Source-->
                             <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
                                 <label for="file" class="col-md-4 control-label">Sources</label>
 
-                                <div class="col-md-6">
-                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') }}"  required accept=".zip">
+                                <div class="col-md-8">
+                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') }}"  required accept=".zip,.rar">
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou TAR , taille maximale 5 Mo' }}</strong>
+                                        <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>
+
+
+
+
+                            <div class="row">
+
+
+                                <h4> Telecharger vos images ou une video YouTube</h4>
+
 
 
 
                             @for($i = 1 ; $i <= 3 ; $i ++)
 
-                                <div class="form-group">
-                                    <label for="media {{$i}}" class="col-md-4 control-label">Media {{$i}}</label>
+                                <!-- Media {{$i}}-->
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
 
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Image <span class="caret"></span></button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#" data-input="image-file" data-id="{{$i}}">Image</a></li>
-                                                    <li><a href="#" data-input="image-url" data-id="{{$i}}">Lien image</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#" data-input="video-file" data-id="{{$i}}">Video</a></li>
-                                                    <li><a href="#" data-input="video-url" data-id="{{$i}}">Lien YouTube</a></li>
-                                                </ul>
+                                        <div class="image-upload">
+                                            <div>
+                                                <span class="title">Ajouter une photo </span>
+                                                <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" >Youtube</a> </span>
+                                                <span class="bg"></span>
+                                                <img class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                                <span class="input-file-container">
+                                                <input class="image-upload-file" id="avatar-input" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
+                                            </span>
                                             </div>
-                                            <div class="input-group">
-                                                <input placeholder="" id="media{{$i}}" type="file" class="form-control" name="media{{$i}}">
-                                                <div class="input-group-btn" id="info-link-video">
-                                                    <button target='_blank' href="https://support.google.com/youtube/answer/171780" class="btn btn-warning"><i class="fa fa-info"></i></button>
-                                                </div>
-                                            </div>
-                                            <input id="type{{$i}}" type="hidden" name="type{{$i}}" value="">
                                         </div>
-                                    </div>
-                                </div>
 
-                            @endfor
+
+                                    </div>
+
+                                @endfor
+
+
+
+                            </div>
+
+                            <br>
+                            <br>
+
 
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                 <label for="category" class="col-md-4 control-label">Categorie</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
 
                                     <select class="form-control" name="category" id="category">
                                         <option value="">Aucune categorie</option>
@@ -127,7 +134,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-success" type="submit">Ajouter votre template</button>
+                            <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Ajouter votre template</button>
 
                         </form>
                     </div>
@@ -135,4 +142,6 @@
             </div>
         </div>
     </div>
+
+    @include('templates.youtube-modale')
 @endsection

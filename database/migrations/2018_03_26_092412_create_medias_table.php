@@ -16,7 +16,7 @@ class CreateMediasTable extends Migration
             $table->increments('id');
             $table->string('file' , 255);
             $table->integer('template_id')->unsigned();
-            $table->enum('type' , ['image', 'video' , 'image_url' , 'video_url']);
+            $table->enum('type' , ['image', 'youtube']);
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
             $table->timestamps();
         });
