@@ -7,15 +7,19 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">{{ $user->name }}</div>
+                    <div class="panel-heading text-center"><strong>{{ $user->name }}</strong></div>
 
                     <div class="panel-body">
 
-                        <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatat user {{ Auth::user()->name }} ">
+                        <img style="margin-left: auto;margin-right: auto;margin-bottom: 45px;" class="img-responsive" width="300" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatat user {{ Auth::user()->name }} ">
 
-                        <p>Membre depuis le :  {{ formatDatabaseDate($user->created_at) }}</p>
+                        <p class="text-center">Membre depuis le :  {{ formatDatabaseDate($user->created_at) }}</p>
 
-                        <h3 class="text-center">Ses templates : </h3>
+                        <p class="text-center">Nombre de templates uploades :  {{ $user->templates->count() }}</p>
+
+                        <h3 style="margin-top: 60px;" class="text-center">Ses templates : </h3>
+
+                        <hr>
 
                             @forelse ($user->templates as $template)
                                 @include('elements.template', ['template' => $template , 'author' => false , 'options' => false])

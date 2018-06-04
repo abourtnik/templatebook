@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      */
 
     protected $redirectTo = '/home';
-    
+
     /**
      * Create a new controller instance.
      *
@@ -40,28 +41,38 @@ class RegisterController extends Controller
      */
 
     public function __construct() {
+
         $this->middleware('guest');
+
     }
 
     public function confirm ($id , $token) {
 
         $user = User::where('id' , $id)->where('confirmation_token' , $token)-> first();
-        
+
         if ($user) {
+
             $user->update(['confirmation_token' => null]);
+
             $this->guard()->login($user);
+
             return redirect($this->redirectPath())->with('success' , 'Votre compte a bien été activé');
+
         }
 
         else
             return redirect('/login')->with('error' , 'Ce lien ne semble plus valide');
+
     }
 
     public function register(Request $request) {
 
         $this->validator($request->all())->validate();
+
         event(new Registered($user = $this->create($request->all())));
+
         $user->notify(new RegisteredUser());
+
         return redirect('/login')->with('success' , 'Un email de confirmation vous a été envoyé à l\'adresse ' .$user->email. ' pour valider votre compte (N\'oubliez pas de vérifier vos spams)');
     }
 
@@ -76,7 +87,7 @@ class RegisterController extends Controller
     {
 
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -99,5 +110,4 @@ class RegisterController extends Controller
             'confirmation_token' => str_replace('/' , '' , bcrypt(str_random(30)))
         ]);
     }
-    
 }

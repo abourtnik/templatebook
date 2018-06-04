@@ -1,20 +1,17 @@
 @extends('layouts.app')
 
+@section('scripts')
+    <script src="{{ asset('js/template.js') }}"></script>
+@stop
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Uploader votre nouveau template</div>
+                    <div class="panel-heading text-center">Uploader votre nouveau template</div>
 
                     <div class="panel-body">
-
-                        @if (session('template-message'))
-                            <div class="alert alert-success">
-                                {{ session('template-message') }}
-                            </div>
-                        @endif
-
 
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
@@ -50,12 +47,12 @@
 
                             <!-- Prix-->
                             <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-                                <label for="price" class="col-md-4 control-label">Prix template</label>
+                                <label for="price" class="col-md-4 control-label">Prix du template</label>
 
                                 <div class="col-md-6">
 
                                     <div class="input-group">
-                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" required >
+                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" step="0.01" required >
                                         <div class="input-group-addon">&euro;</div>
                                     </div>
 
@@ -69,7 +66,7 @@
 
                             <!-- File-->
                             <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                                <label for="file" class="col-md-4 control-label">Fichier ZIP</label>
+                                <label for="file" class="col-md-4 control-label">Sources</label>
 
                                 <div class="col-md-6">
                                     <input id="file" type="file" class="form-control" name="file" value="{{ old('file') }}"  required accept=".zip">
@@ -79,32 +76,41 @@
                                 </div>
                             </div>
 
+
+
                             @for($i = 1 ; $i <= 3 ; $i ++)
 
-                            <!-- Media {{ $i }}-->
-                            <div class="form-group{{ $errors->has('media'.$i) ? ' has-error' : '' }}">
-                                <label for="media{{ $i }}" class="col-md-4 control-label">Image {{ $i }}</label>
+                            <div class="form-group">
+                                <label for="media {{$i}}" class="col-md-4 control-label">Media {{$i}}</label>
 
                                 <div class="col-md-6">
-                                    <input id="media{{ $i }}" type="file" class="form-control" name="media{{ $i }}" value="{{ old('media'.$i) }}"  accept="image/*">
 
-                                    <span class="help-block">
-                                        <strong> {{ $errors->has('media'.$i) ? $errors->first('media'.$i) : 'Une image au format PNG, JPEG , JPG ou GIF , taille maximale 5 Mo' }}</strong>
-                                    </span>
-
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Image <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" data-input="image-file" data-id="{{$i}}">Image</a></li>
+                                                <li><a href="#" data-input="image-url" data-id="{{$i}}">Lien image</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="#" data-input="video-file" data-id="{{$i}}">Video</a></li>
+                                                <li><a href="#" data-input="video-url" data-id="{{$i}}">Lien video</a></li>
+                                            </ul>
+                                        </div>
+                                        <input id="media{{$i}}" type="file" class="form-control" name="media{{$i}}">
+                                        <input id="type{{$i}}" type="hidden" name="type{{$i}}" value="">
+                                    </div>
                                 </div>
                             </div>
 
                             @endfor
 
-
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                                <label for="category" class="col-md-4 control-label">Category</label>
+                                <label for="category" class="col-md-4 control-label">Categorie</label>
 
                                 <div class="col-md-6">
 
                                     <select class="form-control" name="category" id="category">
-                                        <option value="null">Aucune categorie</option>
+                                        <option value="">Aucune categorie</option>
                                         @foreach($categories as $categorie)
                                             <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                                         @endforeach
@@ -118,7 +124,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-default" type="submit">Ajouter votre template</button>
+                            <button class="btn btn-success" type="submit">Ajouter votre template</button>
 
                         </form>
                     </div>
