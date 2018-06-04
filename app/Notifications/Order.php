@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;
 
-class RegisteredUser extends Notification
+class Order extends Notification
 {
     use Queueable;
 
@@ -17,9 +16,9 @@ class RegisteredUser extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -42,12 +41,12 @@ class RegisteredUser extends Notification
     public function toMail($notifiable) {
         return (new MailMessage)
             ->success()
-            ->subject( config('app.name', 'Laravel') .' | Confirmation de votre compte')
-            ->greeting('Bonjour ' .$notifiable->name. '.')
-            ->line('Vous venez de créer un compte sur ' . route('index') . '.')
-            ->line('Pour activer votre compte il vous suffit de cliquer sur ce lien : ')
-            ->action('Valider mon compte', route('confirm-user' , ['id' => $notifiable->id , 'token' => urlencode($notifiable->confirmation_token)] ))
-            ->line('Si vous n\'êtes pas à l\'origine de la création de ce compte ne tenez pas compte de cet e-mail, le compte sera automatiquement supprimé.');
+            ->subject(config('app.name', 'Laravel') . '| Votre facture')
+            ->greeting('Bonjour ' .$notifiable->name)
+            ->line('Vous avez recemment effectué une commande sur ' . route('index') . '.')
+            ->line('Vous retrouverer la facture asossice en piece jointe.')
+            ->line('Merci de vore confiance et a bientot chez ' .route('index').  '.')
+            ->attach(asset('storage/facture/' .$this->order->id) , ['as' => 'Facture template '.$this->order->id.'.pdf' ]);
     }
 
     /**

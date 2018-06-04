@@ -1,5 +1,15 @@
 (function ($) {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(window).on('load',function(){
+        $('#download-templates-modale').modal('show');
+    });
+
     // Carousel
 
     $(".owl-carousel").owlCarousel({
@@ -34,7 +44,7 @@
 
     // Remove product to basket
 
-    $(document).on('click', '.remove-basket', function(){
+    $(document).on('click', '.remove-basket', function(e){
 
         e.preventDefault();
 
@@ -61,7 +71,7 @@
 
     // plugin bootstrap minus and plus
 
-    $(document).on('click', '.btn-number', function(){
+    $(document).on('click', '.btn-number', function(e){
 
         e.preventDefault();
 
@@ -70,7 +80,7 @@
         var input = $("input[template-id='"+fieldName+"']");
         var currentVal = parseInt(input.val());
 
-        var id = input.attr('product-id');
+        var id = input.attr('template-id');
 
         if (!isNaN(currentVal)) {
 
@@ -84,7 +94,8 @@
                 $.post("/basket/recalculate/"+id, {quantity:input.val()} , function (data) {
 
                     if (data.error)
-                        notification('Modification' , data.message , "error");
+                        console.log("f");
+                    //notification('Modification' , data.message , "error");
                     else {
 
                         $('#basket-count').text(data.count);

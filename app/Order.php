@@ -17,6 +17,10 @@ class Order extends Model {
         return $this->belongsToMany('App\Template' , 'order_template' , 'order_id' , 'template_id')->withPivot('quantity');
     }
 
+    public function user () {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
 
 
 }

@@ -33,12 +33,9 @@
             <h3> <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a> </h3>
 
             @if($author)
-                <span> Realisé par : </span>
-                <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a>
-                <br>
+                <p> Realisé par : <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a> </p>
             @endif
 
-            <br>
             <p>Prix :
                 @if($template->price == 0)
                     <strong class="text-success"> Gratuit </strong>
@@ -61,27 +58,7 @@
 
             <p> Nombre de vues : {{ $template->views }} </p>
 
-            <!-- Si le template est gratuit -> telecharger  OU
-           Si ca appartein a l'user connecte -> telecharger OU
-           Si ce template a deja ete achete par l'user connecté -> telecharger
-           Sinon Ajouter au panier
-       -->
-
-
-            @php
-            /*
-                $user_buy_template = false;
-                    foreach ($template->orders()->getResults() as $order) {
-                        if ($order->user_id == Auth::user()->id ) {
-                            $user_buy_template = true;
-                            break;
-                        }
-                    }
-            */
-            @endphp
-
-
-            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id))
+            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || userBuyTemplate($template))
                 <a class="btn btn-primary"  href="{{route('template-download' , ['id' => $template->id] )}}">
                     <i class="fa fa-download" aria-hidden="true"></i>
                     Télécharger
@@ -94,8 +71,8 @@
             @endif
 
             @if($options)
-            <a href="{{route('template-update' , ['id' => $template->id])}}" class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Modifier </a>
-            <button type="button" data-toggle="modal" data-target="#delete-template-modale" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Supprimer </button>
+                <a href="{{route('template-update' , ['id' => $template->id])}}" class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Modifier </a>
+                <button type="button" data-toggle="modal" data-target="#delete-template-modale" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Supprimer </button>
             @endif
 
         </div>

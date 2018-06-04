@@ -73,7 +73,7 @@
 
                             <hr>
 
-                            @if($template->price == 0 || $template->user->id === Auth::user()->id )
+                            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || userBuyTemplate($template) )
                                 <a class="btn btn-primary"  href="{{route('template-download' , ['id' => $template->id] )}}">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                     Télécharger

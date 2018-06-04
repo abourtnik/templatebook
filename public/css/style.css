@@ -17,3 +17,14 @@
     cursor: inherit;
     display: block;
 }
+
+.total {
+
+    font-weight: bold;
+    font-size: 19px;
+    margin-right: 15px;
+}
+
+table td {
+    text-align: center;
+}

@@ -16,20 +16,18 @@
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                            {{ csrf_field() }}
+                        {{ csrf_field() }}
 
-                            <!-- Name-->
+                        <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required >
 
-                                    @if ($errors->has('name'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                    <span class="help-block">
+                                        <strong> {{ $errors->has('name') ? $errors->first('name') : '255 caracteres max et caracteres alphanumerique' }}</strong>
                                     </span>
-                                    @endif
                                 </div>
                             </div>
 
@@ -80,27 +78,32 @@
 
                             @for($i = 1 ; $i <= 3 ; $i ++)
 
-                            <div class="form-group">
-                                <label for="media {{$i}}" class="col-md-4 control-label">Media {{$i}}</label>
+                                <div class="form-group">
+                                    <label for="media {{$i}}" class="col-md-4 control-label">Media {{$i}}</label>
 
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
 
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Image <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" data-input="image-file" data-id="{{$i}}">Image</a></li>
-                                                <li><a href="#" data-input="image-url" data-id="{{$i}}">Lien image</a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="#" data-input="video-file" data-id="{{$i}}">Video</a></li>
-                                                <li><a href="#" data-input="video-url" data-id="{{$i}}">Lien video</a></li>
-                                            </ul>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Image <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" data-input="image-file" data-id="{{$i}}">Image</a></li>
+                                                    <li><a href="#" data-input="image-url" data-id="{{$i}}">Lien image</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#" data-input="video-file" data-id="{{$i}}">Video</a></li>
+                                                    <li><a href="#" data-input="video-url" data-id="{{$i}}">Lien YouTube</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="input-group">
+                                                <input placeholder="" id="media{{$i}}" type="file" class="form-control" name="media{{$i}}">
+                                                <div class="input-group-btn" id="info-link-video">
+                                                    <button target='_blank' href="https://support.google.com/youtube/answer/171780" class="btn btn-warning"><i class="fa fa-info"></i></button>
+                                                </div>
+                                            </div>
+                                            <input id="type{{$i}}" type="hidden" name="type{{$i}}" value="">
                                         </div>
-                                        <input id="media{{$i}}" type="file" class="form-control" name="media{{$i}}">
-                                        <input id="type{{$i}}" type="hidden" name="type{{$i}}" value="">
                                     </div>
                                 </div>
-                            </div>
 
                             @endfor
 

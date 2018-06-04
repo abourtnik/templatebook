@@ -25,19 +25,23 @@ Route::any('/template/add', 'TemplatesController@add')->name('template-add');
 
 Route::any('/template/update/{id}', 'TemplatesController@update')->name('template-update');
 
-Route::any('/template/remove/{id}', 'TemplatesController@remove')->name('template-remove');
+Route::post('/template/remove/{id}', 'TemplatesController@remove')->name('template-remove');
 
 Route::any('/template/download/{id}', 'TemplatesController@download')->name('template-download');
+
 
 Route::get('/storage/template/{file}', function ($file) {
     return response()->download(storage_path('app/templates/'.$file));
 })->where('file', '[A-Za-z0-9]+.zip');
+
 
 Route::get('/users/show/{id}', 'UsersController@show')->name('user-show');
 Route::get('/templates/show/{id}', 'TemplatesController@show')->name('template-show');
 
 Route::get('/basket', 'BasketController@index')->name('basket');
 Route::get('/basket/add/{id}', 'BasketController@add')->name('basket-add');
+Route::get('/basket/delete/{id}', 'BasketController@delete')->name('basket-delete');
+Route::post('/basket/recalculate/{id}', 'BasketController@recalculate')->name('basket-recalculate');
 
 Route::get('/order', 'OrdersController@index')->name('order');
 
@@ -57,3 +61,5 @@ Route::get('/storage/facture/{order_id}', function ($order_id) {
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/mentions-legales', 'PagesController@mentions_legales')->name('mentions-legales');
+
+Route::any('/facture/show/{id}', 'FacturesController@show')->name('facture-show');

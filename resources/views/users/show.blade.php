@@ -11,7 +11,7 @@
 
                     <div class="panel-body">
 
-                        <img style="margin-left: auto;margin-right: auto;margin-bottom: 45px;" class="img-responsive" width="300" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatat user {{ Auth::user()->name }} ">
+                        <img style="margin-left: auto;margin-right: auto;margin-bottom: 45px;" class="img-responsive" width="300" src="{{asset('storage/avatars/'.$user->avatar)}}" alt="avatar user {{ $user->name }} ">
 
                         <p class="text-center">Membre depuis le :  {{ formatDatabaseDate($user->created_at) }}</p>
 
@@ -21,14 +21,14 @@
 
                         <hr>
 
-                            @forelse ($user->templates as $template)
-                                @include('elements.template', ['template' => $template , 'author' => false , 'options' => false])
-                            @empty
-                                <p>{{ $user->name  }} n'a aucun template pour l'instant</p>
-                            @endforelse
-                        </div>
+                        @forelse ($user->templates as $template)
+                            @include('elements.template', ['template' => $template , 'author' => false , 'options' => false])
+                        @empty
+                            <p>{{ $user->name  }} n'a aucun template pour l'instant</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
