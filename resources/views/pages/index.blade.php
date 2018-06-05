@@ -16,7 +16,7 @@
                             @forelse ($templates as $template)
                                 @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
                             @empty
-                                <p>Pas de template encore disponible</p>
+                                <p class="text-center">Pas de template encore disponible</p>
                             @endforelse
 
                         </div>

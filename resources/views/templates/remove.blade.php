@@ -8,7 +8,7 @@
                 <p class="text-danger">Attention la suppression d'un template est définitive et irréversible.</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" href="{{route('template-remove' , ['id' => $template->id])}}">
+                <a class="btn btn-danger" href="{{route('template-remove' , ['id' => $template->id , 'crsf_token' => csrf_token() ])}}">
                     <i class="fa fa-trash"></i>
                     Supprimmer
                 </a>

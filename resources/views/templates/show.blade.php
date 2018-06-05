@@ -16,19 +16,13 @@
                             @forelse ($template->medias as $media)
 
                                 @if($media->type == 'image')
-                                    <img class="item" class="img-responsive item" src="{{asset('storage/medias/'.$media->file)}}" alt="Image template {{$template->name}}">
-                                @elseif($media->type == 'image_url')
-                                    <img class="item" class="img-responsive item" src="{{$media->file}}" alt="Image template {{$template->name}}" onError="this.onerror=null;this.src='img/default-image.png';">
-                                @elseif($media->type == 'video')
-                                    <div align="center" class="embed-responsive embed-responsive-16by9">
-                                        <video controls autoplay loop class="embed-responsive-item">
-                                            <source src="{{asset('storage/medias/'.$media->file)}}">
-                                        </video>
-                                    </div>
-                                @elseif($media->type == 'video_url')
+                                    <img class="item" class="img-responsive item" src="{{asset('storage/medias/'.$media->file)}}" alt="Image template {{$template->name}}" onError="this.onerror=null;this.src='img/default-image.png';">
+                                @elseif($media->type == 'youtube')
                                     <div class="embed-responsive embed-responsive-4by3">
-                                        <iframe src="{{$media->file}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe src="{{str_replace("watch?v=" ,  "embed/" , $media->file)}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
+                                @else
+                                    <img class="item img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
                                 @endif
                             @empty
                                 <img class="item img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">

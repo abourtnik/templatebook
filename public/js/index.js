@@ -32,7 +32,7 @@
 
             if (data.error)
                 console.log("d");
-            //notification(null , data.message , "error");
+                //notification(null , data.message , "error");
             else {
                 //notification(null , data.message , "success");
                 $('#basket-count').text(data.count);
@@ -54,7 +54,7 @@
 
             if (data.error)
                 console.log("f");
-            //notification(null , data.message , "error");
+                //notification(null , data.message , "error");
             else {
 
                 //notification(null , data.message , "success");
@@ -95,7 +95,7 @@
 
                     if (data.error)
                         console.log("f");
-                    //notification('Modification' , data.message , "error");
+                        //notification('Modification' , data.message , "error");
                     else {
 
                         $('#basket-count').text(data.count);
@@ -111,18 +111,46 @@
         }
     });
 
-    $('.image-upload').on('change', function (e) {
+    $('.image-upload-file').on('change', function (e) {
 
+        var media_id = $(this).attr('media-id');
         var files = $(this)[0].files;
         var file = files[0];
-        $(this).find('img').attr('src', window.URL.createObjectURL(file));
+        $(this).parent().prev().attr('src', window.URL.createObjectURL(file));
+        $('#text-media-'+ media_id).addClass('hidden');
+        $('#youtube-link-media-'+ media_id).val('');
     });
 
     $('.image-upload div').mouseenter(function() {
         $(this).addClass('image-upload-active');
     }).mouseleave(function() {
-        //$(this).removeClass('image-upload-active');
+        $(this).removeClass('image-upload-active');
     });
+
+    $('#youtube-modale').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget);
+        var media_id = button.data('media');
+        var modal = $(this);
+        modal.find('.add-youtube').attr('media-id' , media_id);
+    });
+
+    $('.add-youtube').click(function() {
+
+        var $input = $(this).parent().prev();
+        var youtube_id = $input.val().split('=')[1];
+        var media_id = $(this).attr('media-id');
+        $('#img-media-' + media_id).attr('src' , 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg');
+        $('#text-media-'+ media_id).removeClass('hidden');
+        $('#youtube-link-media-'+ media_id).val($input.val());
+        $('#image-file-media-'+ media_id).val('');
+        $input.val('');
+        $('#youtube-modale').modal('hide');
+
+    });
+
+
+
 
 
 

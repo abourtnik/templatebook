@@ -1,20 +1,22 @@
 @extends('layouts.app')
 
+@section('title', 'Modifier le template : ' . $template->name )
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Changer votre template</div>
+                    <div class="panel-heading text-center">Modifier votre template <strong> {{$template->name}}</strong></div>
 
                     <div class="panel-body">
 
-                        <form class="form-horizontal" method="POST" action="{{ route('template-update' , ['id' =>$template->id]) }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('template-update' , ['id' => $template->id]) }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                        <!-- Name-->
+                            <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
@@ -61,52 +63,62 @@
                                 <label for="file" class="col-md-4 control-label">  Sources </label>
 
                                 <div class="col-md-8">
-                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') ? old('file') : $template->file }}"  required accept=".zip,.rar">
+                                    <input id="file" type="file" class="form-control" name="file" accept=".zip,.rar">
 
+                                    <a href="{{route('template-download' , ['id' => $template->id] )}}"> Sources actuelles  </a>
                                     <span class="help-block">
                                         <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>
 
+                            <div class="row">
 
+                                <h4 class="text-center"> Modifier vos images ou vos videos YouTube</h4>
 
-                        @for($i = 1 ; $i <= 3 ; $i ++)
+                                <hr>
 
-                            <!-- Media {{$i}}-->
+                            @for($i = 1 ; $i <= 3 ; $i ++)
 
-                                <div class="form-group">
-                                    <label for="media {{$i}}" class="col-md-4 control-label">Media {{$i}}</label>
+                                <!-- Media {{$i}}-->
 
-                                    <div class="col-md-8">
+                                <div class="col-md-4">
 
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {{ (isset($template->medias[$i-1]) ? $template->medias[$i-1]->type : "Image") }}
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#" data-input="image-file" data-id="{{$i}}">Image</a></li>
-                                                    <li><a href="#" data-input="image-url" data-id="{{$i}}">Lien image</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#" data-input="video-file" data-id="{{$i}}">Video</a></li>
-                                                    <li><a href="#" data-input="video-url" data-id="{{$i}}">Lien YouTube</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="input-group">
-                                                <input placeholder="" id="media{{$i}}" type="{{ ( isset($template->medias[$i-1]) && ($template->medias[$i-1]->type === 'image_url' || $template->medias[$i-1]->type === 'video_url' ))  ? 'text' : 'file' }}" class="form-control" name="media{{$i}}" value="{{ old('media'.$i) ? old('media'.$i) : (isset($template->medias[$i-1]) ? $template->medias[$i-1]->file : '') }}">
-                                                <div class="input-group-btn hidden" id="info-link-video">
-                                                    <button target='_blank' href="https://support.google.com/youtube/answer/171780" class="btn btn-warning" type="button"><i class="fa fa-info"></i></button>
-                                                </div>
-                                            </div>
-                                            <input id="type{{$i}}" type="hidden" name="type{{$i}}" value="">
+                                    <div class="image-upload">
+                                        <div>
+                                            <span class="title">Ajouter une photo </span>
+                                            <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" data-media="{{$i}}" > Video YouTube</a> </span>
+                                            <span class="bg"></span>
+
+                                            @if(!isset($template->medias[$i-1]))
+                                                <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                            @else
+                                                @if($template->medias[$i-1]->type === 'image')
+                                                    <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('storage/medias/'.$template->medias[$i-1]->file)}}" alt="Image template {{$template->name}}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                                @elseif ($template->medias[$i-1]->type === 'youtube')
+                                                    <img id="img-media-{{$i}}" class="img-responsive" src="https://img.youtube.com/vi/{{explode('=' , $template->medias[$i-1]->file)[1]}}/0.jpg" alt="Video template {{$template->name}}" >
+                                                @else
+                                                    <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                                @endif
+                                            @endif
+
+                                                    <span class="input-file-container">
+                                                <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
+                                                <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="media{{$i}}" value="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}">
+                                            </span>
                                         </div>
                                     </div>
+
+                                    <p id="text-media-{{$i}}" class="text-danger text-center {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? '' : 'hidden' }}"> Video YouTube </p>
+
                                 </div>
 
                             @endfor
 
+                            </div>
+
+                            <br>
+                            <br>
 
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                 <label for="category" class="col-md-4 control-label">Categorie</label>

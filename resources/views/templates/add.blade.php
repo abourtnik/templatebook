@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Ajouter un template')
+
 @section('scripts')
     <script src="{{ asset('js/template.js') }}"></script>
 @stop
@@ -9,16 +11,16 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Uploader votre nouveau template</div>
+                    <div class="panel-heading text-center">Ajouter votre nouveau template</div>
 
                     <div class="panel-body text-center">
 
                         <form class="form-horizontal" method="POST" action="{{ route('template-add') }}" enctype="multipart/form-data">
 
                             <!-- CRSF-->
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                        <!-- Name-->
+                            <!-- Name-->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Nom du template</label>
 
@@ -73,46 +75,41 @@
                             </div>
 
 
-
-
                             <div class="row">
 
+                                <h4> Ajouter vos images ou une video YouTube</h4>
 
-                                <h4> Telecharger vos images ou une video YouTube</h4>
+                                <hr>
 
+                                @for($i = 1 ; $i <= 3 ; $i ++)
 
-
-
-                            @for($i = 1 ; $i <= 3 ; $i ++)
-
-                                <!-- Media {{$i}}-->
+                                    <!-- Media {{$i}}-->
 
                                     <div class="col-md-4">
 
                                         <div class="image-upload">
                                             <div>
                                                 <span class="title">Ajouter une photo </span>
-                                                <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" >Youtube</a> </span>
+                                                <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" data-media="{{$i}}" > Video YouTube</a> </span>
                                                 <span class="bg"></span>
-                                                <img class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                                <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
                                                 <span class="input-file-container">
-                                                <input class="image-upload-file" id="avatar-input" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
-                                            </span>
+                                                    <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
+                                                    <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="media{{$i}}">
+                                                </span>
                                             </div>
                                         </div>
 
+                                        <p id="text-media-{{$i}}" class="text-danger hidden"> Video YouTube </p>
 
                                     </div>
 
                                 @endfor
 
-
-
                             </div>
 
                             <br>
                             <br>
-
 
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                 <label for="category" class="col-md-4 control-label">Categorie</label>
