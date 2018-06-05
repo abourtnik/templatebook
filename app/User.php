@@ -14,7 +14,6 @@ class User extends Authenticatable {
      *
      * @var array
      */
-
     protected $fillable = [
         'name', 'email', 'password', 'confirmation_token'
     ];
@@ -24,20 +23,23 @@ class User extends Authenticatable {
      *
      * @var array
      */
-
     protected $hidden = [
         'password', 'remember_token',
     ];
 
     public function templates () {
-
         return $this->hasMany('App\Template');
-
     }
-    
+
     public function orders () {
-
         return $this->hasMany('App\Order');
+    }
 
+    public function comments () {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function votes () {
+        return $this->hasMany('App\Vote');
     }
 }

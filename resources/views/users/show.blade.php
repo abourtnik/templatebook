@@ -24,7 +24,7 @@
                         @forelse ($user->templates as $template)
                             @include('elements.template', ['template' => $template , 'author' => false , 'options' => false])
                         @empty
-                            <p>{{ $user->name  }} n'a aucun template pour l'instant</p>
+                            <p class="text-center">{{ $user->name  }} n'a aucun template pour l'instant</p>
                         @endforelse
                     </div>
                 </div>

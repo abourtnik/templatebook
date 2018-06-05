@@ -32,7 +32,7 @@
 
             if (data.error)
                 console.log("d");
-                //notification(null , data.message , "error");
+            //notification(null , data.message , "error");
             else {
                 //notification(null , data.message , "success");
                 $('#basket-count').text(data.count);
@@ -54,7 +54,7 @@
 
             if (data.error)
                 console.log("f");
-                //notification(null , data.message , "error");
+            //notification(null , data.message , "error");
             else {
 
                 //notification(null , data.message , "success");
@@ -95,7 +95,7 @@
 
                     if (data.error)
                         console.log("f");
-                        //notification('Modification' , data.message , "error");
+                    //notification('Modification' , data.message , "error");
                     else {
 
                         $('#basket-count').text(data.count);
@@ -148,6 +148,36 @@
         $('#youtube-modale').modal('hide');
 
     });
+
+    // Votes
+
+    $('.btn-vote').click(function() {
+
+        var $button = $(this);
+
+        var status = $(this).attr('status');
+        var template_id = $(this).attr('template_id');
+        var count = parseInt($button.find('span').text());
+
+        console.log(template_id);
+
+        $.post("/templates/vote/"+ template_id, {status:status} , function (data) {
+
+            if (data.error)
+                console.log(data.error);
+            //notification(null , data.message , "error");
+            else {
+                //notification(null , data.message , "success");
+
+                $button.find('i').css('color' , 'cornflowerblue');
+                $button.find('span').text(count + 1);
+
+            }
+
+        } , 'json');
+    });
+
+
 
 
 

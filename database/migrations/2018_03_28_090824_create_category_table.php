@@ -7,15 +7,19 @@ use Illuminate\Database\Migrations\Migration;
 class CreateCategoryTable extends Migration {
 
     public function up() {
-        Schema::create('categories', function (Blueprint $table) {
 
-            $table->increments('id');
+        if (!Schema::hasTable('categories')) {
 
-            $table->string('name')->unique();
-            $table->text('description');
-            $table->string('image');
+            Schema::create('categories', function (Blueprint $table) {
 
-        });
+                $table->increments('id');
+
+                $table->string('name')->unique();
+                $table->text('description');
+                $table->string('image');
+
+            });
+        }
     }
 
     public function down() {

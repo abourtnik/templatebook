@@ -14,4 +14,14 @@ class UsersController extends Controller {
         return view('users.show', compact('user'));
    
     }
+
+    public function avatar () {
+
+
+    }
+
+    public function isConnected () {
+
+        return !Auth::guest();
+    }
 }

@@ -19,6 +19,7 @@ Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/mentions-legales', 'PagesController@mentions_legales')->name('mentions-legales');
 
 // Auth
+
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -35,10 +36,14 @@ Route::match(['get', 'post'] , '/templates/update/{id}', 'TemplatesController@up
 Route::get('/templates/remove/{id}/{crsf_token}', 'TemplatesController@remove')->name('template-remove');
 Route::get('/templates/download/{id}', 'TemplatesController@download')->name('template-download');
 Route::get('/templates/show/{id}', 'TemplatesController@show')->name('template-show');
+Route::post('/templates/vote/{id}', 'TemplatesController@vote')->name('template-vote');
+Route::post('/templates/comment/{id}', 'TemplatesController@comment')->name('template-comment');
 
 // Users
 
 Route::get('/users/show/{id}', 'UsersController@show')->name('user-show');
+Route::get('/users/isconnected', 'UsersController@isconnected')->name('user-connected');
+Route::post('/users/avatar', 'UsersController@avatar')->name('user-avatar');
 
 // Basket
 
@@ -56,6 +61,7 @@ Route::get('/order/test', 'OrdersController@test')->name('test');
 Route::get('/order/show/{id}', 'OrdersController@show')->name('order-show');
 Route::get('/categories/show/{id}', 'CategoriesController@show')->name('category-show');
 
+
 // Factures
 
-Route::any('/facture/show/{id}', 'FacturesController@show')->name('facture-show');
+Route::get('/facture/show/{id}', 'FacturesController@show')->name('facture-show');

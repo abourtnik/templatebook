@@ -7,16 +7,13 @@ function formatDatabaseDate($date , $time = false){
 }
 
 function userBuyTemplate ($template) {
+    return $template->orders->filter(function ($order) {return $order->user_id == \Illuminate\Support\Facades\Auth::user()->id;})->count() === 1;
+}
 
-    $user_buy_template = false;
+function userVoteUpTemplate ($template) {
+    return $template->votes->filter(function ($votes) {return ($votes->status === 1 && $votes->user_id == \Illuminate\Support\Facades\Auth::user()->id); })->count() === 1;
+}
 
-    foreach ($template->orders()->getResults() as $order) {
-
-        if (Auth::check() && $order->user_id == Auth::user()->id ) {
-            $user_buy_template = true;
-            break;
-        }
-    }
-
-    return $user_buy_template;
+function userVoteDownTemplate ($template) {
+    return $template->votes->filter(function ($votes) {return ($votes->status === 0 && $votes->user_id == \Illuminate\Support\Facades\Auth::user()->id); })->count() === 1;
 }

@@ -8,30 +8,30 @@ class CreateTemplatesTable extends Migration {
 
     public function up() {
 
-        Schema::create('templates', function (Blueprint $table) {
+        if (!Schema::hasTable('templates')) {
 
-            $table->increments('id');
+            Schema::create('templates', function (Blueprint $table) {
 
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('file' , 255);
-            $table->float('price')->default(0.0);
-            $table->smallInteger('downloads')->unsigned()->default(0);
-            $table->smallInteger('views')->unsigned()->default(0);
-            $table->integer('user_id')->unsigned();
-            $table->integer('category_id')->unsigned()->nullable();
+                $table->increments('id');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+                $table->string('name');
+                $table->text('description')->nullable();
+                $table->string('file', 255);
+                $table->float('price')->default(0.0);
+                $table->smallInteger('downloads')->unsigned()->default(0);
+                $table->smallInteger('views')->unsigned()->default(0);
+                $table->integer('user_id')->unsigned();
+                $table->integer('category_id')->unsigned()->nullable();
 
-            $table->timestamps();
+                $table->foreign('user_id')->references('id')->on('users');
+                $table->foreign('category_id')->references('id')->on('categories');
 
-        });
+                $table->timestamps();
+            });
+        }
     }
-    
+
     public function down() {
-
         Schema::dropIfExists('templates');
-
     }
 }
