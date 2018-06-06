@@ -28,7 +28,7 @@
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required >
 
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('name') ? $errors->first('name') : '255 caracteres max et caracteres alphanumerique' }}</strong>
+                                        <strong> {{ $errors->has('name') ? $errors->first('name') : '255 caractères max et caractères alphanumerique' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                 <div class="col-md-8">
                                     <textarea maxlength="2000" class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caracteres max' }}</strong>
+                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caractères max' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -112,12 +112,12 @@
                             <br>
 
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                                <label for="category" class="col-md-4 control-label">Categorie</label>
+                                <label for="category" class="col-md-4 control-label">Catégorie</label>
 
                                 <div class="col-md-8">
 
                                     <select class="form-control" name="category" id="category">
-                                        <option value="">Aucune categorie</option>
+                                        <option value="">Aucune catégorie</option>
                                         @foreach($categories as $categorie)
                                             <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                                         @endforeach

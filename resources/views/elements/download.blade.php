@@ -21,10 +21,11 @@
                 <div class="well">
 
                     @foreach($order->templates as $template)
-                        <a href="{{route('template-download' , ['id' => $template->id] )}}" class="btn btn-success">
-                            <i class="fa fa-download"> </i>
-                            Télécharger le template <strong>{{ $template->name }} </strong>
-                        </a>
+                    <a href="{{route('template-download' , ['id' => $template->id] )}}" class="btn btn-success">
+                        <i class="fa fa-download"> </i>
+                        Télécharger le template <strong>{{ $template->name }} </strong>
+                    </a>
+                        <hr>
                     @endforeach
 
                 </div>

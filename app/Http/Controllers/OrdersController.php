@@ -36,12 +36,16 @@ class OrdersController extends Controller {
 
             // Verify if basket exist and is not empty
             if (Session::has('Basket') && !empty(Session::get('Basket'))) {
+
                 $templates = Template::whereIn('id' , array_keys(Session::get('Basket') ))->get();
+
                 $total = $this->total();
 
                 // PAYPAL
                 $apiContext = new ApiContext(
+
                     new OAuthTokenCredential(
+
                         config('constants.PAYPAL_ID'),
                         config('constants.PAYPAL_SECRET')
                     )
@@ -59,8 +63,8 @@ class OrdersController extends Controller {
                     $item->setQuantity(Session::get('Basket.'.$template->id));
                     $item->setPrice($template->price);
                     $item->setCurrency('EUR');
-                    $list->addItem($item);
 
+                    $list->addItem($item);
                 }
 
                 // Detail de la commande
@@ -82,7 +86,9 @@ class OrdersController extends Controller {
                 $transaction->setDescription('Vos achats sur ' . route('index') );
                 $transaction->setAmount($amount);
                 $transaction->setCustom('demo-id');
+
                 $payement = new Payment();
+
                 $payement->setTransactions([$transaction]);
                 $payement->setIntent('sale');
 
@@ -108,56 +114,55 @@ class OrdersController extends Controller {
 
                     Log::useDailyFiles(storage_path().'/logs/paypal.log');
                     Log::debug($e->getData());
+
                     // Envoie d'un e-mail aux admins
                     return redirect(route('home'))->with('error', 'Oups, une erreur s\'est produite. Merci de réessayer plus tard.');
 
                 }
 
                 // PAYPAL
-
                 return view('orders.index', compact('templates' , 'total' , 'paypal_link'));
-
             }
             else
-
                 return redirect(route('home'))->with('error', 'Vous n\'avez aucun produit dans votre panier');
-
     }
 
     public function pay (Request $request) {
 
         $payment_id = $request->query('paymentId');
         $payer_id = $request->query('PayerID');
+
         $apiContext = new ApiContext(
+
             new OAuthTokenCredential(
                 config('constants.PAYPAL_ID'),
                 config('constants.PAYPAL_SECRET')
             )
         );
+
         $payement = Payment::get($payment_id , $apiContext);
 
         // Verifier si le le total du paiement correspond au total du panier
         if ( $payement->getTransactions()[0]->getAmount()->getTotal() == $this->total()) {
+
             $execution = new PaymentExecution();;
             $execution->setPayerId($payer_id);
             $execution->setTransactions($payement->getTransactions());
+
         }
-
         else {
-
             return redirect(route('home'))->with('error', 'Oups, une erreur s\'est produite. Merci de réessayer plus tard. Vous n\'avez pas été debité');
-
         }
 
         // Executer la paiement
         try {
-
             $payement->execute($execution , $apiContext);
-
         }
         catch (PayPalConnectionException $e) {
+
             Log::useDailyFiles(storage_path().'/logs/paypal.log');
             Log::debug($e->getData());
+
             // Envoie d'un e-mail aux admins
             return redirect(route('home'))->with('error', 'Oups, une erreur s\'est produite. Merci de réessayer plus tard. Vous n\'avez pas été debité');
         }
@@ -178,6 +183,7 @@ class OrdersController extends Controller {
         }
 
         // Generation de la facture
+
         $payer = [
 
             'lastname' => $payement->getPayer()->getPayerInfo()->getLastName(),
@@ -201,8 +207,9 @@ class OrdersController extends Controller {
         // Vider le panier
         Session::forget('Basket');
 
-        $buy_order = Order::find($order->id)->first();
-        return redirect(route('home'))->with('buy_order', $buy_order);
+        $buy_order = Order::findorFail($order->id);
+
+        return redirect('home')->with('buy_order', $buy_order);
     }
 
     public function cancel () {
@@ -214,11 +221,9 @@ class OrdersController extends Controller {
     public function show ($order_id) {
 
         $order = Order::findOrFail($order_id);
-
-        if ($order->user_id == Auth::user()->id )
-
-            return view('orders.show', compact('order'));
         
+        if ($order->user_id == Auth::user()->id )
+            return view('orders.show', compact('order'));
         else
             abort('404');
     }

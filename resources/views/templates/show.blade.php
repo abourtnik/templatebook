@@ -49,25 +49,25 @@
                                 @endif
                             </p>
 
-                            <p>Categorie :
+                            <p>Catégorie :
 
                                 @if($template->category != NULL)
                                     <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
                                 @else
-                                    <span>aucune categorie</span>
+                                    <span>aucune catégorie</span>
                                 @endif
 
                             </p>
 
                             <p>Auteur : <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a> </p>
 
-                            <p> Nombre de telechargements : {{ $template->downloads }} </p>
+                            <p> Nombre de téléchargements : {{ $template->downloads }} </p>
 
                             <p> Nombre de vues : {{ $template->views }} </p>
 
                             <hr>
 
-                            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || userBuyTemplate($template) )
+                            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template)) )
                                 <a class="btn btn-primary"  href="{{route('template-download' , ['id' => $template->id] )}}">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                     Télécharger

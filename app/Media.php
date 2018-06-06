@@ -10,7 +10,7 @@ class Media extends Model {
 
     public static $rules = [
 
-        'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2 Mo
         'type' => 'required|in:image,youtube'
 
     ];
@@ -22,4 +22,5 @@ class Media extends Model {
         return $this->belongsTo('App\Template', 'template_id');
         
     }
+
 }

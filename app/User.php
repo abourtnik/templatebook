@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable {
@@ -10,7 +11,7 @@ class User extends Authenticatable {
     use Notifiable;
 
     public static $rules = [
-        'avatar' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        'avatar' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048' // 2 Mo
     ];
 
     protected $fillable = [
@@ -24,13 +25,11 @@ class User extends Authenticatable {
     public function templates () {
 
         return $this->hasMany('App\Template');
-
     }
 
     public function orders () {
 
         return $this->hasMany('App\Order');
-
     }
 
     public function comments () {

@@ -40,7 +40,11 @@
                             <span class="bg"></span>
                             <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatar user {{ Auth::user()->name }} ">
                             <span class="input-file-container">
-                                <form id="form-avatar" method="POST" action="{{ route('user-avatar') }}" enctype="multipart/form-data">
+                                <form style="width: 100%;height: 100%;" id="form-avatar" method="POST" action="{{ route('user-avatar') }}" enctype="multipart/form-data">
+
+                                     <!-- CRSF-->
+                                    {{ csrf_field() }}
+
                                     <input id="avatar-input" class="image-upload-file" type="file" name="avatar" title="Modifier votre photo de profil" accept="image/*">
                                 </form>
                             </span>
@@ -53,7 +57,7 @@
                         <p> {{ Auth::user()->name }} </p>
                         <p> {{ Auth::user()->email }} </p>
                         <p> Membre depuis le : {{ formatDatabaseDate(Auth::user()->created_at) }} </p>
-                        <p> Nombre de templates upoades : {{ $templates->count() }}  </p>
+                        <p> Nombre de templates upoadés : {{ $templates->count() }}  </p>
                     </div>
 
                     <a class="btn btn-default" href="{{route('user-show' , ['id' => Auth::user()->id])}}">Voir mon profil</a>
@@ -110,7 +114,7 @@
                         </div>
 
                     @empty
-                        <p class="text-center">Vous n'avez écrit aucune commeantaire pour l'instant</p>
+                        <p class="text-center">Vous n'avez écrit aucun commenatire pour l'instant</p>
                     @endforelse
                 </div>
             </div>
@@ -122,8 +126,8 @@
         @include('templates.remove')
     @endif
 
-    @if(session('buy_order'))
-        @include('elements.download' , ['order' => session('buy_order') ])
+    @if(Session::has('buy_order'))
+        @include('elements.download' , ['order' => Session::get('buy_order') ])
     @endif
 
 

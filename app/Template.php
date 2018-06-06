@@ -12,7 +12,7 @@ class Template extends Model {
 
         'name' => 'required|max:255',
         'description' => 'max:2000',
-        'source' => 'required|mimes:zip,tar|max:4048',
+        'source' => 'required|mimes:zip,tar|max:5120', // 5 Mo
         'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'category' => 'nullable|exists:categories,id'
 
@@ -22,7 +22,7 @@ class Template extends Model {
 
         'name' => 'required|max:255',
         'description' => 'max:2000',
-        'source' => 'nullable|mimes:zip,tar|max:4048',
+        'source' => 'nullable|mimes:zip,tar|max:5120', // 5 Mo
         'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'category' => 'nullable|exists:categories,id'
 

@@ -38,17 +38,17 @@
                 @endif
             </p>
 
-            <p>Categorie :
+            <p>Catégorie :
 
                 @if($template->category != NULL)
                     <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
                 @else
-                    <span>aucune categorie</span>
+                    <span>aucune catégorie</span>
                 @endif
 
             </p>
 
-            <p> Nombre de telechargements : {{ $template->downloads }} </p>
+            <p> Nombre de téléchargements : {{ $template->downloads }} </p>
 
             <p> Nombre de vues : {{ $template->views }} </p>
 

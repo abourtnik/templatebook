@@ -112,6 +112,14 @@ table td {
     cursor: pointer;
 }
 
+#avatar-input {
+
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
 .image-upload span.input-file-container label.input-file-trigger {
     display: block;
     padding: 10px 20px 10px;
