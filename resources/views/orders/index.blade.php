@@ -5,9 +5,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Votre commande</div>
+                    <div class="panel-heading text-center">Votre commande</div>
 
                     <div class="panel-body">
 
@@ -21,6 +21,7 @@
                                     <th class="text-center">Prix</th>
                                     <th class="text-center">Quantité</th>
                                     <th class="text-center">Total</th>
+                                    <th class="text-center">Commentaire</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -40,10 +41,15 @@
                                             <strong>{{ Session::get('Basket.'.$template->id) }}</strong>
                                         </td>
                                         <td>
-                                        <span style="font-weight: bold;font-size: 1.1em">
-                                            <span id="basket-subtotal" template-id="{{ $template->id }}"> {{ number_format($template->price * Session::get('Basket.'.$template->id) , 2)   }} </span>
-                                            &euro;
-                                        </span>
+                                            <span style="font-weight: bold;font-size: 1.1em">
+                                                <span id="basket-subtotal" template-id="{{ $template->id }}"> {{ number_format($template->price * Session::get('Basket.'.$template->id) , 2)   }} </span>
+                                                &euro;
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if($template->user_id === Auth::user()->id || $template->orders->filter(function ($order) {return $order->user_id == Auth::user()->id;})->count() > 0 )
+                                                <div class="alert alert-danger">Attention ce template vous appartient ou a deja ete acheteé.</div>
+                                            @endif
                                         </td>
                                     </tr>
 

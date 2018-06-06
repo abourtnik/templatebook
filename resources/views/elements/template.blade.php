@@ -1,4 +1,4 @@
-<div href="{{route('template-show' , ['id' => $template->id])}}" class="col-sm-12" style="margin-bottom: 20px;">
+<div class="col-sm-12" style="margin-bottom: 20px;">
 
     <div class="row">
         <div class="col-sm-6">
@@ -52,7 +52,7 @@
 
             <p> Nombre de vues : {{ $template->views }} </p>
 
-            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || userBuyTemplate($template))
+            @if($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template)))
                 <a class="btn btn-primary"  href="{{route('template-download' , ['id' => $template->id] )}}">
                     <i class="fa fa-download" aria-hidden="true"></i>
                     Télécharger
@@ -80,16 +80,12 @@
             <br>
             <br>
 
-            <button class="btn bg-info btn-sm" type="button" data-toggle="modal" data-target="#comments-template-modale"> <i class="fa fa-comments"></i> Voir les commentaires </button>
+            <button class="btn bg-info btn-sm" type="button" data-toggle="modal" data-target="#comments-template-modale-{{$template->id}}"> <i class="fa fa-comments"></i> Voir les commentaires </button>
 
-            <br><br>
-            <button class="btn bg-info btn-sm" type="button"> <i class="fa fa-pencil"></i> Ecrire un commentaire </button>
-
-
-            @if($options)
+        @if($options)
                 <br><br>
-                <a href="{{route('template-update' , ['id' => $template->id])}}" class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Modifier </a>
-                <button type="button" data-toggle="modal" data-target="#delete-template-modale" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Supprimer </button>
+            <a href="{{route('template-update' , ['id' => $template->id])}}" class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Modifier </a>
+            <button type="button" data-toggle="modal" data-target="#delete-template-modale" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Supprimer </button>
             @endif
 
         </div>
@@ -101,4 +97,3 @@
 </div>
 
 @include('templates.comments')
-

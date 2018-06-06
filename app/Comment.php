@@ -11,16 +11,21 @@ class Comment extends Model {
     public static $rules = [
 
         'content' => 'required|max:2000',
+        'template_id' => 'required|exists:templates,id'
+    
     ];
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content' , 'template_id'];
 
     public function user() {
+
         return $this->belongsTo('App\User', 'user_id');
+
     }
 
     public function template () {
-        return $this->belongsTo('App\Template', 'template_id');
-    }
 
+        return $this->belongsTo('App\Template', 'template_id');
+        
+    }
 }

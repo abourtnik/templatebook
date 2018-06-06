@@ -32,7 +32,7 @@
 
             if (data.error)
                 console.log("d");
-            //notification(null , data.message , "error");
+                //notification(null , data.message , "error");
             else {
                 //notification(null , data.message , "success");
                 $('#basket-count').text(data.count);
@@ -54,7 +54,7 @@
 
             if (data.error)
                 console.log("f");
-            //notification(null , data.message , "error");
+                //notification(null , data.message , "error");
             else {
 
                 //notification(null , data.message , "success");
@@ -95,7 +95,7 @@
 
                     if (data.error)
                         console.log("f");
-                    //notification('Modification' , data.message , "error");
+                        //notification('Modification' , data.message , "error");
                     else {
 
                         $('#basket-count').text(data.count);
@@ -176,6 +176,11 @@
 
         } , 'json');
     });
+
+    $(document).on('change', '#avatar-input:file', function () {
+        $('#form-avatar').submit();
+    });
+
 
 
 

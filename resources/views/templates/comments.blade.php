@@ -1,10 +1,43 @@
-<div class="modal fade" id="comments-template-modale" tabindex="-1" role="dialog">
+<div class="modal fade" id="comments-template-modale-{{$template->id}}" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center text-danger">Les commentaires du template : <strong>{{ $template->name }}</strong></h4>
             </div>
             <div class="modal-body">
+
+                @if(Auth::check() && $template->comments->filter(function ($comment) {return $comment->user_id == Auth::user()->id;})->count() == 0)
+
+                <form class="form-horizontal" method="POST" action="{{ route('comments-add') }}">
+
+                    <!-- CRSF-->
+                    {{ csrf_field() }}
+
+                    <!-- Content-->
+                    <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                        <div class="col-md-12">
+                            <label for="content" class="control-label">Votre commentaire</label>
+                        </div>
+
+                        <input type="hidden" name="template_id" value="{{ $template->id }}">
+
+                        <div class="col-md-12">
+                            <textarea maxlength="2000" class="form-control" name="content" id="" rows="3">{{ old('content') }}</textarea>
+                        </div>
+
+                        <span class="help-block text-center">
+                            <strong> {{ $errors->has('content') ? $errors->first('content') : '2000 caracteres max' }}</strong>
+                        </span>
+
+                    </div>
+
+                    <button class="btn btn-success"> <i class="fa fa-comment"></i> Commenter </button>
+
+                </form>
+
+                <hr>
+
+                @endif
 
                 @forelse($template->comments as $comment)
 
@@ -24,7 +57,16 @@
                                 <div class="panel-body">
                                     {{ $comment->content }}
                                 </div>
+
+
                             </div>
+
+                            @if (Auth::check() && $comment->user_id === Auth::user()->id)
+                                <div class="text-right">
+                                    <a class="text-right text-danger" href="{{ route('comments-remove' , ['id' => $comment->id , 'crsf_token' => csrf_token()]) }}">Supprimer</a>
+                                </div>
+                            @endif
+
                         </div>
 
                     </div>

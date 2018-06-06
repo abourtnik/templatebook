@@ -7,18 +7,21 @@ use App\Comment;
 use App\Media;
 use App\Template;
 use App\Vote;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TemplatesController extends Controller {
 
-
     private $images_extensions = ['png' , 'jpeg' , 'jpg' , 'gif'];
+
     private $videos_extensions = ['mp4' , 'avi'];
 
     public function __construct() {
+
         $this->middleware('auth' , ['except' => ['show']]);
+
     }
 
     public function index() {
@@ -33,9 +36,9 @@ class TemplatesController extends Controller {
 
             if ($validator->passes()) {
 
-                // Store the file
-                $request->file->store('templates');
-                $file_name = $request->file->hashName();
+                // Store the source
+                $request->file('source')->store('templates');
+                $source_name = $request->file('source')->hashName();
 
                 // Save template
                 $template = new Template();
@@ -43,7 +46,7 @@ class TemplatesController extends Controller {
                 $template->name = $request->input('name');
                 $template->description = $request->input('description');
                 $template->price = $request->input('price');
-                $template->file = $file_name;
+                $template->source = $source_name;
                 $template->user_id = Auth::id();
                 $template->category_id = $request->input('category');
 
@@ -53,46 +56,42 @@ class TemplatesController extends Controller {
                 for ($i = 1 ; $i <= 3 ; $i ++) {
 
                     if ($request->hasFile('media'.$i)) {
+
                         $request->file('media'.$i)->store('public/medias');
                         $media_name = $request->file('media'.$i)->hashName();
                         $media = new Media(['file' => $media_name, 'type' => 'image']);
-
                     }
-
                     else if (!empty($request->input('media'.$i))) {
-                        $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
-                    }
 
+                        $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
+
+                    }
                     if (isset($media))
                         $template->medias()->save($media);
                 }
-
                 return redirect(route('home'))->with('success', 'Votre template a bien été ajouté !!');
             }
-
             else {
 
                 return redirect(route('template-add'))->withErrors($validator->errors());
+
             }
         }
-
         else {
 
             $categories = Category::get();
             return view('templates.add' , compact('categories'));
+
         }
-
     }
-
-
 
     public function show($id) {
 
         $template = Template::findorFail($id);
         $template->increment('views');
         return view('templates.show', compact('template'));
-    }
 
+    }
 
     public function update($id , Request $request) {
 
@@ -104,79 +103,68 @@ class TemplatesController extends Controller {
 
                 $template = Template::findorFail($id);
 
+
                 // Store the file
-                if ($request->hasFile('templates')) {
-                    $request->file->store('templates');
-                    $file_name = $request->file->hashName();
-                    $template->file = $file_name;
+                if ($request->hasFile('source')) {
+
+                    $request->file('source')->store('templates');
+                    $source_name = $request->file('source')->hashName();
+                    $template->source = $source_name;
+
                 }
 
                 // Update template
-
                 $template->name = $request->input('name');
                 $template->description = $request->input('description');
                 $template->price = $request->input('price');
-
                 $template->category_id = $request->input('category');
 
                 $template->save();
 
                 // Update medias
                 for ($i = 1 ; $i <= 3 ; $i ++) {
-
                     if ($request->hasFile('media'.$i)) {
 
                         // Remove previous media file
-
                         $request->file('media'.$i)->store('public/medias');
                         $media_name = $request->file('media'.$i)->hashName();
                         $media = new Media(['file' => $media_name, 'type' => 'image']);
 
                     }
-
                     else if (!empty($request->input('media'.$i))) {
 
                         $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
-                    }
 
+                    }
                     if (isset($media))
                         $template->medias()->save($media);
                 }
-
-
                 return redirect(route('home'))->with('template-message', 'Votre template a bien été modifié !!');
             }
-
             else {
-
                 return redirect(route('template-update' , ['id' => $id]))->withErrors($validator->errors());
             }
         }
-
         else {
 
             $template = Template::find($id);
             $categories = Category::get();
-
             return view('templates.update' , compact('template' , 'categories'));
         }
-
-
     }
-
 
     public function remove($id , $csrf_token = null) {
 
         if ($csrf_token === csrf_token() ) {
 
             $template = Template::findOrFail($id);
+
             $template->delete();
 
             return redirect(route('home'))->with('success', 'Votre template a bien été supprimé');
         }
-
-        else
-            abort('404');
+         else
+             abort('404');
     }
 
     public function download ($id) {
@@ -186,9 +174,9 @@ class TemplatesController extends Controller {
         if ($template->price == 0 || $template->user->id === Auth::user()->id) {
 
             $template->increment('downloads');
-            return response()->download(storage_path('app/templates/'.$template->file));
-        }
 
+            return response()->download(storage_path('app/templates/'.$template->source));
+        }
         else {
 
             return redirect(route('home'))->with('error', 'Vous ne pouvez pas télécharger ce template');
@@ -202,39 +190,16 @@ class TemplatesController extends Controller {
         $template = Template::findOrFail($id);
 
         // Verify if user already vote for this template
-
         $vote = new Vote();
 
         $vote->status = $request->input('status');
         $vote->user_id = Auth::id();
-
+        
         $template->votes()->save($vote);
-
+       
         $json['error'] = false;
         $json['message'] = "Le vote a ete effectué";
 
         return response()->json($json);
-    }
-
-    public function comment ($id , Request $request) {
-
-        $json = array('error' => true);
-
-        $template = Template::findOrFail($id);
-
-        $validator = Validator::make($request->all(), Comment::$rules);
-
-        if ($validator->passes()) {
-
-            // Save comment
-            $comment = new Comment(['status' => $request->input('content'), 'user_id' => Auth::id()]);
-
-            $template->comments()->save($comment);
-
-            $json['error'] = false;
-            $json['message'] = "Le commentaire a ete effectué";
-
-            return response()->json($json);
-        }
     }
 }

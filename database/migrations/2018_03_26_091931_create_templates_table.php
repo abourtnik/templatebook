@@ -13,10 +13,9 @@ class CreateTemplatesTable extends Migration {
             Schema::create('templates', function (Blueprint $table) {
 
                 $table->increments('id');
-
                 $table->string('name');
                 $table->text('description')->nullable();
-                $table->string('file', 255);
+                $table->string('source', 255);
                 $table->float('price')->default(0.0);
                 $table->smallInteger('downloads')->unsigned()->default(0);
                 $table->smallInteger('views')->unsigned()->default(0);
@@ -30,8 +29,10 @@ class CreateTemplatesTable extends Migration {
             });
         }
     }
-
+    
     public function down() {
+
         Schema::dropIfExists('templates');
+
     }
 }

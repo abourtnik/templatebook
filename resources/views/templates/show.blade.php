@@ -49,7 +49,7 @@
                                 @endif
                             </p>
 
-                            <p>Category :
+                            <p>Categorie :
 
                                 @if($template->category != NULL)
                                     <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
@@ -78,6 +78,21 @@
                                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                                 </button>
                             @endif
+
+                            <button type="button" template_id="{{ $template->id }}" status="1" class="btn btn-success btn-vote">
+                                <i {{ ( userVoteUpTemplate($template)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 1;})->count() }}</span>
+                            </button>
+
+                            <button type="button" template_id="{{ $template->id }}"  status="0" class="btn btn-danger btn-vote">
+                                <i {{ ( userVoteDownTemplate($template , 0)) ? "style=color:blue" : ''}} class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 0;})->count() }}</span>
+                            </button>
+
+                            <br>
+                            <br>
+
+                            <button class="btn bg-info btn-sm" type="button" data-toggle="modal" data-target="#comments-template-modale"> <i class="fa fa-comments"></i> Voir les commentaires </button>
 
                         </div>
 

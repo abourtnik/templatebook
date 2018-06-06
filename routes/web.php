@@ -17,6 +17,7 @@ Route::get('/', 'PagesController@index')->name('index');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/mentions-legales', 'PagesController@mentions_legales')->name('mentions-legales');
+Route::get('/search', 'PagesController@search')->name('search');
 
 // Auth
 
@@ -37,7 +38,6 @@ Route::get('/templates/remove/{id}/{crsf_token}', 'TemplatesController@remove')-
 Route::get('/templates/download/{id}', 'TemplatesController@download')->name('template-download');
 Route::get('/templates/show/{id}', 'TemplatesController@show')->name('template-show');
 Route::post('/templates/vote/{id}', 'TemplatesController@vote')->name('template-vote');
-Route::post('/templates/comment/{id}', 'TemplatesController@comment')->name('template-comment');
 
 // Users
 
@@ -59,9 +59,17 @@ Route::get('/order/pay', 'OrdersController@pay')->name('pay-order');
 Route::get('/order/cancel', 'OrdersController@cancel')->name('cancel-order');
 Route::get('/order/test', 'OrdersController@test')->name('test');
 Route::get('/order/show/{id}', 'OrdersController@show')->name('order-show');
-Route::get('/categories/show/{id}', 'CategoriesController@show')->name('category-show');
 
+// Category
+
+Route::get('/categories/show/{id}', 'CategoriesController@show')->name('category-show');
 
 // Factures
 
 Route::get('/facture/show/{id}', 'FacturesController@show')->name('facture-show');
+
+// Commentaires
+
+Route::post('/comments/add', 'CommentsController@add')->name('comments-add');
+Route::get('/comments/remove/{id}/{crsf_token}', 'CommentsController@remove')->name('comments-remove');
+

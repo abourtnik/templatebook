@@ -63,11 +63,11 @@
                                 <label for="file" class="col-md-4 control-label">  Sources </label>
 
                                 <div class="col-md-8">
-                                    <input id="file" type="file" class="form-control" name="file" accept=".zip,.rar">
+                                    <input id="file" type="file" class="form-control" name="source" accept=".zip,.rar">
 
                                     <a href="{{route('template-download' , ['id' => $template->id] )}}"> Sources actuelles  </a>
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
+                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
 
-                                    <p id="text-media-{{$i}}" class="text-danger text-center {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? '' : 'hidden' }}"> Video YouTube </p>
+                                    <a href="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}" id="text-media-{{$i}}" class="text-danger text-center {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? '' : 'hidden' }}"> Video YouTube </a>
 
                                 </div>
 
@@ -149,4 +149,6 @@
             </div>
         </div>
     </div>
+
+    @include('templates.youtube-modale')
 @endsection

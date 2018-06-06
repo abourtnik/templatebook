@@ -67,9 +67,9 @@
                                 <label for="file" class="col-md-4 control-label">Sources</label>
 
                                 <div class="col-md-8">
-                                    <input id="file" type="file" class="form-control" name="file" value="{{ old('file') }}"  required accept=".zip,.rar">
+                                    <input id="file" type="file" class="form-control" name="source" required accept=".zip,.rar">
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('file') ? $errors->first('file') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
+                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>

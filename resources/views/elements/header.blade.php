@@ -24,6 +24,17 @@
                 <li><a href="{{ route('mentions-legales') }}">Mentions legales</a></li>
             </ul>
 
+            <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input name="q" type="text" class="form-control" placeholder="Rechercher un template">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->

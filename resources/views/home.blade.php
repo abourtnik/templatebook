@@ -19,9 +19,7 @@
                 <div class="panel-body">
 
                     @forelse ($templates as $template)
-
                         @include('elements.template', ['template' => $template , 'author' => false , 'options' => true])
-
                     @empty
                         <p>Vous n'avez aucun template</p>
                     @endforelse
@@ -36,7 +34,18 @@
 
                 <div class="panel-body text-center">
 
-                    <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatar user {{ Auth::user()->name }} ">
+                    <div class="image-upload">
+                        <div>
+                            <span class="title">Modifier votre photo de profil </span>
+                            <span class="bg"></span>
+                            <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatar user {{ Auth::user()->name }} ">
+                            <span class="input-file-container">
+                                <form id="form-avatar" method="POST" action="{{ route('user-avatar') }}" enctype="multipart/form-data">
+                                    <input id="avatar-input" class="image-upload-file" type="file" name="avatar" title="Modifier votre photo de profil" accept="image/*">
+                                </form>
+                            </span>
+                        </div>
+                    </div>
 
                     <hr>
 
@@ -77,7 +86,31 @@
                         </div>
 
                     @empty
-                        <p>Vous n'avez effectué aucune commande</p>
+                        <p class="text-center">Vous n'avez effectué aucune commande</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Mes commentaires</div>
+
+                <div class="panel-body">
+                    @forelse ($comments as $comment)
+
+                        <div class="well">
+
+                            <p>Template : <a href="{{route('template-show' , ['id' => $comment->template->id])}}"><strong> {{ $comment->template->name }}</strong></a> </p>
+                            <p>Date : {{ formatDatabaseDate($comment->created_at , true) }} </p>
+                            <p>Commentaire: {{ $comment->content }} </p>
+
+                            <a class="text-danger" href="{{ route('comments-remove' , ['id' => $comment->id , 'crsf_token' => csrf_token()]) }}">Supprimer</a>
+
+                        </div>
+
+                    @empty
+                        <p class="text-center">Vous n'avez écrit aucune commeantaire pour l'instant</p>
                     @endforelse
                 </div>
             </div>
