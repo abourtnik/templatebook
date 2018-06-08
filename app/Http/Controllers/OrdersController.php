@@ -46,8 +46,8 @@ class OrdersController extends Controller {
 
                     new OAuthTokenCredential(
 
-                        config('constants.PAYPAL_ID'),
-                        config('constants.PAYPAL_SECRET')
+                        env('PAYPAL_ID' , null),
+                        env('PAYPAL_SECRET' , null)
                     )
                 );
 
@@ -135,8 +135,8 @@ class OrdersController extends Controller {
         $apiContext = new ApiContext(
 
             new OAuthTokenCredential(
-                config('constants.PAYPAL_ID'),
-                config('constants.PAYPAL_SECRET')
+                env('PAYPAL_ID' , null),
+                env('PAYPAL_SECRET' , null)
             )
         );
 

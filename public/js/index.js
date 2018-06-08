@@ -153,6 +153,8 @@
 
     $('.btn-vote').click(function() {
 
+        return false;
+
         var $button = $(this);
 
         var status = $(this).attr('status');

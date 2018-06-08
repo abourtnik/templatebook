@@ -12,7 +12,7 @@
 
         <h1 class="text-center">Facture pour la commande n° {{ $order->id }}</h1>
 
-        <p>Pour la commande passé le : <strong>{{ $order->date }}</strong>  </p>
+        <p>Pour la commande passé le : <strong>{{ formatDatabaseDate($order->date) }}</strong>  </p>
 
         <p> <span style="color: #6697EA;">Identifiant Paypal</span> : <strong>{{ $order->paypal_id }}</strong> </p>
 

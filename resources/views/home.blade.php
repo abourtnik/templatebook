@@ -80,7 +80,7 @@
 
                             <p>Commande n° {{ $order->id }} </p>
                             <p>Effectué le : {{ formatDatabaseDate($order->date , true) }} </p>
-                            <p>Coût total : {{ $order->ammount }} &euro; </p>
+                            <p>Coût total : {{ number_format((float)$order->ammount, 2, '.', '') }} &euro; </p>
                             <p> Identifiant Paypal : {{ $order->paypal_id }}  </p>
 
                             <a target="_blank" href="{{route('facture-show' , ['id' => $order->id] )}}">Voir la facture</a>

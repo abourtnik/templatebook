@@ -40,6 +40,11 @@ node_modules
 .idea
 
 # Storage
-/storage/*
 
-/public/storage/*
+/storage/app/factures/*
+/storage/app/templates/*
+/storage/app/public/avatars/*
+/storage/app/public/medias/*
+
+composer.lock
+package-lock.json

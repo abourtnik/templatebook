@@ -45,7 +45,7 @@
                                 @if($template->price == 0)
                                     <strong class="text-success"> Gratuit </strong>
                                 @else
-                                    <strong> {{ $template->price}} &euro; </strong>
+                                    <strong> {{ number_format((float)$template->price, 2, '.', '') }} &euro; </strong>
                                 @endif
                             </p>
 
@@ -80,19 +80,19 @@
                             @endif
 
                             <button type="button" template_id="{{ $template->id }}" status="1" class="btn btn-success btn-vote">
-                                <i {{ ( userVoteUpTemplate($template)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                <i {{ ( Auth::check() && userVoteUpTemplate($template) ) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
                                 <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 1;})->count() }}</span>
                             </button>
 
                             <button type="button" template_id="{{ $template->id }}"  status="0" class="btn btn-danger btn-vote">
-                                <i {{ ( userVoteDownTemplate($template , 0)) ? "style=color:blue" : ''}} class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                <i {{ ( Auth::check() && userVoteDownTemplate($template , 0) ) ? "style=color:blue" : ''}} class="fa fa-thumbs-down" aria-hidden="true"></i>
                                 <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 0;})->count() }}</span>
                             </button>
 
                             <br>
                             <br>
 
-                            <button class="btn bg-info btn-sm" type="button" data-toggle="modal" data-target="#comments-template-modale"> <i class="fa fa-comments"></i> Voir les commentaires </button>
+                            <button class="btn bg-info btn-sm" type="button" data-toggle="modal" data-target="#comments-template-modale-{{$template->id}}"> <i class="fa fa-comments"></i> Voir les commentaires </button>
 
                         </div>
 
@@ -101,4 +101,6 @@
             </div>
         </div>
     </div>
+
+    @include('templates.comments')
 @endsection

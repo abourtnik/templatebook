@@ -8,34 +8,34 @@
 
                 @if(Auth::check() && $template->comments->filter(function ($comment) {return $comment->user_id == Auth::user()->id;})->count() == 0)
 
-                <form class="form-horizontal" method="POST" action="{{ route('comments-add') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('comments-add') }}">
 
-                    <!-- CRSF-->
+                        <!-- CRSF-->
                     {{ csrf_field() }}
 
                     <!-- Content-->
-                    <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                        <div class="col-md-12">
-                            <label for="content" class="control-label">Votre commentaire</label>
-                        </div>
+                        <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                            <div class="col-md-12">
+                                <label for="content" class="control-label">Votre commentaire</label>
+                            </div>
 
-                        <input type="hidden" name="template_id" value="{{ $template->id }}">
+                            <input type="hidden" name="template_id" value="{{ $template->id }}">
 
-                        <div class="col-md-12">
-                            <textarea maxlength="2000" class="form-control" name="content" id="" rows="3">{{ old('content') }}</textarea>
-                        </div>
+                            <div class="col-md-12">
+                                <textarea maxlength="2000" class="form-control" name="content" id="" rows="3">{{ old('content') }}</textarea>
+                            </div>
 
-                        <span class="help-block text-center">
+                            <span class="help-block text-center">
                             <strong> {{ $errors->has('content') ? $errors->first('content') : '2000 caracteres max' }}</strong>
                         </span>
 
-                    </div>
+                        </div>
 
-                    <button class="btn btn-success"> <i class="fa fa-comment"></i> Commenter </button>
+                        <button class="btn btn-success"> <i class="fa fa-comment"></i> Commenter </button>
 
-                </form>
+                    </form>
 
-                <hr>
+                    <hr>
 
                 @endif
 
@@ -45,7 +45,9 @@
 
                         <div class="col-md-2">
                             <div class="thumbnail">
-                                <img class="img-responsive" src="{{asset('storage/avatars/'.$comment->user->avatar)}}" alt="Avatar user {{ $comment->user->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                <a href="{{route('user-show' , ['id' => $comment->user->id])}}" title="Voir le profil de {{$comment->user->name}} ">
+                                    <img class="img-responsive" src="{{asset('storage/avatars/'.$comment->user->avatar)}}" alt="Avatar user {{ $comment->user->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                </a>
                             </div>
                         </div>
 
