@@ -62,5 +62,9 @@ Click to `register` for create your first user and enjoy !!!
 
 ## Contributing
 
+We encourage you to contribute to Template! Please check out the [Contributing to Tempate guide]
+(https://github.com/abourtnik/Template/blob/master/contributing.md) for guidelines about how to proceed. Join us!
 
+Trying to report a possible security vulnerability in Template? Send an email to 
+**contact@antonbourtnik.fr** with clear description of security vulnerability.
 

@@ -120,6 +120,31 @@
             </div>
         </div>
 
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Mes Reactions</div>
+
+                <div class="panel-body">
+                    @forelse ($votes as $vote)
+
+                        <div class="well">
+
+                            <p>Template : <a href="{{route('template-show' , ['id' => $vote->template->id])}}"><strong> {{ $vote->template->name }}</strong></a> </p>
+                            <p>Date : {{ formatDatabaseDate($vote->created_at , true) }} </p>
+                            <p>Vote:
+                                <button type="button" class="btn btn-{{ ($vote->status === 1) ? 'success' : 'danger' }}">
+                                    <i class="fa fa-thumbs-{{ ($vote->status === 1) ? 'up' : 'down' }}" aria-hidden="true"></i>
+                                </button>
+                            </p>
+                        </div>
+
+                    @empty
+                        <p class="text-center">Vous n'avez aucune reaction pour l'instant pour l'instant</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
     </div>
 
     @if ($templates->count() > 0)

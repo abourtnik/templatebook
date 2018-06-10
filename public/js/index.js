@@ -153,27 +153,35 @@
 
     $('.btn-vote').click(function() {
 
-        return false;
-
         var $button = $(this);
 
         var status = $(this).attr('status');
         var template_id = $(this).attr('template_id');
-        var count = parseInt($button.find('span').text());
 
-        console.log(template_id);
+        $.post("/templates/vote/"+ template_id, {status:status} , function (response) {
 
-        $.post("/templates/vote/"+ template_id, {status:status} , function (data) {
+            if (response.error)
+                console.log(response.error);
 
-            if (data.error)
-                console.log(data.error);
-            //notification(null , data.message , "error");
             else {
-                //notification(null , data.message , "success");
 
-                $button.find('i').css('color' , 'cornflowerblue');
-                $button.find('span').text(count + 1);
+                $(".btn-vote[template_id='"+ template_id +"'][status=1]").find('span').text(response.like_count);
+                $(".btn-vote[template_id='"+ template_id +"'][status=0]").find('span').text(response.unlike_count);
 
+                /* Code :
+                    0 -> new
+                    1 -> delete
+                    2 -> change
+                */
+
+                if (response.code == 0)
+                    $button.find('i').css('color' , 'blue');
+                else if (response.code == 1)
+                    $button.find('i').css('color' , 'inherit');
+                else {
+                    $button.find('i').css('color' , 'blue');
+                    $(".btn-vote[template_id='"+ template_id +"'][status=" + (+!parseInt(status)) + "]").find('i').css('color' , 'inherit');
+                }
             }
 
         } , 'json');
@@ -182,14 +190,6 @@
     $(document).on('change', '#avatar-input:file', function () {
         $('#form-avatar').submit();
     });
-
-
-
-
-
-
-
-
 
 
 

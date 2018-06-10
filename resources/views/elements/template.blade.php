@@ -67,12 +67,12 @@
             <br>
             <br>
 
-            <button type="button" template_id="{{ $template->id }}" status="1" class="btn btn-success btn-vote">
+            <button type="button" template_id="{{ $template->id }}" status="1" class="btn btn-success btn-vote {{ (Auth::guest()) ? 'disabled' : '' }}">
                 <i {{ ( Auth::check() && userVoteUpTemplate($template)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
                 <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 1;})->count() }}</span>
             </button>
 
-            <button type="button" template_id="{{ $template->id }}"  status="0" class="btn btn-danger btn-vote">
+            <button type="button" template_id="{{ $template->id }}"  status="0" class="btn btn-danger btn-vote {{ (Auth::guest()) ? 'disabled' : '' }}">
                 <i {{ ( Auth::check() && userVoteDownTemplate($template , 0)) ? "style=color:blue" : ''}} class="fa fa-thumbs-down" aria-hidden="true"></i>
                 <span>{{ $template->votes->filter(function ($votes) {return $votes->status == 0;})->count() }}</span>
             </button>
