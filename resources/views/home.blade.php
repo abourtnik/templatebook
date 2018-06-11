@@ -21,7 +21,7 @@
                     @forelse ($templates as $template)
                         @include('elements.template', ['template' => $template , 'author' => false , 'options' => true])
                     @empty
-                        <p>Vous n'avez aucun template</p>
+                        <p class="text-center">Vous n'avez ajouté aucun template</p>
                     @endforelse
 
                 </div>
@@ -122,7 +122,7 @@
 
         <div class="col-md-7">
             <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes Reactions</div>
+                <div class="panel-heading text-center">Mes Réactions</div>
 
                 <div class="panel-body">
                     @forelse ($votes as $vote)
@@ -139,7 +139,7 @@
                         </div>
 
                     @empty
-                        <p class="text-center">Vous n'avez aucune reaction pour l'instant pour l'instant</p>
+                        <p class="text-center">Vous n'avez aucune réaction pour l'instant pour l'instant</p>
                     @endforelse
                 </div>
             </div>

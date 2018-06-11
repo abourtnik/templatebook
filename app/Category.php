@@ -9,8 +9,7 @@ class Category extends Model {
 
     ];
 
-
-    public function template() {
+    public function templates() {
 
         return $this->hasMany('App\Template');
     }

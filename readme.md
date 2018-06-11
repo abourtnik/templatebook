@@ -1,15 +1,20 @@
-# Projet Template
+# TemplateBook
 
-[https://www.template.antonbourtnik.fr](https://www.template.antonbourtnik.fr)
+[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)
+
+##Prerequisites
+
+Be sure to have **PHP >= 5.6** and **MySQL >= 5.6** installed on your computer/server and Web server like **Apache or Nginx**
 
 ## Installation
 
 ### Clone project and install dependencies
 
 ```shell
-git clone https://github.com/abourtnik/template.git
-cd template
+git clone https://github.com/Templatebook/templatebook.git
+cd templatebook
 composer install
+composer dump-autoload
 ```
 
 ### Configure your environnment variables
@@ -62,9 +67,9 @@ Click to `register` for create your first user and enjoy !!!
 
 ## Contributing
 
-We encourage you to contribute to Template! Please check out the [Contributing to Tempate guide]
-(https://github.com/abourtnik/Template/blob/master/contributing.md) for guidelines about how to proceed. Join us!
+We encourage you to contribute to TemplateBook! Please check out the [Contributing to TempateBook guide]
+(https://github.com/Templatebook/templatebook/blob/master/contributing.md) for guidelines about how to proceed. Join us!
 
-Trying to report a possible security vulnerability in Template? Send an email to 
+Trying to report a possible security vulnerability in TemplateBook? Send an email to 
 **contact@antonbourtnik.fr** with clear description of security vulnerability.
 

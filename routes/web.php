@@ -57,7 +57,6 @@ Route::post('/basket/recalculate/{id}', 'BasketController@recalculate')->name('b
 Route::get('/order', 'OrdersController@index')->name('order');
 Route::get('/order/pay', 'OrdersController@pay')->name('pay-order');
 Route::get('/order/cancel', 'OrdersController@cancel')->name('cancel-order');
-Route::get('/order/test', 'OrdersController@test')->name('test');
 Route::get('/order/show/{id}', 'OrdersController@show')->name('order-show');
 
 // Category

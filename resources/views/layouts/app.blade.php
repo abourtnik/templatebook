@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#355065" />
-    <meta name="msapplication-navbutton-color" content="#355065" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="#355065" />
+    <link href="{{{ asset('favicon.ico') }}}" type="image/x-icon" rel="icon" />
+    <link rel="apple-touch-icon-precomposed" href="{{{ asset('img/apple-icon.png') }}}" />
+
+    <meta name="theme-color" content="#E4DBD0" />
+    <meta name="msapplication-navbutton-color" content="#E4DBD0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#E4DBD0" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">

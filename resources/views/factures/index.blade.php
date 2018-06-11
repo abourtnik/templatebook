@@ -6,10 +6,6 @@
 
 <section>
 
-
-        <!-- logo -->
-
-
         <h1 class="text-center">Facture pour la commande n° {{ $order->id }}</h1>
 
         <p>Pour la commande passé le : <strong>{{ formatDatabaseDate($order->date , true) }}</strong>  </p>

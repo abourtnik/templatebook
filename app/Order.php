@@ -1,74 +1,27 @@
 <?php
 
-namespace App\Notifications;
+namespace App;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Database\Eloquent\Model;
 
-class Order extends Notification
-{
+class Order extends Model {
 
-    use Queueable;
+    protected $table = 'orders';
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
+    protected $fillable = ['user_id', 'ammount' , 'paypal_id' , 'date'];
 
-    public function __construct($order)
-    {
+    public $timestamps = false;
 
-        $this->order = $order;
+    public function templates () {
 
+        return $this->belongsToMany('App\Template' , 'order_template' , 'order_id' , 'template_id')->withPivot('quantity');
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+    public function user () {
 
-    public function via($notifiable)
-    {
-
-        return ['mail'];
-
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
 
-    public function toMail($notifiable) {
 
-        return (new MailMessage)
-            ->success()
-            ->subject(config('app.name', 'Laravel') . '| Votre facture')
-            ->greeting('Bonjour ' .$notifiable->name)
-            ->line('Vous avez recemment effectué une commande sur ' . route('index') . '.')
-            ->line('Vous retrouverer la facture asossice en piece jointe.')
-            ->line('Merci de vore confiance et a bientot chez ' .route('index').  '.')
-            ->attach(storage_path('app/factures/' .$this->order->id. '.pdf') , ['as' => 'Facture template '.$this->order->id.'.pdf' ]);
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

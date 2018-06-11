@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-youtube"></i></div>
-                        <input type="text" class="form-control" name="youtube-link" placeholder="https://www.youtube.com/watch?v=FzG4uDgje3M">
+                        <input type="text" class="form-control" name="youtube-link" placeholder="https://www.youtube.com/watch?v=FzG4uDgje3M" maxlength="255">
                         <div class="input-group-btn">
                             <button media-id="" class="btn btn-success add-youtube"><i class="fa fa-plus"></i> Ajouter</button>
                         </div>

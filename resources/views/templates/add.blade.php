@@ -52,7 +52,7 @@
                                 <div class="col-md-8">
 
                                     <div class="input-group">
-                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" step="0.01" required >
+                                        <input id="price" type="number" class="form-control" name="price" value="{{ old('price') ? old('price') : 0.0 }}" step="0.01" required max="999" min="0" >
                                         <div class="input-group-addon">&euro;</div>
                                     </div>
 
@@ -63,7 +63,7 @@
                             </div>
 
                             <!-- Source-->
-                            <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('source') ? ' has-error' : '' }}">
                                 <label for="file" class="col-md-4 control-label">Sources</label>
 
                                 <div class="col-md-8">

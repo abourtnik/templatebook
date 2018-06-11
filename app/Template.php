@@ -10,22 +10,20 @@ class Template extends Model {
 
     public static $created_rules = [
 
-        'name' => 'required|max:255',
+        'name' => 'required|min:1|max:255',
         'description' => 'max:2000',
-        'source' => 'required|mimes:zip,tar|max:5120', // 5 Mo
-        'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+        'source' => 'required|mimes:zip,tar|size:5120', // 5 Mo
+        'price' => 'required|numeric|min:0|max:999',
         'category' => 'nullable|exists:categories,id'
-
     ];
 
     public static $updated_rules = [
 
-        'name' => 'required|max:255',
+        'name' => 'required|min:1|max:255',
         'description' => 'max:2000',
-        'source' => 'nullable|mimes:zip,tar|max:5120', // 5 Mo
+        'source' => 'nullable|mimes:zip,tar|size:5120', // 5 Mo
         'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'category' => 'nullable|exists:categories,id'
-
     ];
 
     protected $fillable = ['name', 'description' , 'file' , 'price' , 'downloads' , 'views' , 'category_id'];

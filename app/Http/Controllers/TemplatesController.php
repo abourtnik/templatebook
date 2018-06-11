@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TemplatesController extends Controller {
-    
-    private $images_extensions = ['png' , 'jpeg' , 'jpg' , 'gif'];
-    private $videos_extensions = ['mp4' , 'avi'];
+
     public function __construct() {
         $this->middleware('auth' , ['except' => ['show']]);
     }
@@ -23,8 +21,11 @@ class TemplatesController extends Controller {
     }
 
     public function add(Request $request) {
+
         if ($request->isMethod('post')) {
+
             $validator = Validator::make($request->all(), Template::$created_rules);
+
             if ($validator->passes()) {
                 
                 // Store the source
@@ -45,12 +46,16 @@ class TemplatesController extends Controller {
 
                 // Upload and save medias
                 for ($i = 1 ; $i <= 3 ; $i ++) {
+
                     if ($request->hasFile('media'.$i)) {
+
                         $request->file('media'.$i)->store('public/medias');
                         $media_name = $request->file('media'.$i)->hashName();
                         $media = new Media(['file' => $media_name, 'type' => 'image']);
                     }
+
                     else if (!empty($request->input('media'.$i))) {
+
                         $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
                     }
                     if (isset($media))
@@ -58,8 +63,10 @@ class TemplatesController extends Controller {
                 }
                 return redirect(route('home'))->with('success', 'Votre template a bien été ajouté !!');
             }
+
             else {
-                return redirect(route('template-add'))->withErrors($validator->errors());
+
+                return redirect(route('template-add'))->withInput()->withErrors($validator->errors());
             }
         }
         else {
@@ -69,15 +76,20 @@ class TemplatesController extends Controller {
     }
     
     public function show($id) {
+
         $template = Template::findorFail($id);
         $template->increment('views');
         return view('templates.show', compact('template'));
     }
 
     public function update($id , Request $request) {
+
         if ($request->isMethod('post')) {
+
             $validator = Validator::make($request->all(), Template::$updated_rules);
+
             if ($validator->passes()) {
+
                 $template = Template::findorFail($id);
 
                 // Store the file
@@ -101,6 +113,7 @@ class TemplatesController extends Controller {
                         // Remove previous media file
                         $request->file('media'.$i)->store('public/medias');
                         $media_name = $request->file('media'.$i)->hashName();
+
                         if (isset($template->medias[$i-1])) {
                             $media = $template->medias[$i-1];
                             $media->file = $media_name;
@@ -109,12 +122,15 @@ class TemplatesController extends Controller {
                         else
                             $media = new Media(['file' => $media_name, 'type' => 'image']);
                     }
+
                     else if (!empty($request->input('media'.$i))) {
+
                         if (isset($template->medias[$i-1])) {
                             $media = $template->medias[$i-1];
                             $media->file = $request->input('media' . $i);
                             $media->type = 'youtube';
                         }
+
                         else
                             $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
                     }
@@ -124,12 +140,14 @@ class TemplatesController extends Controller {
                 return redirect(route('home'))->with('template-message', 'Votre template a bien été modifié !!');
             }
             else {
-                return redirect(route('template-update' , ['id' => $id]))->withErrors($validator->errors());
+                return redirect(route('template-update' , ['id' => $id]))->withInput()->withErrors($validator->errors());
             }
         }
         else {
+
             $template = Template::find($id);
             $categories = Category::get();
+
             return view('templates.update' , compact('template' , 'categories'));
         }
     }

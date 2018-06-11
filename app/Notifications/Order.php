@@ -45,8 +45,8 @@ class Order extends Notification
             ->greeting('Bonjour ' .$notifiable->name)
             ->line('Vous avez recemment effectué une commande sur ' . route('index') . '.')
             ->line('Vous retrouverer la facture asossice en piece jointe.')
-            ->line('Merci de vore confiance et a bientot chez ' .route('index').  '.')
-            ->attach(asset('storage/factures/' .$this->order->id) , ['as' => 'Facture template '.$this->order->id.'.pdf' ]);
+            ->line('Merci de vore confiance et a bientôt chez ' .route('index').  '.')
+            ->attach(storage_path('app/factures/' .$this->order->id. '.pdf') , ['as' => 'Facture template '.$this->order->id.'.pdf' ]);
     }
 
     /**

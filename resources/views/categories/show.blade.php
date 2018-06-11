@@ -15,14 +15,14 @@
 
                             <i class="text-center">{{ $category->description }}</i>
 
-                            <h3 style="margin-top: 60px;" class="text-center"> Les templates de cette categorie :</h3>
+                            <h3 style="margin-top: 60px;" class="text-center"> Les templates de cette catégorie :</h3>
 
                             <hr>
 
                             @forelse ($category->templates()->getResults() as $template)
                                 @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
                             @empty
-                                <p>Pas encore de templates disponible pour cette categorie</p>
+                                <p>Pas encore de templates disponible pour cette catégorie</p>
                             @endforelse
 
                     </div>

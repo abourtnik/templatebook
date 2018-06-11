@@ -48,7 +48,7 @@
                                         </td>
                                         <td>
                                             @if($template->user_id === Auth::user()->id || $template->orders->filter(function ($order) {return $order->user_id == Auth::user()->id;})->count() > 0 )
-                                                <div class="alert alert-danger">Attention ce template vous appartient ou a deja ete acheteé.</div>
+                                                <div class="alert alert-danger">Attention ce template vous appartient ou a déjà été acheté.</div>
                                             @endif
                                         </td>
                                     </tr>
