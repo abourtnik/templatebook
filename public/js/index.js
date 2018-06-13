@@ -195,6 +195,80 @@
         $('#form-avatar').submit();
     });
 
+    // Follow
+
+    $('.follow').click(function() {
+
+        var $button = $(this);
+
+        var user_id = $(this).attr('user_id');
+
+        $.post("/users/follow/"+ user_id , function (response) {
+
+            if (response.error)
+                console.log(response.error);
+
+            else {
+
+                $(".btn-vote[template_id='"+ template_id +"'][status=1]").find('span').text(response.like_count);
+                $(".btn-vote[template_id='"+ template_id +"'][status=0]").find('span').text(response.unlike_count);
+
+                /* Code :
+                    0 -> new
+                    1 -> delete
+                    2 -> change
+                */
+
+                if (response.code == 0)
+                    $button.find('i').css('color' , 'blue');
+                else if (response.code == 1)
+                    $button.find('i').css('color' , 'inherit');
+                else {
+                    $button.find('i').css('color' , 'blue');
+                    $(".btn-vote[template_id='"+ template_id +"'][status=" + (+!parseInt(status)) + "]").find('i').css('color' , 'inherit');
+                }
+            }
+
+        } , 'json');
+    });
+
+    // UnFollow
+
+    $('.unfollow').click(function() {
+
+        var $button = $(this);
+
+        var user_id = $(this).attr('user_id');
+
+        $.post("/users/unfollow/"+ user_id , function (response) {
+
+            if (response.error)
+                console.log(response.error);
+
+            else {
+
+                $(".btn-vote[template_id='"+ template_id +"'][status=1]").find('span').text(response.like_count);
+                $(".btn-vote[template_id='"+ template_id +"'][status=0]").find('span').text(response.unlike_count);
+
+                /* Code :
+                    0 -> new
+                    1 -> delete
+                    2 -> change
+                */
+
+                if (response.code == 0)
+                    $button.find('i').css('color' , 'blue');
+                else if (response.code == 1)
+                    $button.find('i').css('color' , 'inherit');
+                else {
+                    $button.find('i').css('color' , 'blue');
+                    $(".btn-vote[template_id='"+ template_id +"'][status=" + (+!parseInt(status)) + "]").find('i').css('color' , 'inherit');
+                }
+            }
+
+        } , 'json');
+    });
+
 
 
 })(jQuery);

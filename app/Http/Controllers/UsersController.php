@@ -12,10 +12,9 @@ class UsersController extends Controller {
 
     public function show ($id) {
 
-        $user = User::findOrFail($id);
+        $user = User::where(array('id' => $id , 'confirmation_token' => null))->get()->first();
 
         return view('users.show', compact('user'));
-
     }
 
     public function avatar(Request $request) {
@@ -41,8 +40,15 @@ class UsersController extends Controller {
     }
 
     public function isConnected () {
-        
         return !Auth::guest();
+    }
+
+    public function follow ($user_id) {
+
+
+    }
+
+    public function unfollow ($user_id) {
 
     }
 }

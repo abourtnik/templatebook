@@ -23,24 +23,28 @@ class User extends Authenticatable {
     ];
 
     public function templates () {
-
         return $this->hasMany('App\Template');
     }
 
     public function orders () {
-
         return $this->hasMany('App\Order');
     }
 
     public function comments () {
-
         return $this->hasMany('App\Comment');
-
     }
     
     public function votes () {
-
         return $this->hasMany('App\Vote');
+    }
 
+    // Peoples who follow me
+    public function followers() {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    // Peoples what I follow
+    public function followings () {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 }

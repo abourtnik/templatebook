@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Order;
 use App\Template;
+use App\User;
 use App\Vote;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller {
@@ -25,6 +24,10 @@ class HomeController extends Controller {
         $comments = Comment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         $votes = Vote::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
-        return view('home', compact('templates' , 'orders' , 'comments' , 'votes'));
+        $user = User::find(Auth::id());
+        $followers = $user->followers;
+        $followings = $user->followings;
+
+        return view('home', compact('templates' , 'orders' , 'comments' , 'votes' , 'user' , 'followers' , 'followings'));
     }
 }
