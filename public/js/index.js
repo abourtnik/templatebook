@@ -117,8 +117,10 @@
         var files = $(this)[0].files;
         var file = files[0];
         $(this).parent().prev().attr('src', window.URL.createObjectURL(file));
+        $('#image-file-media-'+ media_id).removeAttr('disabled');
         $('#text-media-'+ media_id).addClass('hidden');
-        $('#youtube-link-media-'+ media_id).val('');
+        $('#youtube-link-media-'+ media_id).attr('disabled','disabled');
+        $('#type-media-'+ media_id).val('image');
     });
 
     $('.image-upload div').mouseenter(function() {
@@ -142,8 +144,10 @@
         var media_id = $(this).attr('media-id');
         $('#img-media-' + media_id).attr('src' , 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg');
         $('#text-media-'+ media_id).removeClass('hidden');
+        $('#youtube-link-media-'+ media_id).removeAttr('disabled');
         $('#youtube-link-media-'+ media_id).val($input.val());
-        $('#image-file-media-'+ media_id).val('');
+        $('#type-media-'+ media_id).val('youtube');
+        $('#image-file-media-'+ media_id).attr('disabled','disabled');
         $input.val('');
         $('#youtube-modale').modal('hide');
 

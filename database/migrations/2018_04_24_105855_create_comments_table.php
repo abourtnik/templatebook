@@ -24,7 +24,7 @@ class CreateCommentsTable extends Migration
                 $table->integer('template_id')->unsigned();
 
                 $table->foreign('user_id')->references('id')->on('users');
-                $table->foreign('template_id')->references('id')->on('templates');
+                $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
 
                 $table->timestamps();
             });

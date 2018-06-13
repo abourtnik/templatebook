@@ -1,8 +1,12 @@
-# TemplateBook
+<p align="center">
+    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" width="750">
+</p>
+
+<hr>
 
 [https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)
 
-##Prerequisites
+## Prerequisites
 
 Be sure to have **PHP >= 5.6** and **MySQL >= 5.6** installed on your computer/server and Web server like **Apache or Nginx**
 
@@ -40,7 +44,7 @@ php artisan key:generate
 php artisan storage:link
 ```
 
-### Configure Paypal
+### Configure Paypal API
 
 Create merchant and buyer accounts at [https://developer.paypal.com/developer/accounts/create](https://developer.paypal.com/developer/accounts/create)
 
@@ -51,8 +55,7 @@ And set `PAYPAL_ID` and `PAYPAL_SECRET` environnment variables in `.env` file
 
 ### Configure your web server
 
-+ Apache or Nginx :
-    [https://laravel.com/docs/5.4/installation#web-server-configuration](https://laravel.com/docs/5.4/installation#web-server-configuration)
+**Apache or Nginx** : [https://laravel.com/docs/5.4/installation#web-server-configuration](https://laravel.com/docs/5.4/installation#web-server-configuration)
     
 You can run the intern server by use : `php artisan serve --port=8080`
 
@@ -67,9 +70,8 @@ Click to `register` for create your first user and enjoy !!!
 
 ## Contributing
 
-We encourage you to contribute to TemplateBook! Please check out the [Contributing to TempateBook guide]
-(https://github.com/Templatebook/templatebook/blob/master/contributing.md) for guidelines about how to proceed. Join us!
+We encourage you to contribute to TemplateBook! Please check out the [Contributing to TempateBook guide](https://github.com/Templatebook/templatebook/blob/master/contributing.md) for guidelines about how to proceed. Join us!
 
-Trying to report a possible security vulnerability in TemplateBook? Send an email to 
+Trying to report a possible security vulnerability in TemplateBook ? Send an email to 
 **contact@antonbourtnik.fr** with clear description of security vulnerability.
 

@@ -10,9 +10,9 @@ class Media extends Model {
 
     public static $rules = [
 
-        'file' => 'required|mimes:jpeg,png,jpg,gif,svg|size:2048', // 2 Mo
-        'type' => 'required|in:image,youtube'
-
+        'file.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048', // 2 Mo
+        'type.*' => 'nullable|in:image,youtube',
+        'youtube.*' => 'nullable|url'
     ];
 
     protected $fillable = ['file', 'type'];

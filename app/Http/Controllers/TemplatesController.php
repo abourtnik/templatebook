@@ -24,7 +24,7 @@ class TemplatesController extends Controller {
 
         if ($request->isMethod('post')) {
 
-            $validator = Validator::make($request->all(), Template::$created_rules);
+            $validator = Validator::make($request->all(), array_merge(Template::$created_rules , Media::$rules));
 
             if ($validator->passes()) {
                 
@@ -45,19 +45,22 @@ class TemplatesController extends Controller {
                 $template->save();
 
                 // Upload and save medias
-                for ($i = 1 ; $i <= 3 ; $i ++) {
+                for ($i = 0 ; $i <= 2 ; $i ++) {
 
-                    if ($request->hasFile('media'.$i)) {
+                    if (!is_null($request->input('type.'.$i))) {
 
-                        $request->file('media'.$i)->store('public/medias');
-                        $media_name = $request->file('media'.$i)->hashName();
-                        $media = new Media(['file' => $media_name, 'type' => 'image']);
+                        if ($request->input('type.'.$i) == 'image') {
+
+                            $request->file('file.'.$i)->store('public/medias');
+                            $media_name = $request->file('file.'.$i)->hashName();
+                            $media = new Media(['file' => $media_name, 'type' => 'image']);
+                        }
+
+                        else
+                            $media = new Media(['file' => $request->input('youtube.'.$i), 'type' => 'youtube']);
+
                     }
 
-                    else if (!empty($request->input('media'.$i))) {
-
-                        $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
-                    }
                     if (isset($media))
                         $template->medias()->save($media);
                 }
@@ -86,7 +89,7 @@ class TemplatesController extends Controller {
 
         if ($request->isMethod('post')) {
 
-            $validator = Validator::make($request->all(), Template::$updated_rules);
+            $validator = Validator::make($request->all(), array_merge(Template::$updated_rules , Media::$rules));
 
             if ($validator->passes()) {
 
@@ -107,33 +110,45 @@ class TemplatesController extends Controller {
                 $template->save();
 
                 // Update medias
-                for ($i = 1 ; $i <= 3 ; $i ++) {
-                    if ($request->hasFile('media'.$i)) {
+                for ($i = 0 ; $i <= 2 ; $i ++) {
 
-                        // Remove previous media file
-                        $request->file('media'.$i)->store('public/medias');
-                        $media_name = $request->file('media'.$i)->hashName();
+                    if (!is_null($request->input('type.'.$i))) {
 
-                        if (isset($template->medias[$i-1])) {
-                            $media = $template->medias[$i-1];
-                            $media->file = $media_name;
-                            $media->type = 'image';
+                        // Type image
+                        if ($request->input('type.'.$i) == 'image') {
+
+                            // Image was changed => upload new image
+                            if ($request->hasFile('file.'.$i)) {
+
+                                $request->file('file.'.$i)->store('public/medias');
+                                $media_name = $request->file('file.'.$i)->hashName();
+
+                                // Update image
+                                if (isset($template->medias[$i])) {
+                                    $media = $template->medias[$i];
+                                    $media->file = $media_name;
+                                    $media->type = 'image';
+                                }
+
+                                // New image
+                                else
+                                    $media = new Media(['file' => $media_name, 'type' => 'image']);
+                            }
                         }
-                        else
-                            $media = new Media(['file' => $media_name, 'type' => 'image']);
+
+                        // Type youtube
+
+                        else {
+
+                            if (isset($template->medias[$i])) {
+                                $media = $template->medias[$i];
+                                $media->file = $request->input('youtube.' . $i);
+                                $media->type = 'youtube';
+                            } else
+                                $media = new Media(['file' => $request->input('youtube.' . $i), 'type' => 'youtube']);
+                        }
                     }
 
-                    else if (!empty($request->input('media'.$i))) {
-
-                        if (isset($template->medias[$i-1])) {
-                            $media = $template->medias[$i-1];
-                            $media->file = $request->input('media' . $i);
-                            $media->type = 'youtube';
-                        }
-
-                        else
-                            $media = new Media(['file' => $request->input('media'.$i), 'type' => 'youtube']);
-                    }
                     if (isset($media))
                         $template->medias()->save($media);
                 }

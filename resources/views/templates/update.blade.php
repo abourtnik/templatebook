@@ -3,6 +3,18 @@
 @section('title', 'Modifier le template : ' . $template->name )
 
 @section('content')
+
+    @if(session('errors'))
+        <div class="container">
+            <div class="alert alert-danger alert-dismissable text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Merci de corriger vos erreurs</strong>
+            </div>
+        </div>
+    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -67,7 +79,7 @@
 
                                     <a href="{{route('template-download' , ['id' => $template->id] )}}"> Sources actuelles  </a>
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
+                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR, taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -78,42 +90,59 @@
 
                                 <hr>
 
-                            @for($i = 1 ; $i <= 3 ; $i ++)
+                                @for($i = 1 ; $i <= 3 ; $i ++)
 
-                                <!-- Media {{$i}}-->
+                                    <!-- File {{$i}}-->
 
-                                <div class="col-md-4">
+                                    <div class="col-md-4">
 
-                                    <div class="image-upload">
-                                        <div>
-                                            <span class="title">Ajouter une photo </span>
-                                            <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" data-media="{{$i}}" > Video YouTube</a> </span>
-                                            <span class="bg"></span>
+                                        <div class="image-upload">
+                                            <div>
+                                                <span class="title">Ajouter une photo </span>
+                                                <span class="youtube-link"><a data-toggle="modal" data-target="#youtube-modale" type="button" data-media="{{$i}}" > Video YouTube</a> </span>
+                                                <span class="bg"></span>
 
-                                            @if(!isset($template->medias[$i-1]))
-                                                <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
-                                            @else
-                                                @if($template->medias[$i-1]->type === 'image')
-                                                    <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('storage/medias/'.$template->medias[$i-1]->file)}}" alt="Image template {{$template->name}}" onError="this.onerror=null;this.src='/img/default-image.png';">
-                                                @elseif ($template->medias[$i-1]->type === 'youtube')
-                                                    <img id="img-media-{{$i}}" class="img-responsive" src="https://img.youtube.com/vi/{{explode('=' , $template->medias[$i-1]->file)[1]}}/0.jpg" alt="Video template {{$template->name}}" >
-                                                @else
+                                                @if(!isset($template->medias[$i-1]))
                                                     <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                                @else
+                                                    @if($template->medias[$i-1]->type === 'image')
+                                                        <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('storage/medias/'.$template->medias[$i-1]->file)}}" alt="Image template {{$template->name}}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                                    @elseif ($template->medias[$i-1]->type === 'youtube')
+                                                        <img id="img-media-{{$i}}" class="img-responsive" src="https://img.youtube.com/vi/{{explode('=' , $template->medias[$i-1]->file)[1]}}/0.jpg" alt="Video template {{$template->name}}" >
+                                                    @else
+                                                        <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
+                                                    @endif
                                                 @endif
-                                            @endif
 
-                                                    <span class="input-file-container">
-                                                <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
-                                                <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="media{{$i}}" value="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}">
-                                            </span>
+                                                <span class="input-file-container">
+                                                    <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="file[{{$i-1}}]" title="Ajouter une image ou une video YouTube" accept="image/*" >
+                                                    <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="youtube[{{$i-1}}]" value="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}" {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'image') ? 'disabled' : ''  }}>
+                                                    <input id="type-media-{{$i}}" media-id="{{$i}}" type="hidden" name="type[{{$i-1}}]" value="{{ (isset($template->medias[$i-1])) ? $template->medias[$i-1]->type : '' }}">
+                                                </span>
+                                            </div>
                                         </div>
+
+                                        <a href="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}" id="text-media-{{$i}}" class="text-danger text-center {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? '' : 'hidden' }}"> Video YouTube </a>
+
                                     </div>
 
-                                    <a href="{{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? $template->medias[$i-1]->file : '' }}" id="text-media-{{$i}}" class="text-danger text-center {{ (isset($template->medias[$i-1]) && $template->medias[$i-1]->type === 'youtube') ? '' : 'hidden' }}"> Video YouTube </a>
+                                @endfor
 
-                                </div>
+                                @if ($errors->has('file.*'))
+                                    <span class="help-block">
+                                        <strong style="color: #a94442;">{{ $errors->first('file.*') }}</strong>
+                                    </span>
+                                @else
+                                    <span class="help-block">
+                                        <strong> Une image au format PNG,JPG,JPEG ou GIF, taille maximale 2 Mo </strong>
+                                    </span>
+                                @endif
 
-                            @endfor
+                                @if ($errors->has('youtube.*'))
+                                    <span class="help-block">
+                                        <strong style="color: #a94442;">{{ $errors->first('youtube.*') }}</strong>
+                                    </span>
+                                @endif
 
                             </div>
 
@@ -139,7 +168,6 @@
                                     @endif
                                 </div>
                             </div>
-
 
                             <button class="btn btn-primary" type="submit"> <i class="fa fa-pencil"></i> Modifier votre template</button>
 

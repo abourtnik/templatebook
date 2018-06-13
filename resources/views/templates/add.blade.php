@@ -7,6 +7,18 @@
 @stop
 
 @section('content')
+
+    @if(session('errors'))
+        <div class="container">
+            <div class="alert alert-danger alert-dismissable text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Merci de corriger vos erreurs</strong>
+            </div>
+        </div>
+    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -69,7 +81,7 @@
                                 <div class="col-md-8">
                                     <input id="file" type="file" class="form-control" name="source" required accept=".zip,.rar">
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR , taille maximale 5 Mo' }}</strong>
+                                        <strong> {{ $errors->has('source') ? $errors->first('source') : 'Un fichier ZIP ou RAR, taille maximale 5 Mo' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -83,7 +95,7 @@
 
                                 @for($i = 1 ; $i <= 3 ; $i ++)
 
-                                    <!-- Media {{$i}}-->
+                                    <!-- File {{$i}}-->
 
                                     <div class="col-md-4">
 
@@ -94,8 +106,9 @@
                                                 <span class="bg"></span>
                                                 <img id="img-media-{{$i}}" class="img-responsive" src="{{asset('img/default-image.png')}}" alt="Image par default">
                                                 <span class="input-file-container">
-                                                    <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="media{{$i}}" title="Ajouter une image ou une video YouTube" accept="image/*">
-                                                    <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="media{{$i}}">
+                                                    <input id="image-file-media-{{$i}}" media-id="{{$i}}" class="image-upload-file" type="file" name="file[{{$i-1}}]" title="Ajouter une image ou une video YouTube" accept="image/*">
+                                                    <input id="youtube-link-media-{{$i}}" media-id="{{$i}}" type="hidden" name="youtube[{{$i-1}}]">
+                                                    <input id="type-media-{{$i}}" media-id="{{$i}}" type="hidden" name="type[{{$i-1}}]" value="">
                                                 </span>
                                             </div>
                                         </div>
@@ -105,6 +118,22 @@
                                     </div>
 
                                 @endfor
+
+                                @if ($errors->has('file.*'))
+                                    <span class="help-block">
+                                        <strong style="color: #a94442;">{{ $errors->first('file.*') }}</strong>
+                                    </span>
+                                @else
+                                    <span class="help-block">
+                                        <strong> Une image au format PNG,JPG,JPEG ou GIF, taille maximale 2 Mo </strong>
+                                    </span>
+                                @endif
+
+                                @if ($errors->has('youtube.*'))
+                                    <span class="help-block">
+                                        <strong style="color: #a94442;">{{ $errors->first('youtube.*') }}</strong>
+                                    </span>
+                                @endif
 
                             </div>
 
