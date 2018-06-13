@@ -10,7 +10,11 @@
                     <div class="panel-heading">A propos de nous</div>
 
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi culpa eveniet fugit impedit incidunt laudantium minus, necessitatibus nobis nostrum placeat quas quos ratione reprehenderit sapiente tempora velit veniam veritatis vero!</p>
+                        <p>ASAT est un éditeur de CMS basé sur le thème de la restauration. 
+ 
+                        Fondée en 2017 par un groupe de quatre étudiants de l’ESGI pour leur projet annuel de fin d'année, ASAT a pour but d’aider les restaurateurs à construire un site pour leur enseigne et ce en toute simplicité, sans connaître les contraintes techniques dues au développement. 
+                         
+                        </p>
                     </div>
                 </div>
             </div>
