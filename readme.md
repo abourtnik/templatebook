@@ -6,7 +6,7 @@
 
 # TemplateBook
 
-> A social network for designers : **[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)
+> A social network for designers : **[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)**
 
 ## Prerequisites
 

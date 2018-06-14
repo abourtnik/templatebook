@@ -18,15 +18,20 @@ class PagesController extends Controller {
 
             // USERS
 
-            // select all users except current user
-            $all_users = User::where('id', '<>', Auth::id())->get();
+            // select all confirmed users except current user
+            $all_users = User::where(
+                array(
+                    array('id', '<>', Auth::id()) ,
+                    array('confirmation_token' , '=' , null)
+                )
+            )->get();
 
             // select all followings by current user
             $user = User::find(Auth::id());
             $followings = $user->followings;
 
             // all_users - always following
-            $users = $all_users->diff($followings);
+            $users = $all_users->diff($followings)->take(10);
 
             // TEMPLATES (selectionner les templates des gens que je suis trier par leur nombres de followers puis trier les templates par popularité)
             $templates = Template::select('*', DB::raw('downloads + views as popularity_score'))->orderBy('popularity_score', 'desc')->limit(10)->get();

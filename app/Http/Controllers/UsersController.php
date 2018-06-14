@@ -13,7 +13,7 @@ class UsersController extends Controller {
 
     public function show ($id) {
 
-        $user = User::where(array('id' => $id , 'confirmation_token' => null))->firstOrFail();
+        $user = User::confirmed()->where('id' , $id)->firstOrFail();
 
         return view('users.show', compact('user'));
     }
@@ -50,7 +50,7 @@ class UsersController extends Controller {
 
         if ($user_id != Auth::id()) {
 
-            $user = User::find($user_id);
+            $user = User::confirmed()->find($user_id);
 
             if ($user) {
 
@@ -88,7 +88,7 @@ class UsersController extends Controller {
 
         if ($user_id != Auth::id()) {
 
-            $user = User::find($user_id);
+            $user = User::confirmed()->find($user_id);
 
             if ($user) {
                 Follower::where(array('user_id' => $user_id, 'follower_id' => Auth::id()))->delete();

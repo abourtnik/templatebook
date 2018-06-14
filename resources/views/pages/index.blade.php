@@ -22,7 +22,7 @@
 
                 <div class="col-md-4">
                     <div class="panel panel-default">
-                        <div class="panel-heading text-center">Modifer votre profil et vos creations</div>
+                        <div class="panel-heading text-center">Modifez votre profil et vos créations</div>
 
                         <div class="panel-body text-center">
 
