@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ class UsersController extends Controller {
 
     public function show ($id) {
 
-        $user = User::where(array('id' => $id , 'confirmation_token' => null))->get()->first();
+        $user = User::where(array('id' => $id , 'confirmation_token' => null))->firstOrFail();
 
         return view('users.show', compact('user'));
     }
@@ -45,10 +46,60 @@ class UsersController extends Controller {
 
     public function follow ($user_id) {
 
+        $json = array('error' => true);
 
+        if ($user_id != Auth::id()) {
+
+            $user = User::find($user_id);
+
+            if ($user) {
+
+                // Verify if select user don't have current user in your followers
+                $follow = $user->followers->filter(function ($follower) {
+                    return $follower->id == Auth::id();
+                })->first();
+
+                // Il l'a pas deja follow
+                if (!$follow) {
+
+                    $follower = new Follower();
+                    $follower->user_id = $user_id;
+                    $follower->follower_id = Auth::id();
+
+                    $follower->save();
+
+                    $json['error'] = false;
+                }
+
+                else $json['message'] = "Already follow";
+            }
+
+            else $json['message'] = "User not exist";
+        }
+
+        else $json['message'] = "One self";
+
+        return response()->json($json);
     }
 
     public function unfollow ($user_id) {
 
+        $json = array('error' => true);
+
+        if ($user_id != Auth::id()) {
+
+            $user = User::find($user_id);
+
+            if ($user) {
+                Follower::where(array('user_id' => $user_id, 'follower_id' => Auth::id()))->delete();
+                $json['error'] = false;
+            }
+
+            else $json['message'] = "User not exist";
+        }
+
+        else $json['message'] = "One self";
+
+        return response()->json($json);
     }
 }

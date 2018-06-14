@@ -8,4 +8,6 @@ class Follower extends Model {
 
     protected $table = 'followers';
 
+    public $timestamps = false;
+
 }

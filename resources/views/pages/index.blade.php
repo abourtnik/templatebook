@@ -1,10 +1,38 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil')
+@section('title', 'Social network for designers')
+@section('description', 'Share your creations with other designers')
 
 @section('content')
     <div class="container">
         <div class="row">
+
+            @if (Auth::check())
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center"><strong>Bonjour {{ Auth::user()->name }} !</strong></div>
+
+                        <div class="panel-body text-center">
+
+                            <p>Partagez quelque chose aujourd'hui</p>
+                           <a href="{{route('template-add')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Ajouter un template</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Modifer votre profil et vos creations</div>
+
+                        <div class="panel-body text-center">
+
+                            <a href="{{route('home')}}" class="btn btn-primary"> <i class="fa fa-user"></i> Accéder a votre compte</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">Mon mur</div>
@@ -59,7 +87,13 @@
 
                             <div class="col-md-7">
                                 <h3><a href="{{route('user-show' , ['id' => $user->id])}}">{{ $user->name }}</a> </h3>
-                                <button class="btn btn-warning follow" user-id="{{ $user->id }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Suivre </button>
+                                <p class="small">
+                                    <strong>{{ $user->followers()->count() }} follower(s)</strong> - <strong>{{ $user->templates()->count() }} template(s)</strong>
+                                </p>
+                                <button class="btn btn-warning follow" user-id="{{ $user->id }}">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <span>Suivre</span>
+                                </button>
                             </div>
 
                         </div>

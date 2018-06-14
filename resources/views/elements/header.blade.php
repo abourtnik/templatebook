@@ -11,7 +11,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a style="color: #7b6448" class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -27,7 +27,7 @@
             <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right">
                 <div class="form-group">
                     <div class="input-group">
-                        <input name="q" type="text" class="form-control" placeholder="Rechercher un template">
+                        <input name="q" type="text" class="form-control" placeholder="Votre recherche">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </div>
@@ -43,7 +43,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
                     <li>
-                        <a href="{{ route('home') }}">
+                        <a style="color: red" href="{{ route('home') }}">
                             {{ Auth::user()->name }}
                         </a>
                     </li>

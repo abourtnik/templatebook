@@ -14,10 +14,9 @@ class PagesController extends Controller {
 
     public function index() {
 
-        $templates = Template::select('*', DB::raw('downloads + views as popularity_score'))->orderBy('popularity_score', 'desc')->limit(10)->get();
-        $categories = Category::get();
-
         if (Auth::check()) {
+
+            // USERS
 
             // select all users except current user
             $all_users = User::where('id', '<>', Auth::id())->get();
@@ -29,8 +28,15 @@ class PagesController extends Controller {
             // all_users - always following
             $users = $all_users->diff($followings);
 
+            // TEMPLATES (selectionner les templates des gens que je suis trier par leur nombres de followers puis trier les templates par popularité)
+            $templates = Template::select('*', DB::raw('downloads + views as popularity_score'))->orderBy('popularity_score', 'desc')->limit(10)->get();
+
         }
-        else $users = array();
+        else {
+
+            $templates = Template::select('*', DB::raw('downloads + views as popularity_score'))->orderBy('popularity_score', 'desc')->limit(10)->get();
+            $users = array();
+        }
 
         return view('pages.index', compact('templates' , 'categories' , 'users'));
 
@@ -53,8 +59,10 @@ class PagesController extends Controller {
     public function search(Request $request) {
 
         $q = $request->input('q');
+
         $templates = Template::select('*', DB::raw('downloads + views as popularity_score'))->where('name', 'like', '%'.$q.'%')->orderBy('popularity_score', 'desc')->get();
-        
-        return view('pages.search' , compact('templates' , 'q'));
+        $users = User::where('name', 'like', '%'.$q.'%')->get();
+
+        return view('pages.search' , compact('templates' , 'users' ,'q'));
     }
 }

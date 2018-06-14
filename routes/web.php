@@ -44,6 +44,8 @@ Route::post('/templates/vote/{id}', 'TemplatesController@vote')->name('template-
 Route::get('/users/show/{id}', 'UsersController@show')->name('user-show');
 Route::get('/users/isconnected', 'UsersController@isconnected')->name('user-connected');
 Route::post('/users/avatar', 'UsersController@avatar')->name('user-avatar');
+Route::post('/users/follow/{id}', 'UsersController@follow')->name('users-follow');
+Route::post('/users/unfollow/{id}', 'UsersController@unfollow')->name('users-unfollow');
 
 // Basket
 

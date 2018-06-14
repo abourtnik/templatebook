@@ -30,14 +30,9 @@
 
         $.get("/basket/add/"+id, function (data) {
 
-            if (data.error)
-                console.log("d");
-                //notification(null , data.message , "error");
-            else {
-                //notification(null , data.message , "success");
-                $('#basket-count').text(data.count);
-            }
+            if (data.error) console.log(data.message);
 
+            else $('#basket-count').text(data.count);
 
         } , 'json');
     });
@@ -52,18 +47,14 @@
 
         $.get("/basket/delete/"+id, function (data) {
 
-            if (data.error)
-                console.log("f");
-                //notification(null , data.message , "error");
-            else {
+            if (data.error) console.log(data.message);
 
-                //notification(null , data.message , "success");
+            else {
 
                 $('tr[template-id="' + id + '"]').remove();
                 $('#basket-count').text(data.count);
                 $('#basket-total').text(data.total);
             }
-
 
         } , 'json');
 
@@ -93,9 +84,8 @@
 
                 $.post("/basket/recalculate/"+id, {quantity:input.val()} , function (data) {
 
-                    if (data.error)
-                        console.log("f");
-                        //notification('Modification' , data.message , "error");
+                    if (data.error) console.log(data.message);
+
                     else {
 
                         $('#basket-count').text(data.count);
@@ -164,8 +154,7 @@
 
         $.post("/templates/vote/"+ template_id, {status:status} , function (response) {
 
-            if (response.error)
-                console.log(response.error);
+            if (response.error) console.log(response.message);
 
             else {
 
@@ -197,36 +186,22 @@
 
     // Follow
 
-    $('.follow').click(function() {
+    $(document).on('click', '.follow', function() {
 
         var $button = $(this);
 
-        var user_id = $(this).attr('user_id');
+        var user_id = $(this).attr('user-id');
 
         $.post("/users/follow/"+ user_id , function (response) {
 
-            if (response.error)
-                console.log(response.error);
+            if (response.error) console.log(response.message);
 
             else {
 
-                $(".btn-vote[template_id='"+ template_id +"'][status=1]").find('span').text(response.like_count);
-                $(".btn-vote[template_id='"+ template_id +"'][status=0]").find('span').text(response.unlike_count);
-
-                /* Code :
-                    0 -> new
-                    1 -> delete
-                    2 -> change
-                */
-
-                if (response.code == 0)
-                    $button.find('i').css('color' , 'blue');
-                else if (response.code == 1)
-                    $button.find('i').css('color' , 'inherit');
-                else {
-                    $button.find('i').css('color' , 'blue');
-                    $(".btn-vote[template_id='"+ template_id +"'][status=" + (+!parseInt(status)) + "]").find('i').css('color' , 'inherit');
-                }
+                $button.removeClass('btn-warning').addClass('btn-danger');
+                $button.removeClass('follow').addClass('unfollow');
+                $button.find('i').removeClass('fa-user-plus').addClass('fa-user-times');
+                $button.find('span').text('Ne plus suivre');
             }
 
         } , 'json');
@@ -234,41 +209,25 @@
 
     // UnFollow
 
-    $('.unfollow').click(function() {
+    $(document).on('click', '.unfollow', function() {
 
         var $button = $(this);
 
-        var user_id = $(this).attr('user_id');
+        var user_id = $(this).attr('user-id');
 
         $.post("/users/unfollow/"+ user_id , function (response) {
 
-            if (response.error)
-                console.log(response.error);
+            if (response.error) console.log(response.message);
 
             else {
 
-                $(".btn-vote[template_id='"+ template_id +"'][status=1]").find('span').text(response.like_count);
-                $(".btn-vote[template_id='"+ template_id +"'][status=0]").find('span').text(response.unlike_count);
-
-                /* Code :
-                    0 -> new
-                    1 -> delete
-                    2 -> change
-                */
-
-                if (response.code == 0)
-                    $button.find('i').css('color' , 'blue');
-                else if (response.code == 1)
-                    $button.find('i').css('color' , 'inherit');
-                else {
-                    $button.find('i').css('color' , 'blue');
-                    $(".btn-vote[template_id='"+ template_id +"'][status=" + (+!parseInt(status)) + "]").find('i').css('color' , 'inherit');
-                }
+                $button.removeClass('btn-danger').addClass('btn-warning');
+                $button.removeClass('unfollow').addClass('follow');
+                $button.find('i').removeClass('fa-user-times').addClass('fa-user-plus');
+                $button.find('span').text('Suivre');
             }
 
         } , 'json');
     });
-
-
 
 })(jQuery);
