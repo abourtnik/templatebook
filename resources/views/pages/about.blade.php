@@ -10,9 +10,9 @@
                     <div class="panel-heading">A propos de nous</div>
 
                     <div class="panel-body">
-                        <p>ASAT est un éditeur de CMS basé sur le thème de la restauration. 
+                        <p>TemplateBook est une application web qui permet aux designers ainsi qu'aux graphistes de se mettre en avant en uploadant leurs créations : des templates HTML/CSS/Javascript.
  
-                        Fondée en 2017 par un groupe de quatre étudiants de l’ESGI pour leur projet annuel de fin d'année, ASAT a pour but d’aider les restaurateurs à construire un site pour leur enseigne et ce en toute simplicité, sans connaître les contraintes techniques dues au développement. 
+                        Fondée en 2018 par un groupe de deux étudiants de l’ESGI pour leur projet annuel de fin d'année, TemplateBook a pour but de réunir une communauté de designers/graphistes mais aussi une communtauté plus technique pour nous permettre de faire grandir l'application.
                          
                         </p>
                     </div>
