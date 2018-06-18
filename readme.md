@@ -1,10 +1,12 @@
 <p align="center">
-    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" width="750">
+    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" width="350">
 </p>
 
 <hr>
 
-[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)
+# TemplateBook
+
+> A social network for designers : **[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)**
 
 ## Prerequisites
 

@@ -59,15 +59,13 @@
                                 <div class="panel-body">
                                     {{ $comment->content }}
                                 </div>
+                         </div>
 
-
+                        @if (Auth::check() && $comment->user_id === Auth::user()->id)
+                            <div class="text-right">
+                                <a class="text-right text-danger" href="{{ route('comments-remove' , ['id' => $comment->id , 'crsf_token' => csrf_token()]) }}">Supprimer</a>
                             </div>
-
-                            @if (Auth::check() && $comment->user_id === Auth::user()->id)
-                                <div class="text-right">
-                                    <a class="text-right text-danger" href="{{ route('comments-remove' , ['id' => $comment->id , 'crsf_token' => csrf_token()]) }}">Supprimer</a>
-                                </div>
-                            @endif
+                        @endif
 
                         </div>
 

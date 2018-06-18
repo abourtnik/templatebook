@@ -1,13 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil')
+@section('title', 'Social network for designers')
+@section('description', 'Share your creations with other designers')
 
 @section('content')
     <div class="container">
         <div class="row">
+
+            @if (Auth::check())
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center"><strong>Bonjour {{ Auth::user()->name }} !</strong></div>
+
+                        <div class="panel-body text-center">
+
+                            <p>Partagez quelque chose aujourd'hui</p>
+                           <a href="{{route('template-add')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Ajouter un template</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Modifez votre profil et vos créations</div>
+
+                        <div class="panel-body text-center">
+
+                            <a href="{{route('home')}}" class="btn btn-primary"> <i class="fa fa-user"></i> Accéder a votre compte</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Les templates les plus populaire</div>
+                    <div class="panel-heading text-center">Mon mur</div>
 
                     <div class="panel-body">
 
@@ -24,24 +52,59 @@
                 </div>
             </div>
 
+            @if (!Auth::check())
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Catégories</div>
+                    <div class="panel-heading text-center"> <strong>Nouveau sur {{ config('app.name', 'Laravel') }} ? </strong> </div>
 
                     <div class="panel-body">
-                        <div class="row">
-                        @foreach($categories as $categorie)
-                            <div class="col-lg-12" style="margin-bottom: 15px;">
-                                <img width="100" src="{{asset('img/categories/'.$categorie->image)}}" alt="Category {{ $categorie->name }} image">
-                                <span style="margin-left: 30px;">
-                                    <a href="{{route('category-show' , ['id' => $categorie->id])}}">{{ ucfirst($categorie->name) }}</a>
-                                </span>
-                            </div>
-                        @endforeach
-                        </div>
+                        Inscrivez-vous maintenant pour obtenir votre fil d'actualités personnalisé !
+
+                        <br><br>
+                        <a href="{{ route('register') }}" class="btn btn-success btn-block"> <i class="fa fa-pencil"></i> S'inscrire </a>
                     </div>
                 </div>
             </div>
+
+            @else
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center"> <strong> Suggestions </strong> </div>
+
+                    <div class="panel-body">
+
+                        @forelse($users as $user)
+
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <div class="thumbnail">
+                                    <a href="{{route('user-show' , ['id' => $user->id])}}" title="Voir le profil de {{$user->name}} ">
+                                        <img class="img-responsive" src="{{asset('storage/avatars/'.$user->avatar)}}" alt="Avatar user {{ $user->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <h3><a href="{{route('user-show' , ['id' => $user->id])}}">{{ $user->name }}</a> </h3>
+                                <p class="small">
+                                    <strong>{{ $user->followers()->count() }} follower(s)</strong> - <strong>{{ $user->templates()->count() }} template(s)</strong>
+                                </p>
+                                <button class="btn btn-warning follow" user-id="{{ $user->id }}">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <span>Suivre</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        @empty
+                            <p class="text-center">Aucune suggestion</p>
+                        @endforelse
+
+                </div>
+            </div>
+            @endif
 
         </div>
     </div>
