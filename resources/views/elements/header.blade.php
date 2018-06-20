@@ -11,9 +11,12 @@
             </button>
 
             <!-- Branding Image -->
-            <a style="color: #7b6448" class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
+            <div class="logo-wrap">
+                <a style="color: #7b6448" class="navbar-brand" href="{{ url('/') }}">
+                    <img src="/img/logo3.png">
+                </a>
+            </div>
+
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">

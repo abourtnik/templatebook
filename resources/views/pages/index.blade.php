@@ -8,6 +8,17 @@
         <div class="row">
 
             @if (Auth::check())
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Modifez votre profil et vos créations</div>
+
+                        <div class="panel-body text-center">
+
+                            <a href="{{route('home')}}" class="btn btn-primary"> <i class="fa fa-user"></i> Accéder a votre compte</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading text-center"><strong>Bonjour {{ Auth::user()->name }} !</strong></div>
@@ -20,37 +31,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-center">Modifez votre profil et vos créations</div>
 
-                        <div class="panel-body text-center">
-
-                            <a href="{{route('home')}}" class="btn btn-primary"> <i class="fa fa-user"></i> Accéder a votre compte</a>
-                        </div>
-                    </div>
-                </div>
             @endif
 
-
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">Mon mur</div>
-
-                    <div class="panel-body">
-
-                        <div class="row">
-
-                            @forelse ($templates as $template)
-                                @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
-                            @empty
-                                <p class="text-center">Pas de template encore disponible</p>
-                            @endforelse
-
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             @if (!Auth::check())
             <div class="col-md-4">
@@ -63,6 +46,25 @@
                         <br><br>
                         <a href="{{ route('register') }}" class="btn btn-success btn-block"> <i class="fa fa-pencil"></i> S'inscrire </a>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Mon mur</div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                @forelse ($templates as $template)
+                                    @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
+                                @empty
+                                    <p class="text-center">Pas de template encore disponible</p>
+                                @endforelse
+
+                            </div>
+                        </div>
                 </div>
             </div>
 
@@ -105,7 +107,10 @@
                 </div>
             </div>
             @endif
-
         </div>
+
+
+
+
     </div>
 @endsection
