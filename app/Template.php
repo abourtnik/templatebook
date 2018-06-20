@@ -29,27 +29,19 @@ class Template extends Model {
     protected $fillable = ['name', 'description' , 'file' , 'price' , 'downloads' , 'views' , 'category_id'];
 
     public function user() {
-
         return $this->belongsTo('App\User', 'user_id');
-
     }
 
     public function medias () {
-
         return $this->hasMany('App\Media');
-
     }
 
     public function category () {
-
         return $this->belongsTo('App\Category', 'category_id');
-
     }
 
     public function orders () {
-
         return $this->belongsToMany('App\Order' , 'order_template')->withPivot('quantity');
-
     }
 
     public function comments () {
@@ -59,4 +51,14 @@ class Template extends Model {
     public function votes () {
         return $this->hasMany('App\Vote');
     }
+
+    public function positiveVotes () {
+        return $this->hasMany('App\Vote')->where('status','=', 1);
+    }
+
+    public function negativeVotes () {
+        return $this->hasMany('App\Vote')->where('status','=', 0);
+    }
+
+
 }

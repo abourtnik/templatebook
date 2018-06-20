@@ -35,7 +35,7 @@
 
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Mon mur</div>
+                    <div class="panel-heading text-center"> {{ Auth::check() ? 'Mon mur' : 'Les templates les plus populaires' }} </div>
 
                     <div class="panel-body">
 

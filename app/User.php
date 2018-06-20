@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\MyOwnResetPassword as ResetPasswordNotification;
+
 
 class User extends Authenticatable {
 
@@ -48,7 +49,19 @@ class User extends Authenticatable {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 
+    public function suggestions () {
+        return $this->hasMany('App\Suggestion');
+    }
+
+    // Scope
+
     public function scopeConfirmed ($query) {
         return $query->where('confirmation_token' , null);
+    }
+
+    // Reset password
+
+    public function sendPasswordResetNotification($token) {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

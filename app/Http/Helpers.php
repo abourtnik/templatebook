@@ -23,3 +23,7 @@ function userFollowUser ($user) {
 function userFollowedByUser ($user) {
     return $user->followers->filter(function ($followers) {return ($followers->id == \Illuminate\Support\Facades\Auth::user()->id); })->count() === 1;
 }
+
+function userLikeSuggestion ($suggestion) {
+    return $suggestion->likes->filter(function ($like) {return $like->user_id == \Illuminate\Support\Facades\Auth::user()->id;})->count() === 1;
+}

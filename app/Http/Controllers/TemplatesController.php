@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class TemplatesController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth' , ['except' => ['show']]);
+        $this->middleware('auth' , ['except' => ['show' , 'download']]);
     }
 
     public function index() {
@@ -178,16 +178,28 @@ class TemplatesController extends Controller {
     }
 
     public function download ($id) {
+
         $template = Template::findOrFail($id);
         
-        if ($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template))) {
+        if ($template->price == 0) {
+
             $template->increment('downloads');
             return response()->download(storage_path('app/templates/'.$template->source));
         }
+
         else {
-            return redirect(route('home'))->with('error', 'Vous ne pouvez pas télécharger ce template');
+
+            if ((Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template))) {
+
+                $template->increment('downloads');
+                return response()->download(storage_path('app/templates/'.$template->source));
+            }
+
+        else
+            return redirect(route('/'))->with('error', 'Vous ne pouvez pas télécharger ce template');
         }
     }
+
     public function vote ($id = null ,  Request $request) {
         /* Code :
             0 -> new
