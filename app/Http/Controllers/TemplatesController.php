@@ -93,7 +93,7 @@ class TemplatesController extends Controller {
 
             if ($validator->passes()) {
 
-                $template = Template::findorFail($id);
+                $template = Template::where('user_id' , Auth::id())->findOrFail($id);
 
                 // Store the file
                 if ($request->hasFile('source')) {
@@ -160,7 +160,7 @@ class TemplatesController extends Controller {
         }
         else {
 
-            $template = Template::find($id);
+            $template = Template::where('user_id' , Auth::id())->findOrFail($id);
             $categories = Category::get();
 
             return view('templates.update' , compact('template' , 'categories'));
@@ -168,8 +168,9 @@ class TemplatesController extends Controller {
     }
 
     public function remove($id , $csrf_token = null) {
+
         if ($csrf_token === csrf_token() ) {
-            $template = Template::findOrFail($id);
+            $template = Template::where('user_id' , Auth::id())->findOrFail($id);
             $template->delete();
             return redirect(route('home'))->with('success', 'Votre template a bien été supprimé');
         }
@@ -196,7 +197,7 @@ class TemplatesController extends Controller {
             }
 
         else
-            return redirect(route('/'))->with('error', 'Vous ne pouvez pas télécharger ce template');
+            return redirect(url('/'))->with('error', 'Vous ne pouvez pas télécharger ce template');
         }
     }
 

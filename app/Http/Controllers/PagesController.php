@@ -38,7 +38,7 @@ class PagesController extends Controller {
 
             // TEMPLATES : templates de mes followings -> template les plus populiares
 
-            $followers_ids = Follower::where('follower_id' , '=' , Auth::id())->pluck('user_id')->toArray();
+            $followings_ids = Follower::where('follower_id' , '=' , Auth::id())->pluck('user_id')->toArray();
 
             $templates = Template::select('*', DB::raw('downloads * 2 + views as popularity_score'))->withCount([
 
@@ -50,7 +50,7 @@ class PagesController extends Controller {
                     $query->where('status', 0);
                 }
 
-            ])->whereIn('user_id' , $followers_ids)->orderByRaw('positive_votes_count - negative_votes_count DESC')->orderBy('popularity_score' , 'desc')->limit(10)->get();
+            ])->whereIn('user_id' , $followings_ids)->orderByRaw('positive_votes_count - negative_votes_count DESC')->orderBy('popularity_score' , 'desc')->limit(10)->get();
 
 
             if ($templates->count() < 10 && Template::count() > $templates->count() ) {
@@ -65,9 +65,10 @@ class PagesController extends Controller {
                         $query->where('status', 0);
                     }
 
-                ])->whereNotIn('user_id' , $followers_ids)->where('user_id' , '' , Auth::id())->orderByRaw('positive_votes_count - negative_votes_count DESC')->orderBy('popularity_score' , 'desc')->limit(Template::count() - $templates->count() )->get();
+                ])->whereNotIn('user_id' , $followings_ids)->where('user_id' , '<>' , Auth::id())->orderByRaw('positive_votes_count - negative_votes_count DESC')->orderBy('popularity_score' , 'desc')->limit(Template::count() - $templates->count() )->get();
 
-                $templates->concat($other_templates);
+
+                $templates = $templates->concat($other_templates);
             }
         }
         else {

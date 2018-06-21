@@ -13,7 +13,7 @@
 
                     <div class="panel-body text-center">
 
-                        <i> Decouvrez les templates les plus demandees par la communauté !! </i>
+                        <i> Découvrez les templates les plus demandés par la communauté !! </i>
 
                         <hr>
 
@@ -42,7 +42,7 @@
                                                 <span>{{ $suggestion->likes()->count() }}</span>
                                             </button>
                                         </div>
-                                        <div class="panel-body">
+                                        <div class="panel-body" style="overflow-y: auto;">
                                             {{ $suggestion->content }}
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
 
                         @if (Auth::check())
 
-                        <p class="text-danger">Merci de bien verifier que votre proposition de suggestion n'existe pas déja</p>
+                        <p class="text-danger">Merci de bien vérifier que votre demande n'existe pas déja</p>
 
                             <hr>
 

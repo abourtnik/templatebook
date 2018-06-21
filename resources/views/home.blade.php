@@ -39,6 +39,7 @@
                             <span class="title">Modifier votre photo de profil </span>
                             <span class="bg"></span>
                             <img class="img-responsive" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" alt="avatar user {{ Auth::user()->name }} ">
+                            <p style="padding-top: 10px" class="small">Cliquez sur l'avatar pour le changer</p>
                             <span class="input-file-container">
                                 <form style="width: 100%;height: 100%;" id="form-avatar" method="POST" action="{{ route('user-avatar') }}" enctype="multipart/form-data">
 
@@ -126,7 +127,7 @@
 
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes Réactions</div>
+                <div class="panel-heading text-center">Mes réactions</div>
 
                 <div class="panel-body">
                     @forelse ($votes as $vote)

@@ -46,7 +46,7 @@ class SuggestionsController extends Controller
 
         if ($csrf_token === csrf_token()) {
 
-            $suggestion = Suggestion::findOrFail($id);
+            $suggestion = Suggestion::where('user_id' , Auth::id())->findOrFail($id);
             $suggestion->delete();
 
             return redirect()->back()->with('success', 'Votre suggestion a bien été supprimé');
