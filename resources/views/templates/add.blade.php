@@ -52,7 +52,7 @@
                                 <div class="col-md-8">
                                     <textarea maxlength="2000" class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caractères max' }}</strong>
+                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '1000 caractères max' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     </span>
                                 @else
                                     <span class="help-block">
-                                        <strong> Une image au format PNG,JPG,JPEG ou GIF, taille maximale 2 Mo </strong>
+                                        <strong> Une image au format PNG, JPG, JPEG ou GIF, taille maximale 2 Mo </strong>
                                     </span>
                                 @endif
 
@@ -148,7 +148,7 @@
                                     <select class="form-control" name="category" id="category">
                                         <option value="">Aucune catégorie</option>
                                         @foreach($categories as $categorie)
-                                            <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                            <option value="{{ $categorie->id }}">{{ ucfirst($categorie->name) }}</option>
                                         @endforeach
                                     </select>
 

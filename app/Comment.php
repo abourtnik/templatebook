@@ -10,7 +10,7 @@ class Comment extends Model {
 
     public static $rules = [
 
-        'content' => 'required|max:2000',
+        'content' => 'required|max:1000',
         'template_id' => 'required|exists:templates,id'
     
     ];

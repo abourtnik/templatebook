@@ -16,22 +16,23 @@
 
                 <p>Un email vous a egalement été envoyé a l'adresse <strong>{{ $order->user->email }}</strong> avec la facture en pièce jointe.</p>
 
-                <h3> Télécharger vos templates achetés : </h3>
+                <hr>
+
+                <h4> <strong>Télécharger vos templates achetés :</strong>  </h4>
 
                 <div class="well">
 
                     @foreach($order->templates as $template)
-                        <a href="{{route('template-download' , ['id' => $template->id] )}}" class="btn btn-success">
+                        <a style="margin-bottom: 5px" href="{{route('template-download' , ['id' => $template->id] )}}" class="btn btn-success">
                             <i class="fa fa-download"> </i>
-                            Télécharger le template <strong>{{ $template->name }} </strong>
+                            Télécharger le template : <strong>{{ $template->name }} </strong>
                         </a>
-                        <hr>
                     @endforeach
 
                 </div>
 
 
-                <p style="margin-top: 30px;" class="text-success"> A bientôt et merci pour votre confiance. </p>
+                <h5 style="margin-top: 30px;" class="text-success"> <strong> A bientôt et merci pour votre confiance. </strong>  </h5>
 
             </div>
             <div class="modal-footer">

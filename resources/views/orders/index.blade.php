@@ -6,8 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">Votre commande</div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading text-center"><strong>Votre commande</strong></div>
 
                     <div class="panel-body">
 
@@ -68,8 +68,8 @@
 
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2">
-                                <a class="btn btn-info btn-lg btn-block" href="{{ $paypal_link }}" style="margin-top: 10%;">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                <a class="btn btn-primary btn-lg btn-block" href="{{ $paypal_link }}" style="margin-top: 10%;">
+                                    <i class="fa fa-paypal" aria-hidden="true"></i>
                                     <span> <strong> Payer </strong></span>
                                 </a>
                             </div>

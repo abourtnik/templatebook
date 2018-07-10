@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">{{ $template->name }}</div>
+                    <div class="panel-heading text-center"><strong>{{ $template->name }}</strong></div>
 
                     <div class="panel-body">
 
@@ -31,41 +31,47 @@
 
                         <hr>
 
-                        <div class="text-center" >
+                        <div class="text-center">
 
-                            <div style="overflow-x: auto">
-                                <i> {{ $template->description }}</i>
+                            <div class="well" style="overflow-x: auto">
+                                <i> {!! nl2br(e($template->description)) !!}</i>
                             </div>
 
                             <hr>
 
-                            <p>Créé le : {{ formatDatabaseDate($template->created_at) }}</p>
+                            <div class="well">
 
-                            <p>Derniére modification le : {{ formatDatabaseDate($template->updated_at) }}</p>
+                                <p>Créé le : {{ formatDatabaseDate($template->created_at) }}</p>
 
-                            <p>Prix :
-                                @if($template->price == 0)
-                                    <strong class="text-success"> Gratuit </strong>
-                                @else
-                                    <strong> {{ number_format((float)$template->price, 2, '.', '') }} &euro; </strong>
-                                @endif
-                            </p>
+                                <p>Derniére modification le : {{ formatDatabaseDate($template->updated_at) }}</p>
 
-                            <p>Catégorie :
+                                <p>Prix :
+                                    @if($template->price == 0)
+                                        <strong class="text-success"> Gratuit </strong>
+                                    @else
+                                        <strong> {{ number_format((float)$template->price, 2, '.', '') }} &euro; </strong>
+                                    @endif
+                                </p>
 
-                                @if($template->category != NULL)
-                                    <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
-                                @else
-                                    <span>aucune catégorie</span>
-                                @endif
+                                <p>Catégorie :
 
-                            </p>
+                                    @if($template->category != NULL)
+                                        <a href="{{route('category-show' , ['id' => $template->category->id])}}">{{ $template->category->name  }}</a>
+                                    @else
+                                        <span>aucune catégorie</span>
+                                    @endif
 
-                            <p>Auteur : <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a> </p>
+                                </p>
 
-                            <p> Nombre de téléchargements : {{ $template->downloads }} </p>
+                                <p>Auteur : <a href={{route('user-show' , ['id' => $template->user->id])}}>{{ $template->user->name }}</a> </p>
 
-                            <p> Nombre de vues : {{ $template->views }} </p>
+                                <p> Nombre de téléchargements : {{ $template->downloads }} </p>
+
+                                <p> Nombre de vues : {{ $template->views }} </p>
+
+                            </div>
+
+
 
                             <hr>
 

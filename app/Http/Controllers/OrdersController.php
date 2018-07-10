@@ -60,7 +60,7 @@ class OrdersController extends Controller {
                 
                     $item = new Item();
                     $item->setName($template->name);
-                    $item->setDescription($template->description);
+                    $item->setDescription(mb_substr($template->description, 0 , 255));
                     $item->setQuantity(Session::get('Basket.'.$template->id));
                     $item->setPrice($template->price);
                     $item->setCurrency('EUR');

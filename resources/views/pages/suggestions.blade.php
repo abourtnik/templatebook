@@ -8,7 +8,7 @@
         <div class="row">
 
             <div class="col-md-8">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading text-center"> Les demandes de templates les plus populaires </div>
 
                     <div class="panel-body text-center">
@@ -37,10 +37,14 @@
                                             @endif
 
                                             <strong>{{ $suggestion->user->name }}</strong> <span class="text-muted">a demandé le <i>{{ formatDatabaseDate($suggestion->created_at , true) }}</i></span>
-                                            <button type="button" suggestion_id="{{ $suggestion->id }}" class="btn btn-success {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? 'btn-unlike' : 'btn-like'}}  pull-right" {{ (Auth::guest()) ? 'disabled' : '' }}>
-                                                <i {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                <span>{{ $suggestion->likes()->count() }}</span>
-                                            </button>
+
+                                            <div class="pull-right">
+                                                <button type="button" suggestion_id="{{ $suggestion->id }}" class="btn btn-success {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? 'btn-unlike' : 'btn-like'}}" {{ (Auth::guest()) ? 'disabled' : '' }}>
+                                                    <i {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                    <span>{{ $suggestion->likes()->count() }}</span>
+                                                </button>
+                                            </div>
+
                                         </div>
                                         <div class="panel-body" style="overflow-y: auto;">
                                             {{ $suggestion->content }}
@@ -59,7 +63,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="panel panel-success">
                     <div class="panel-heading text-center"> Ecrire une demande </div>
 
                     <div class="panel-body text-center">

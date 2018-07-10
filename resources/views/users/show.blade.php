@@ -15,13 +15,15 @@
 
                         <img style="margin-left: auto;margin-right: auto;margin-bottom: 45px;" class="img-responsive" width="300" src="{{asset('storage/avatars/'.$user->avatar)}}" alt="avatar user {{ $user->name }} ">
 
-                        <p class="text-center">Membre depuis le :  {{ formatDatabaseDate($user->created_at) }}</p>
+                        <hr>
 
-                        <p class="text-center">Nombre de templates uploades :  {{ $user->templates->count() }}</p>
+                        <div class="well">
 
-                        <br>
+                            <p class="text-center">Membre depuis le :  {{ formatDatabaseDate($user->created_at) }}</p>
+                            <p class="text-center">Nombre de templates uploadés :  {{ $user->templates->count() }}</p>
+                            @include('elements.follow-button', ['user' => $user])
 
-                        @include('elements.follow-button', ['user' => $user])
+                        </div>
 
                         <h3 style="margin-top: 60px;" class="text-center">Ses templates : </h3>
 

@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title text-center text-danger">Les commentaires du template : <strong>{{ $template->name }}</strong></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
 
                 @if(Auth::check() && $template->comments->filter(function ($comment) {return $comment->user_id == Auth::user()->id;})->count() == 0)
 
@@ -16,17 +16,18 @@
                     <!-- Content-->
                         <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
                             <div class="col-md-12">
-                                <label for="content" class="control-label">Votre commentaire</label>
+                                <label for="content" class="control-label">Votre commentaire : </label>
+                                <hr>
                             </div>
 
                             <input type="hidden" name="template_id" value="{{ $template->id }}">
 
                             <div class="col-md-12">
-                                <textarea maxlength="2000" class="form-control" name="content" id="" rows="3">{{ old('content') }}</textarea>
+                                <textarea maxlength="1000" class="form-control" name="content" id="" rows="8">{{ old('content') }}</textarea>
                             </div>
 
                             <span class="help-block text-center">
-                            <strong> {{ $errors->has('content') ? $errors->first('content') : '2000 caracteres max' }}</strong>
+                            <strong> {{ $errors->has('content') ? $errors->first('content') : '1000 caracteres max' }}</strong>
                         </span>
 
                         </div>
@@ -57,7 +58,7 @@
                                     <strong>{{ $comment->user->name }}</strong> <span class="text-muted">a commenté le <i>{{ formatDatabaseDate($comment->created_at , true) }}</i></span>
                                 </div>
                                 <div class="panel-body">
-                                    {{ $comment->content }}
+                                    {!! nl2br(e($comment->content)) !!}
                                 </div>
                          </div>
 
@@ -72,7 +73,7 @@
                     </div>
 
                 @empty
-                    <p class="text-center">Aucun commentaire pour ce template</p>
+                    <i class="text-center">Aucun commentaire pour ce template</i>
                 @endforelse
 
             </div>

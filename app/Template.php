@@ -11,7 +11,7 @@ class Template extends Model {
     public static $created_rules = [
 
         'name' => 'required|min:1|max:255',
-        'description' => 'max:2000',
+        'description' => 'max:1000',
         'source' => 'required|mimes:zip,tar|max:5120', // 5 Mo
         'price' => 'required|numeric|min:0|max:999',
         'category' => 'nullable|exists:categories,id'
@@ -20,7 +20,7 @@ class Template extends Model {
     public static $updated_rules = [
 
         'name' => 'required|min:1|max:255',
-        'description' => 'max:2000',
+        'description' => 'max:1000',
         'source' => 'nullable|mimes:zip,tar|max:5120', // 5 Mo
         'price' => 'required|numeric|min:0|max:999',
         'category' => 'nullable|exists:categories,id'

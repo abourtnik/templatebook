@@ -46,9 +46,9 @@
                                 <label for="description" class="col-md-4 control-label">Description</label>
 
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ old('description') ? old('price') : $template->description }}</textarea>
+                                    <textarea class="form-control" name="description" id="" cols="30" rows="10" maxlength="1000">{{ old('description') ? old('price') : $template->description }}</textarea>
                                     <span class="help-block">
-                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '2000 caracteres max' }}</strong>
+                                        <strong> {{ $errors->has('description') ? $errors->first('description') : '1000 caracteres max' }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                     <select class="form-control" name="category" id="category">
                                         <option value="">Aucune categorie</option>
                                         @foreach($categories as $categorie)
-                                            <option {{ ( (!is_null($template->category) && $template->category->id === $categorie->id || old('category') )) ? 'selected' : '' }} value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                            <option {{ ( (!is_null($template->category) && $template->category->id === $categorie->id || old('category') )) ? 'selected' : '' }} value="{{ $categorie->id }}">{{ ucfirst($categorie->name) }}</option>
                                         @endforeach
                                     </select>
 
