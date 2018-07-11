@@ -69,159 +69,133 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Vos commandes</div>
 
-                <div class="panel-body">
-                    @forelse ($orders as $order)
+        <div class=row>
+          <div class="col-md-12">
+            <div class ="panel panel-default">
+              <div id="exTab2"> 
+            <ul class="nav nav-tabs">
+                  <li class="active"><a href="#1" data-toggle="tab">Vos commandes</a></li>
+                  
+                  <li><a href="#2" data-toggle="tab">Mes Réactions</a></li>
+                  
+                  <li><a href="#3" data-toggle="tab">Mes followers</a> <strong>({{ $followers->count() }})</strong></li>
 
-                        <div class="well">
+                  <li><a href="#4" data-toggle="tab">Mes abonnements</a><strong>({{ $followings->count() }})</strong></li>
+             </ul>
 
-                            <p>Commande n° {{ $order->id }} </p>
-                            <p>Effectué le : {{ formatDatabaseDate($order->date , true) }} </p>
-                            <p>Coût total : {{ number_format((float)$order->ammount, 2, '.', '') }} &euro; </p>
-                            <p> Identifiant Paypal : {{ $order->paypal_id }}  </p>
+      <div class="tab-content ">
+        <div class="tab-pane" id="1">
+                    <div class="panel-body">
+                          @forelse ($orders as $order)
 
-                            <a target="_blank" href="{{route('facture-show' , ['id' => $order->id] )}}">Voir la facture</a>
+                              <div class="well">
 
-                            <a href="{{route('order-show' , ['id' => $order->id])}}">Voir le detail</a>
+                                  <p>Commande n° {{ $order->id }} </p>
+                                  <p>Effectué le : {{ formatDatabaseDate($order->date , true) }} </p>
+                                  <p>Coût total : {{ number_format((float)$order->ammount, 2, '.', '') }} &euro; </p>
+                                  <p> Identifiant Paypal : {{ $order->paypal_id }}  </p>
 
-                        </div>
+                                  <a target="_blank" href="{{route('facture-show' , ['id' => $order->id] )}}">Voir la facture</a>
 
-                    @empty
-                        <p class="text-center">Vous n'avez effectué aucune commande</p>
-                    @endforelse
-                </div>
-            </div>
+                                  <a href="{{route('order-show' , ['id' => $order->id])}}">Voir le detail</a>
+
+                              </div>
+
+                          @empty
+                              <p class="text-center">Vous n'avez effectué aucune commande</p>
+                          @endforelse
+                    </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes commentaires</div>
-
+        
+        <div class="tab-pane" id="2">
+                
                 <div class="panel-body">
-                    @forelse ($comments as $comment)
+                        @forelse ($votes as $vote)
 
-                        <div class="well">
+                            <div class="well">
 
-                            <p>Template : <a href="{{route('template-show' , ['id' => $comment->template->id])}}"><strong> {{ $comment->template->name }}</strong></a> </p>
-                            <p>Date : {{ formatDatabaseDate($comment->created_at , true) }} </p>
-                            <p>Commentaire: {{ $comment->content }} </p>
-
-                            <a class="text-danger" href="{{ route('comments-remove' , ['id' => $comment->id , 'crsf_token' => csrf_token()]) }}">Supprimer</a>
-
-                        </div>
-
-                    @empty
-                        <p class="text-center">Vous n'avez écrit aucun commentaire pour l'instant</p>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes réactions</div>
-
-                <div class="panel-body">
-                    @forelse ($votes as $vote)
-
-                        <div class="well">
-
-                            <p>Template : <a href="{{route('template-show' , ['id' => $vote->template->id])}}"><strong> {{ $vote->template->name }}</strong></a> </p>
-                            <p>Date : {{ formatDatabaseDate($vote->created_at , true) }} </p>
-                            <p>Vote:
-                                <button type="button" class="btn btn-{{ ($vote->status === 1) ? 'success' : 'danger' }}">
-                                    <i class="fa fa-thumbs-{{ ($vote->status === 1) ? 'up' : 'down' }}" aria-hidden="true"></i>
-                                </button>
-                            </p>
-                        </div>
-
-                    @empty
-                        <p class="text-center">Vous n'avez aucune réaction pour l'instant pour l'instant</p>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes followers <strong>({{ $followers->count() }})</strong> </div>
-
-                <div class="panel-body">
-                    @forelse ($followers as $follower)
-
-                        <div class="row">
-
-                            <div class="col-md-5">
-                                <a href="{{route('user-show' , ['id' => $follower->id])}}" title="Voir le profil de {{$follower->name}} ">
-                                    <img class="img-responsive" src="{{asset('storage/avatars/'.$follower->avatar)}}" alt="Avatar user {{ $follower->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
-                                </a>
-                            </div>
-
-                            <div class="col-md-7">
-                                <h3><a href="{{route('user-show' , ['id' => $follower->id])}}">{{ $follower->name }}</a> </h3>
-                                <p>
-                                    <strong>{{ $follower->followers()->count() }} follower(s)</strong> - <strong>{{ $follower->templates()->count() }} template(s)</strong>
+                                <p>Template : <a href="{{route('template-show' , ['id' => $vote->template->id])}}"><strong> {{ $vote->template->name }}</strong></a> </p>
+                                <p>Date : {{ formatDatabaseDate($vote->created_at , true) }} </p>
+                                <p>Vote:
+                                    <button type="button" class="btn btn-{{ ($vote->status === 1) ? 'success' : 'danger' }}">
+                                        <i class="fa fa-thumbs-{{ ($vote->status === 1) ? 'up' : 'down' }}" aria-hidden="true"></i>
+                                    </button>
                                 </p>
-                                @include('elements.follow-button', ['user' => $follower])
                             </div>
 
-                        </div>
-
-                    @empty
-                        <p class="text-center">Vous n'avez aucun follower pour l'instant</p>
-                    @endforelse
-                </div>
-            </div>
+                        @empty
+                            <p class="text-center">Vous n'avez aucune réaction pour l'instant pour l'instant</p>
+                        @endforelse
+                    </div>
         </div>
+            
+            <div class="tab-pane" id="3">
+                    <div class="panel-body">
+                        @forelse ($followers as $follower)
 
-    </div>
+                            <div class="row">
 
-    <div class="row">
+                                <div class="col-md-3">
+                                    <a href="{{route('user-show' , ['id' => $follower->id])}}" title="Voir le profil de {{$follower->name}} ">
+                                        <img class="img-responsive" src="{{asset('storage/avatars/'.$follower->avatar)}}" alt="Avatar user {{ $follower->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                    </a>
+                                </div>
 
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Mes abonnements <strong>({{ $followings->count() }})</strong></div>
+                                <div class="col-md-3">
+                                    <h3><a href="{{route('user-show' , ['id' => $follower->id])}}">{{ $follower->name }}</a> </h3>
+                                    <p>
+                                        <strong>{{ $follower->followers()->count() }} follower(s)</strong> - <strong>{{ $follower->templates()->count() }} template(s)</strong>
+                                    </p>
+                                    @include('elements.follow-button', ['user' => $follower])
+                                </div>
 
-                <div class="panel-body">
-                    @forelse ($followings as $following)
-
-                        <div class="row">
-
-                            <div class="col-md-5">
-                                <a href="{{route('user-show' , ['id' => $following->id])}}" title="Voir le profil de {{$following->name}} ">
-                                    <img class="img-responsive" src="{{asset('storage/avatars/'.$following->avatar)}}" alt="Avatar user {{ $following->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
-                                </a>
                             </div>
 
-                            <div class="col-md-7">
-                                <h3><a href="{{route('user-show' , ['id' => $following->id])}}">{{ $following->name }}</a> </h3>
-                                <p>
-                                    <strong>{{ $following->followers()->count() }} follower(s)</strong> - <strong>{{ $following->templates()->count() }} template(s)</strong>
-                                </p>
-                                <button class="btn btn-danger unfollow" user-id="{{ $following->id }}">
-                                    <i class="fa fa-user-times" aria-hidden="true"></i>
-                                    <span>Ne plus suivre</span>
-                                </button>
-                            </div>
-
-                        </div>
-
-                    @empty
-                        <p class="text-center">Vous n'avez aucun abonnement pour l'instant</p>
-                    @endforelse
-                </div>
-            </div>
+                        @empty
+                            <p class="text-center">Vous n'avez aucun follower pour l'instant</p>
+                        @endforelse
+                    </div>
         </div>
+      </div>
 
-    </div>
+     <div class="tab-pane" id="4">
+              <div class="panel-body">
+                            @forelse ($followings as $following)
+
+                              <div class="row">
+
+                                  <div class="col-md-3">
+                                      <a href="{{route('user-show' , ['id' => $following->id])}}" title="Voir le profil de {{$following->name}} ">
+                                          <img class="img-responsive" src="{{asset('storage/avatars/'.$following->avatar)}}" alt="Avatar user {{ $following->name }}" onError="this.onerror=null;this.src='/img/default-image.png';">
+                                      </a>
+                                  </div>
+
+                                  <div class="col-md-3">
+                                      <h3><a href="{{route('user-show' , ['id' => $following->id])}}">{{ $following->name }}</a> </h3>
+                                      <p>
+                                          <strong>{{ $following->followers()->count() }} follower(s)</strong> - <strong>{{ $following->templates()->count() }} template(s)</strong>
+                                      </p>
+                                      <button class="btn btn-danger unfollow" user-id="{{ $following->id }}">
+                                          <i class="fa fa-user-times" aria-hidden="true"></i>
+                                          <span>Ne plus suivre</span>
+                                      </button>
+                                  </div>
+
+                              </div>
+
+                          @empty
+                              <p class="text-center">Vous n'avez aucun abonnement pour l'instant</p>
+                          @endforelse
+            </div>
+      </div>
+  </div>
+           
+
+
+              </div>
+            </div>
+          </div>
 
     @if ($templates->count() > 0)
         @include('templates.remove')
