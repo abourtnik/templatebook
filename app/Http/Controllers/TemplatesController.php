@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class TemplatesController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth' , ['except' => ['show']]);
+        $this->middleware('auth' , ['except' => ['show' , 'download']]);
     }
 
     public function index() {
@@ -93,7 +93,7 @@ class TemplatesController extends Controller {
 
             if ($validator->passes()) {
 
-                $template = Template::findorFail($id);
+                $template = Template::where('user_id' , Auth::id())->findOrFail($id);
 
                 // Store the file
                 if ($request->hasFile('source')) {
@@ -160,7 +160,7 @@ class TemplatesController extends Controller {
         }
         else {
 
-            $template = Template::find($id);
+            $template = Template::where('user_id' , Auth::id())->findOrFail($id);
             $categories = Category::get();
 
             return view('templates.update' , compact('template' , 'categories'));
@@ -168,8 +168,9 @@ class TemplatesController extends Controller {
     }
 
     public function remove($id , $csrf_token = null) {
+
         if ($csrf_token === csrf_token() ) {
-            $template = Template::findOrFail($id);
+            $template = Template::where('user_id' , Auth::id())->findOrFail($id);
             $template->delete();
             return redirect(route('home'))->with('success', 'Votre template a bien été supprimé');
         }
@@ -178,16 +179,28 @@ class TemplatesController extends Controller {
     }
 
     public function download ($id) {
+
         $template = Template::findOrFail($id);
         
-        if ($template->price == 0 || (Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template))) {
+        if ($template->price == 0) {
+
             $template->increment('downloads');
             return response()->download(storage_path('app/templates/'.$template->source));
         }
+
         else {
-            return redirect(route('home'))->with('error', 'Vous ne pouvez pas télécharger ce template');
+
+            if ((Auth::check() && $template->user->id === Auth::user()->id) || (Auth::check() && userBuyTemplate($template))) {
+
+                $template->increment('downloads');
+                return response()->download(storage_path('app/templates/'.$template->source));
+            }
+
+        else
+            return redirect(url('/'))->with('error', 'Vous ne pouvez pas télécharger ce template');
         }
     }
+
     public function vote ($id = null ,  Request $request) {
         /* Code :
             0 -> new

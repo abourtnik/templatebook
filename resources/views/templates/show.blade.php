@@ -31,9 +31,11 @@
 
                         <hr>
 
-                        <div class="text-center">
+                        <div class="text-center" >
 
-                            <i> {{ $template->description }}</i>
+                            <div style="overflow-x: auto">
+                                <i> {{ $template->description }}</i>
+                            </div>
 
                             <hr>
 

@@ -8,8 +8,21 @@
         <div class="row">
 
             @if (Auth::check())
+                <div class="col-md-8">
+                    <div class="panel panel-success">
+                        <div class="panel-heading text-center"><strong>Bonjour {{ Auth::user()->name }} !</strong></div>
+
+                        <div class="panel-body text-center">
+
+                            <h4>Partagez quelque chose aujourd'hui ... </h4>
+                            <hr>
+                           <a href="{{route('template-add')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Ajouter un template</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading text-center">Modifez votre profil et vos créations</div>
 
                         <div class="panel-body text-center">
@@ -18,29 +31,34 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-center"><strong>Bonjour {{ Auth::user()->name }} !</strong></div>
-
-                        <div class="panel-body text-center">
-
-                            <p>Partagez quelque chose aujourd'hui</p>
-                           <a href="{{route('template-add')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Ajouter un template</a>
-                        </div>
-                    </div>
-                </div>
-
-
             @endif
 
 
-            @if (!Auth::check())
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center"> <strong>Nouveau sur {{ config('app.name', 'Laravel') }} ? </strong> </div>
+                    <div class="panel-heading text-center"> <strong> {{ Auth::check() ? 'Mon mur' : 'Les templates les plus populaires' }} </strong> </div>
 
                     <div class="panel-body">
+
+                        <div class="row">
+
+                            @forelse ($templates as $template)
+                                @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
+                            @empty
+                                <p class="text-center">Pas de template encore disponible</p>
+                            @endforelse
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!Auth::check())
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center"> <strong>Nouveau sur {{ config('app.name', 'Laravel') }} ? </strong> </div>
+
+                    <div class="panel-body text-center">
                         Inscrivez-vous maintenant pour obtenir votre fil d'actualités personnalisé !
 
                         <br><br>
@@ -49,28 +67,9 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">Mon mur</div>
-
-                        <div class="panel-body">
-
-                            <div class="row">
-
-                                @forelse ($templates as $template)
-                                    @include('elements.template', ['template' => $template , 'author' => true , 'options' => false])
-                                @empty
-                                    <p class="text-center">Pas de template encore disponible</p>
-                                @endforelse
-
-                            </div>
-                        </div>
-                </div>
-            </div>
-
             @else
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="panel panel-warning">
                     <div class="panel-heading text-center"> <strong> Suggestions </strong> </div>
 
                     <div class="panel-body">
@@ -107,10 +106,7 @@
                 </div>
             </div>
             @endif
+
         </div>
-
-
-
-
     </div>
 @endsection

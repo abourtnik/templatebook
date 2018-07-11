@@ -17,6 +17,7 @@ Route::get('/', 'PagesController@index')->name('index');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/mentions-legales', 'PagesController@mentions_legales')->name('mentions-legales');
+Route::get('/suggestions', 'PagesController@suggestions')->name('suggestions');
 Route::get('/search', 'PagesController@search')->name('search');
 
 // Auth
@@ -73,4 +74,14 @@ Route::get('/facture/show/{id}', 'FacturesController@show')->name('facture-show'
 
 Route::post('/comments/add', 'CommentsController@add')->name('comments-add');
 Route::get('/comments/remove/{id}/{crsf_token}', 'CommentsController@remove')->name('comments-remove');
+
+// Suggestions
+
+Route::post('/suggestions/add', 'SuggestionsController@add')->name('suggestions-add');
+Route::get('/suggestions/remove/{id}/{crsf_token}', 'SuggestionsController@remove')->name('suggestions-remove');
+
+// Suggestions likes
+
+Route::post('/suggestions/like/{id}', 'SuggestionsController@like')->name('suggestions-like');
+Route::post('/suggestions/unlike/{id}', 'SuggestionsController@unlike')->name('suggestions-unlike');
 

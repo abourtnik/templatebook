@@ -22,6 +22,7 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
+                <li><a href="{{ route('suggestions') }}">Demandes</a></li>
                 <li><a href="{{ route('about') }}">Qui sommes-nous</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
                 <li><a href="{{ route('mentions-legales') }}">Mentions legales</a></li>

@@ -1,12 +1,14 @@
-<p align="center">
-    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" width="350">
-</p>
+<h1 align="center">
+  <a href="https://www.templatebook.antonbourtnik.fr">
+    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" alt="TemplateBook logo" height="300">
+  </a>
+  <br>
+  TemplateBook
+  <br>
+</h1>
 
-<hr>
+<h4 align="center">A social network for designers.</h4>
 
-# TemplateBook
-
-> A social network for designers : **[https://www.templatebook.antonbourtnik.fr](https://www.templatebook.antonbourtnik.fr)**
 
 ## Prerequisites
 
@@ -76,4 +78,13 @@ We encourage you to contribute to TemplateBook! Please check out the [Contributi
 
 Trying to report a possible security vulnerability in TemplateBook ? Send an email to 
 **contact@antonbourtnik.fr** with clear description of security vulnerability.
+
+## License
+TemplateBook is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+
+## Credits
+TemplateBook is created and maintained by
+[Anton Bourtnik](https://github.com/abourtnik) &
+[Tharshan Sivapalan](https://github.com/TharshanSivapalan),
+
 

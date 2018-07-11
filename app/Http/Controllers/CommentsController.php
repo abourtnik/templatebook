@@ -46,7 +46,7 @@ class CommentsController extends Controller {
 
         if ($csrf_token === csrf_token() ) {
 
-            $comment = Comment::findOrFail($id);
+            $comment = Comment::where('user_id' , Auth::id())->findOrFail($id);
             $comment->delete();
 
             return redirect()->back()->with('success', 'Votre commentaire a bien été supprimé');

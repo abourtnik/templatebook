@@ -230,4 +230,50 @@
         } , 'json');
     });
 
+
+    // Suggestion likes
+
+    $(document).on('click', '.btn-like', function() {
+
+        var $button = $(this);
+
+        var suggestion_id = $(this).attr('suggestion_id');
+
+        $.post("/suggestions/like/"+ suggestion_id , function (response) {
+
+            if (response.error) console.log(response.message);
+
+            else {
+
+                $(".btn-like[suggestion_id='"+ suggestion_id +"']").find('span').text(response.like_count);
+                $button.removeClass('btn-like').addClass('btn-unlike');
+                $button.find('i').css('color' , 'blue');
+
+            }
+
+        } , 'json');
+    });
+
+    $(document).on('click', '.btn-unlike', function() {
+
+        var $button = $(this);
+
+        var suggestion_id = $(this).attr('suggestion_id');
+
+        $.post("/suggestions/unlike/"+ suggestion_id , function (response) {
+
+            if (response.error) console.log(response.message);
+
+            else {
+
+                $(".btn-unlike[suggestion_id='"+ suggestion_id +"']").find('span').text(response.like_count);
+                $button.removeClass('btn-unlike').addClass('btn-like');
+                $button.find('i').css('color' , 'inherit');
+            }
+
+        } , 'json');
+    });
+
+
+
 })(jQuery);
