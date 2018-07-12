@@ -27,7 +27,7 @@
 
                         <div class="panel-body text-center">
 
-                            <a href="{{route('home')}}" class="btn btn-primary"> <i class="fa fa-user"></i> Accéder a votre compte</a>
+                            <a href="{{route('home')}}" class="btn btn-success"> <i class="fa fa-user"></i> Accéder a votre compte</a>
                         </div>
                     </div>
                 </div>

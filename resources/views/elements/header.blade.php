@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top" style="height: 71px;">
     <div class="container">
         <div class="navbar-header">
 
@@ -21,14 +21,14 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="margin-top:-6px;">
                 <li><a href="{{ route('suggestions') }}">Demandes</a></li>
                 <li><a href="{{ route('about') }}">Qui sommes-nous</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
                 <li><a href="{{ route('mentions-legales') }}">Mentions legales</a></li>
             </ul>
 
-            <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right">
+            <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right" style="margin-top:-28px;">
                 <div class="form-group">
                     <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Votre recherche">
@@ -40,7 +40,7 @@
             </form>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="margin-top:-6px;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>

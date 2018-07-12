@@ -5,40 +5,39 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="well well-sm">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">Contact</div>
           <form class="form-horizontal" action="" method="post">
-          <fieldset>
-            <legend class="text-center">Contact us</legend>
-    
+          <fieldset>  
             <!-- Name input-->
             <div class="form-group">
-              <label class="col-md-3 control-label" for="name">Name</label>
+              <label class="col-md-2 control-label" for="name">Nom</label>
               <div class="col-md-9">
-                <input id="name" name="name" type="text" placeholder="Your name" class="form-control">
+                <input id="name" name="name" type="text" placeholder="Votre nom" class="form-control">
               </div>
             </div>
     
             <!-- Email input-->
             <div class="form-group">
-              <label class="col-md-3 control-label" for="email">Your E-mail</label>
+              <label class="col-md-2 control-label" for="email">E-mail</label>
               <div class="col-md-9">
-                <input id="email" name="email" type="text" placeholder="Your email" class="form-control">
+                <input id="email" name="email" type="text" placeholder="ex : email@live.fr" class="form-control">
               </div>
             </div>
     
             <!-- Message body -->
             <div class="form-group">
-              <label class="col-md-3 control-label" for="message">Your message</label>
+              <label class="col-md-2 control-label" for="message">Message</label>
               <div class="col-md-9">
-                <textarea class="form-control" id="message" name="message" placeholder="Please enter your message here..." rows="5"></textarea>
+                <textarea class="form-control" id="message" name="message" placeholder="Veuillez ecrire votre message..." rows="5"></textarea>
               </div>
             </div>
     
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
               </div>
             </div>
           </fieldset>
