@@ -24,7 +24,7 @@
             <ul class="nav navbar-nav" style="margin-top:-6px;">
                 <li><a href="{{ route('suggestions') }}">Demandes</a></li>
                 <li><a href="{{ route('about') }}">Qui sommes-nous</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
+                <li><a href="{{ route('contact-index') }}">Contact</a></li>
                 <li><a href="{{ route('mentions-legales') }}">Mentions legales</a></li>
             </ul>
 

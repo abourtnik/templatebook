@@ -15,10 +15,12 @@
 
 Route::get('/', 'PagesController@index')->name('index');
 Route::get('/about', 'PagesController@about')->name('about');
-Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get('/mentions-legales', 'PagesController@mentions_legales')->name('mentions-legales');
 Route::get('/suggestions', 'PagesController@suggestions')->name('suggestions');
 Route::get('/search', 'PagesController@search')->name('search');
+
+Route::get('/contact', 'ContactController@index')->name('contact-index');
+Route::post('/contact', 'ContactController@send')->name('contact-send');
 
 // Auth
 

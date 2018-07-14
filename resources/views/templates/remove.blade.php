@@ -5,12 +5,13 @@
                 <h4 class="modal-title text-center text-danger">Etes vous certain de supprimer ce template : <strong>{{ $template->name }}</strong> ?</h4>
             </div>
             <div class="modal-body">
-                <p class="text-danger">Attention la suppression d'un template est définitive et irréversible.</p>
+                <h3 class="text-danger text-center">
+                    Attention la suppression d'un template est définitive et irréversible.
+                </h3>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-danger" href="{{route('template-remove' , ['id' => $template->id , 'crsf_token' => csrf_token() ])}}">
-                    <i class="fa fa-trash"></i>
-                    Supprimmer
+                    <i class="fa fa-trash"></i> Supprimmer
                 </a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
             </div>

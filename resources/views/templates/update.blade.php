@@ -84,6 +84,8 @@
                                 </div>
                             </div>
 
+                            <br>
+
                             <div class="row">
 
                                 <h4 class="text-center"> Modifier vos images ou vos videos YouTube</h4>

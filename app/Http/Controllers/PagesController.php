@@ -89,10 +89,6 @@ class PagesController extends Controller {
         return view('pages.index', compact('templates' , 'categories' , 'users'));
 
     }
-    public function contact() {
-
-        return view('pages.contact');
-    }
 
     public function about() {
 
