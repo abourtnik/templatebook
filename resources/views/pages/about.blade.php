@@ -27,7 +27,7 @@
                         <p>
                             Fondée en 2018 par un groupe de deux étudiants de l’ESGI pour leur projet annuel de fin d'année.</p>
                         <p>
-                            TemplateBook a pour but de réunir une communauté de designers/graphistes mais aussi une communtauté plus technique pour nous permettre de faire grandir l'application.
+                            TemplateBook a pour but de réunir une communauté de designers/graphistes mais aussi une communauté plus technique pour nous permettre de faire grandir l'application.
                         </p>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
                                             </button>
                                         </div>
                                         <div class="panel-body" style="overflow-y: auto;">
-                                            {{ $suggestion->content }}
+                                            {!! nl2br(e($suggestion->content)) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
 
                         @else
 
-                        Inscrivez-vous maintenant pour ecrire des demandes !
+                        Inscrivez-vous maintenant pour écrire des demandes !
 
                         <br><br>
                         <a href="{{ route('register') }}" class="btn btn-success btn-block"> <i class="fa fa-pencil"></i> S'inscrire </a>
