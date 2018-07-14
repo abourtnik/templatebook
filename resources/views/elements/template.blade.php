@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
 
             <h3> <a href="{{route('template-show' , ['id' => $template->id])}}">{{ $template->name }}</a> </h3>
 

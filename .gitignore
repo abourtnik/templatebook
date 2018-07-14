@@ -43,6 +43,7 @@ node_modules
 
 /storage/app/factures/*
 /storage/app/templates/*
+/storage/debugbar/*
 /storage/app/public/avatars/*
 /storage/app/public/medias/*
 

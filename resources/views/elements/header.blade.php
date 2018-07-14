@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top" style="height: 71px;">
     <div class="container">
         <div class="navbar-header">
 
@@ -11,21 +11,24 @@
             </button>
 
             <!-- Branding Image -->
-            <a style="color: #7b6448" class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
+            <div class="logo-wrap">
+                <a style="color: #7b6448" class="navbar-brand" href="{{ url('/') }}">
+                    <img src="/img/logo3.png">
+                </a>
+            </div>
+
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="margin-top:-6px;">
                 <li><a href="{{ route('suggestions') }}">Demandes</a></li>
                 <li><a href="{{ route('about') }}">Qui sommes-nous</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
                 <li><a href="{{ route('mentions-legales') }}">Mentions legales</a></li>
             </ul>
 
-            <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right">
+            <form method="GET" action="{{ route('search') }}" class="navbar-form navbar-right" style="margin-top:-28px;">
                 <div class="form-group">
                     <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Votre recherche">
@@ -37,11 +40,11 @@
             </form>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="margin-top:-6px;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('login') }}">Connexion</a></li>
+                    <li><a href="{{ route('register') }}">Inscription</a></li>
                 @else
                     <li>
                         <a style="color: red" href="{{ route('home') }}">
@@ -53,7 +56,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                            Logout
+                            Déconnexion
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -66,7 +69,7 @@
                 <li>
                     <a href="{{ route('basket') }}" >
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        <span id="basket-count">
+                        <span id="basket-count" style="padding: 7px;">
                             @if (Session::has('Basket'))
                                 {{ array_sum(Session::get('Basket')) }}
                             @endif
