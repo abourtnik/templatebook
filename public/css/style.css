@@ -141,39 +141,6 @@ table td {
 }
 
 
-/*! =========================================================
- *
- Material Bootstrap Wizard - V1.0.1
- 
-*
-* =========================================================
-*
-* MIT License Copyright 2017 Creative Tim (http://www.creative-tim.com/product/material-bootstrap-wizard)
- *
- *                       _oo0oo_
- *                      o8888888o
- *                      88" . "88
- *                      (| -_- |)
- *                      0\  =  /0
- *                    ___/`---'\___
- *                  .' \|     |// '.
- *                 / \|||  :  |||// \
- *                / _||||| -:- |||||- \
- *               |   | \  -  /// |   |
- *               | \_|  ''\---/''  |_/ |
- *               \  .-\__  '-'  ___/-. /
- *             ___'. .'  /--.--\  `. .'___
- *          ."" '<  `.___\_<|>_/___.' >' "".
- *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
- *         \  \ `_.   \_ __\ /__ _/   .-` /  /
- *     =====`-.____`.___ \_____/___.-`___.-'=====
- *                       `=---='
- *
- *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- *               Buddha Bless:  "No Bugs"
- *
- * ========================================================= */
  body {
     background-color: #CCCCCC;
     color: #3C4858;
@@ -1372,7 +1339,7 @@ table td {
     box-shadow: 0 2px 2px 0 rgba(237, 224, 208, 0), 0 3px 1px -2px rgba(237, 224, 208, 0), 0 1px 5px 0 rgba(237, 224, 208, 0.12);
   }
   .btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary:active, .btn.btn-primary.active, .btn.btn-primary:active:focus, .btn.btn-primary:active:hover, .btn.btn-primary.active:focus, .btn.btn-primary.active:hover, .open > .btn.btn-primary.dropdown-toggle, .open > .btn.btn-primary.dropdown-toggle:focus, .open > .btn.btn-primary.dropdown-toggle:hover {
-    background-color: #000000;
+    background-color: #109ef0;
     color: #FFFFFF;
   }
   .btn.btn-primary:focus, .btn.btn-primary:active, .btn.btn-primary:hover {
@@ -1419,6 +1386,15 @@ table td {
     background-color: #4caf50;
     color: #FFFFFF;
   }
+
+  .btn-success-demand
+  {
+    padding: 5px 19px;
+    padding-bottom: -13px;
+    margin: -3px 0px;
+
+  }
+
   .btn.btn-success:focus, .btn.btn-success:active, .btn.btn-success:hover {
     box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
   }

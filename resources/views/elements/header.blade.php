@@ -69,7 +69,7 @@
                 <li>
                     <a href="{{ route('basket') }}" >
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        <span id="basket-count">
+                        <span id="basket-count" style="padding: 7px;">
                             @if (Session::has('Basket'))
                                 {{ array_sum(Session::get('Basket')) }}
                             @endif

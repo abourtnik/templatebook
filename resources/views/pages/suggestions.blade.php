@@ -37,7 +37,7 @@
                                             @endif
 
                                             <strong>{{ $suggestion->user->name }}</strong> <span class="text-muted">a demandé le <i>{{ formatDatabaseDate($suggestion->created_at , true) }}</i></span>
-                                            <button type="button" suggestion_id="{{ $suggestion->id }}" class="btn btn-success {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? 'btn-unlike' : 'btn-like'}}  pull-right" {{ (Auth::guest()) ? 'disabled' : '' }}>
+                                            <button type="button" suggestion_id="{{ $suggestion->id }}" class="btn btn-success btn-success-demand {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? 'btn-unlike' : 'btn-like'}}  pull-right" {{ (Auth::guest()) ? 'disabled' : '' }}>
                                                 <i {{ ( Auth::check() && userLikeSuggestion($suggestion)) ? "style=color:blue" : ''}} class="fa fa-thumbs-up" aria-hidden="true"></i>
                                                 <span>{{ $suggestion->likes()->count() }}</span>
                                             </button>
