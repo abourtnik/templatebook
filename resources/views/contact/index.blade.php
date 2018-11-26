@@ -3,7 +3,20 @@
 @section('title', 'Nous contacter' )
 
 @section('content')
-<div class="container">
+
+  @if(session('errors'))
+    <div class="container">
+      <div class="alert alert-danger alert-dismissable text-center">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Merci de corriger vos erreurs</strong>
+      </div>
+    </div>
+  @endif
+
+
+  <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
@@ -22,6 +35,14 @@
                 <span class="help-block">
                   <strong> {{ $errors->has('name') ? $errors->first('name') : '' }}</strong>
                 </span>
+              </div>
+            </div>
+
+            <!-- Subject input-->
+            <div class="hidden form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+              <label class="col-md-2 control-label" for="subject">Sujet</label>
+              <div class="col-md-9">
+                <input id="subject" name="subject" type="text" placeholder="Votre sujet" class="form-control">
               </div>
             </div>
     

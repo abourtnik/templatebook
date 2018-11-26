@@ -19,12 +19,13 @@ class ContactController extends Controller {
 
             'name' => 'required|min:1|max:255',
             'email' => 'required|email',
+            'subject' => 'max:1',
             'message' => 'required|min:1|max:1000',
         ];
 
         $validator = Validator::make($request->all(), $validation_contact);
 
-        if ($validator->passes()) {
+        if ($validator->passes() && $_SERVER['HTTP_REFERER'] === route('contact-index') ) {
 
             Mail::send('emails.contact', ['name' => $request->input('name') , 'bodyMessage' => $request->input('message')], function($message){
                 $message->to('contact@antonbourtnik.fr')->subject('Contact sur TemplateBook');
