@@ -85,6 +85,6 @@ TemplateBook is made available under the [MIT License](http://www.opensource.org
 ## Credits
 TemplateBook is created and maintained by
 [Anton Bourtnik](https://github.com/abourtnik) &
-[Tharshan Sivapalan](https://github.com/TharshanSivapalan),
+[Tharshan Sivapalan](https://github.com/TharshanSivapalan)
 
 
