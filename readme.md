@@ -1,6 +1,6 @@
 <h1 align="center">
-  <a href="https://www.templatebook.antonbourtnik.fr">
-    <img src="https://www.templatebook.antonbourtnik.fr/img/logo.png" alt="TemplateBook logo" height="300">
+  <a href="https://templatebook.antonbourtnik.fr">
+    <img src="https://templatebook.antonbourtnik.fr/img/logo.png" alt="TemplateBook logo" height="300">
   </a>
   <br>
   TemplateBook
