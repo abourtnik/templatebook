@@ -1,11 +1,4 @@
-<h1 align="center">
-  <a href="https://templatebook.antonbourtnik.fr">
-    <img src="https://templatebook.antonbourtnik.fr/img/logo.png" alt="TemplateBook logo" height="300">
-  </a>
-  <br>
-  TemplateBook
-  <br>
-</h1>
+<h1 align="center">TemplateBook</h1>
 
 <h4 align="center">A social network for designers.</h4>
 
